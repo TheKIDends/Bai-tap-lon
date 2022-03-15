@@ -1,0 +1,3 @@
+﻿ParcheesiGame.obj : error LNK2019: unresolved external symbol IMG_Load referenced in function "struct SDL_Surface * __cdecl LoadImageW(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?LoadImageW@@YAPEAUSDL_Surface@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+D:\TheKIDends\IT\SDL\ParcheesiGame\SDL_lib\SDL_image_1_2_4\lib\SDL_image.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+D:\TheKIDends\IT\SDL\ParcheesiGame\x64\Debug\ParcheesiGame.exe : fatal error LNK1120: 1 unresolved externals
