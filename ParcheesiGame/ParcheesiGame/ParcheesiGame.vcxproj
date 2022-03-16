@@ -148,10 +148,12 @@
     <ClCompile Include="Painter.cpp" />
     <ClCompile Include="ParcheesiGame.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Painter.h" />
     <ClInclude Include="ParcheesiGame.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

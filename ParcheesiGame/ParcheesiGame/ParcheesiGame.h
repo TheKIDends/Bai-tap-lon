@@ -1,22 +1,16 @@
 #ifndef __PARCHEESIGAME__
 #define __PARCHEESIGAME__
 
-#include <string>
 #include <SDL.h>
-#include <SDL_image.h>
 
 using namespace std;
 
-class Painter {
+class ParcheesiGame {
     private:
-        float x;
-        float y;
-        float angle;
-        SDL_Color color;
+        SDL_Window* window;
         SDL_Renderer* renderer;
-
     public:
-
+        void startGame();
 };
 
 #endif // __PARCHEESIGAME__
