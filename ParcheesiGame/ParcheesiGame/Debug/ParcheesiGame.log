@@ -1,4 +1,16 @@
-﻿  Painter.cpp
-D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Painter.cpp(16,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Painter.cpp(16,23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  GameComponents.cpp
+  Painter.cpp
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\Painter.cpp(11,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\Painter.cpp(11,23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  ParcheesiGame.cpp
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\ParcheesiGame.h(13,46): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\ParcheesiGame.h(14,46): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+  Utils.cpp
+  WindowRenderer.cpp
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\WindowRenderer.cpp(8,65): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\WindowRenderer.cpp(8,50): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Source.cpp
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\ParcheesiGame.h(13,46): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+D:\TheKIDends\Bai-tap-lon\ParcheesiGame\ParcheesiGame\Library\ParcheesiGame.h(14,46): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+  Generating Code...
   ParcheesiGame.vcxproj -> D:\TheKIDends\Bai-tap-lon\ParcheesiGame\Debug\ParcheesiGame.exe

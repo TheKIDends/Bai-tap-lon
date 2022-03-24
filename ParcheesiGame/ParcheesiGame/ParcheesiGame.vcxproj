@@ -145,15 +145,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Painter.cpp" />
-    <ClCompile Include="ParcheesiGame.cpp" />
+    <ClCompile Include="Library\GameComponents.cpp" />
+    <ClCompile Include="Library\Painter.cpp" />
+    <ClCompile Include="Library\ParcheesiGame.cpp" />
+    <ClCompile Include="Library\Utils.cpp" />
+    <ClCompile Include="Library\WindowRenderer.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Painter.h" />
-    <ClInclude Include="ParcheesiGame.h" />
-    <ClInclude Include="Util.h" />
+    <ClInclude Include="Library\GameComponents.h" />
+    <ClInclude Include="Library\Painter.h" />
+    <ClInclude Include="Library\ParcheesiGame.h" />
+    <ClInclude Include="Library\Utils.h" />
+    <ClInclude Include="Library\WindowRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

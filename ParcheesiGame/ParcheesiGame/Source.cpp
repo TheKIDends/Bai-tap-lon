@@ -1,4 +1,4 @@
-#include "ParcheesiGame.h"
+#include "Library/ParcheesiGame.h"
 
 int main(int argc, char* argv[]) {
 	ParcheesiGame* parcheesiGame = new ParcheesiGame;
