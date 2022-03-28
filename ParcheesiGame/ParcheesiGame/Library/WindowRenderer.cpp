@@ -1,18 +1,31 @@
 #include "WindowRenderer.h"
 
-void WindowRenderer::loadChessBoard() {
-    SDL_Texture* image;
-    for (int i = 7; i >= 1; --i) {
-        string add = string("Image/img") + char(i + '0') + string(".png");
-        image = painter->loadTexture(add);
-        painter->createImage(image, 0, 0, 1747.0 * 0.63, 1086.0 * 0.63);
+void WindowRenderer::loadButton(int typeButton, Button* button) {
+    if (!typeButton) {
+        texture = painter->loadTexture((button->getLinkFolderButton()) + "/img1.png");
+        painter->createImage(texture, button);
     }
-
-    painter->displayImage();
+    else {
+        texture = painter->loadTexture((button->getLinkFolderButton()) + "/img2.png");
+        painter->createImage(texture, button);
+    }
 }
 
-void WindowRenderer::loadImage() {
-    loadChessBoard();
+void WindowRenderer::loadChessBoard() {
+    for (int i = 7; i >= 1; --i) {
+        string add = string("Image/chess_board/img") + char(i + '0') + string(".png");
+        texture = painter->loadTexture(add);
+        painter->createImageFullWindow(texture);
+    }
+}
+
+void WindowRenderer::loadBackGround(string linkFolderBackGround) {
+    texture = painter->loadTexture(linkFolderBackGround + "/img1.png");
+    painter->createImageFullWindow(texture);
+}
+
+void WindowRenderer::displayImage() {
+    painter->displayImage();
 }
 
 void WindowRenderer::createWindow(int screenWidth, int screenHeight, string windowTitle) {

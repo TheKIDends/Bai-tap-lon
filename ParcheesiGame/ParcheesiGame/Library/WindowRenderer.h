@@ -2,6 +2,8 @@
 #define __WINDOWRENDERER__
 
 #include "Painter.h"
+#include "Utils.h"
+#include "GameComponents.h"
 
 #include <iostream>
 #include <SDL.h>
@@ -15,17 +17,22 @@ class WindowRenderer {
 		SDL_Renderer* renderer;
 		
 		Painter* painter;
+		SDL_Texture* texture;
 
 		void logSDLError(std::ostream& os, const std::string& msg, bool fatal = false);
-
-		void loadChessBoard();
 
 	public:
 		void createWindow(int screenWidth, int screenHeight, string windowTitle);
 
 		void deleteWindow();
 
-		void loadImage();
+		void loadBackGround(string linkFolderBackGround);
+
+		void loadButton(int typeButton, Button* button);
+
+		void loadChessBoard();
+
+		void displayImage();
 };
 
 #endif // __WINDOWRENDERER__

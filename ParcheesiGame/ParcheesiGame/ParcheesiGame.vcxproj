@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Library\GameComponents.cpp" />
+    <ClCompile Include="Library\Menu.cpp" />
     <ClCompile Include="Library\Painter.cpp" />
     <ClCompile Include="Library\ParcheesiGame.cpp" />
     <ClCompile Include="Library\Utils.cpp" />
@@ -154,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\GameComponents.h" />
+    <ClInclude Include="Library\Menu.h" />
     <ClInclude Include="Library\Painter.h" />
     <ClInclude Include="Library\ParcheesiGame.h" />
     <ClInclude Include="Library\Utils.h" />

@@ -1,6 +1,8 @@
 #ifndef __PAINTER__
 #define __PAINTER__
 
+#include "GameComponents.h"
+
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -52,6 +54,10 @@ class Painter {
         void clearWithBgColor(SDL_Color bgColor);
 
         bool createImage(SDL_Texture* texture, int x, int y, int w, int h);
+
+        bool createImage(SDL_Texture* texture, Button* button);
+
+        bool createImageFullWindow(SDL_Texture* texture);
 
         bool displayImage();
 
