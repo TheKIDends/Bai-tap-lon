@@ -21,6 +21,8 @@ class WindowRenderer {
 
 		void logSDLError(std::ostream& os, const std::string& msg, bool fatal = false);
 
+		void deleteTexture() { SDL_DestroyTexture(texture); texture = NULL; }
+
 	public:
 		void createWindow(int screenWidth, int screenHeight, string windowTitle);
 

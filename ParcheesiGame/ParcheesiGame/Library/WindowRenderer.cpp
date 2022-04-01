@@ -9,6 +9,7 @@ void WindowRenderer::loadButton(int typeButton, Button* button) {
         texture = painter->loadTexture(button->getLinkImgButton());
         painter->createRenderingImage(texture, { button->getClipWidthButton(), 0, button->getClipWidthButton(), button->getClipHeightButton() }, button->getSizeButton());
     }
+    deleteTexture();
 }
 
 void WindowRenderer::loadChessBoard() {
@@ -16,12 +17,14 @@ void WindowRenderer::loadChessBoard() {
         string add = string("Image/chess_board/img") + char(i + '0') + string(".png");
         texture = painter->loadTexture(add);
         painter->createImageFullWindow(texture);
+        deleteTexture();
     }
 }
 
 void WindowRenderer::loadBackGround(string linkImgBackGround) {
     texture = painter->loadTexture(linkImgBackGround);
     painter->createImageFullWindow(texture);
+    deleteTexture();
 }
 
 void WindowRenderer::displayImage() {

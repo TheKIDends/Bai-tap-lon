@@ -20,10 +20,7 @@ void ParcheesiGame::displayMenu () {
     windowRenderer->loadButton(typeExitButton, exitButton);
 
     if (events->type == SDL_MOUSEBUTTONDOWN) {
-        if (typeExitButton) {
-            SDL_Quit();
-            exit(1);
-        }
+        if (typeExitButton) { SDL_Quit(); exit(1); }
     }
 
     if (events->type == SDL_MOUSEBUTTONDOWN) {
