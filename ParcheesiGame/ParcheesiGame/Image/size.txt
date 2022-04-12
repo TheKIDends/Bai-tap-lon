@@ -1,0 +1,7 @@
+2_players_button 1560 x 513
+3_players_button 1560 x 513
+4_players_button 1560 x 513
+play_button 1326 x 515
+exit_button 1326 x 515
+back_button 448 x 497
+chess 54 x 99

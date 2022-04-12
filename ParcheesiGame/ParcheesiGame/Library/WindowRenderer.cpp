@@ -1,7 +1,10 @@
 #include "WindowRenderer.h"
 
-void WindowRenderer::loadButton(int typeButton, Button* button) {
-    if (!typeButton) {
+void WindowRenderer::loadButton(Button* button) {
+//    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
+//    SDL_RenderDrawLine(renderer, 0, 100, 100, 100);
+
+    if (!button->getTypeButton()) {
         texture = painter->loadTexture(button->getLinkImgButton());
         painter->createRenderingImage(texture, { 0, 0, button->getClipWidthButton(), button->getClipHeightButton() }, button->getSizeButton());
     }
@@ -12,8 +15,26 @@ void WindowRenderer::loadButton(int typeButton, Button* button) {
     deleteTexture();
 }
 
-void WindowRenderer::loadChessBoard() {
-    for (int i = 7; i >= 1; --i) {
+void WindowRenderer::loadAvatar(Player* player) {
+    if (player->getWinner()) {
+        texture = painter->loadTexture(player->getLinkImgAvatar());
+        painter->createRenderingImage(texture, { 128, 0, player->getClipWidthAvatar(), player->getClipHeightAvatar() }, player->getSizeAvatar());
+    }
+    else {
+        texture = painter->loadTexture(player->getLinkImgAvatar());
+        painter->createRenderingImage(texture, { 0, 0, player->getClipWidthAvatar(), player->getClipHeightAvatar() }, player->getSizeAvatar());
+    }
+    deleteTexture();
+}
+
+void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess) {
+    texture = painter->loadTexture(chess.getLinkImgChess());
+    painter->createRenderingImage(texture, chess.getClipChess(), { chessPosition_x, chessPosition_y, chess.getWidthChess(), chess.getHeightChess() });
+    deleteTexture();
+}
+
+void WindowRenderer::loadChessBoard(int numLayer) {
+    for (int i = numLayer; i >= 1; --i) {
         string add = string("Image/chess_board/img") + char(i + '0') + string(".png");
         texture = painter->loadTexture(add);
         painter->createImageFullWindow(texture);

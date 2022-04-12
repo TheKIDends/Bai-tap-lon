@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Library\FPS.cpp" />
     <ClCompile Include="Library\GameComponents.cpp" />
     <ClCompile Include="Library\Painter.cpp" />
     <ClCompile Include="Library\ParcheesiGame.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Library\FPS.h" />
     <ClInclude Include="Library\GameComponents.h" />
     <ClInclude Include="Library\Painter.h" />
     <ClInclude Include="Library\ParcheesiGame.h" />

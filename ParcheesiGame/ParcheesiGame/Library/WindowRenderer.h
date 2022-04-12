@@ -2,7 +2,6 @@
 #define __WINDOWRENDERER__
 
 #include "Painter.h"
-#include "Utils.h"
 #include "GameComponents.h"
 
 #include <iostream>
@@ -30,9 +29,13 @@ class WindowRenderer {
 
 		void loadBackGround(string linkImgBackGround);
 
-		void loadButton(int typeButton, Button* button);
+		void loadButton(Button* button);
 
-		void loadChessBoard();
+		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess);
+
+		void loadAvatar(Player* player);
+
+		void loadChessBoard(int numLayer);
 
 		void displayImage();
 };
