@@ -7,6 +7,10 @@ FPS::FPS() {
 	is_started_ = false;
 }
 
+FPS::~FPS() {
+
+}
+
 void FPS::start() {
 	is_started_ = true;
 	is_paused_ = false;

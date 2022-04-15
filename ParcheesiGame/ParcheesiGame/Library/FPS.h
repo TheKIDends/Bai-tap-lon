@@ -13,6 +13,7 @@ class FPS {
 
 	public:
 		FPS();
+		~FPS();
 		void start();
 		void stop();
 		void paused();

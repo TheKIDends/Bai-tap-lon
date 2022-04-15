@@ -44,11 +44,13 @@ class Dice {
 	public:
 		int getDice() { return dice; }
 
-		void rollDice() { dice = Random::random(1, 6); }
+		void rollDice() { dice = Random::random(3, 6); }
 };
 
 class Chess {
 	private:
+		bool canMoveChess;
+
 		int idPositionChess;
 
 		int widthChess, heightChess;
@@ -58,24 +60,24 @@ class Chess {
 		SDL_Rect clipChess;
 
 	public:
+		Chess() { canMoveChess = false; }
+
 		void setIdPositionChess(int idPositionChess) { this->idPositionChess = idPositionChess;  }
+		int  getIdPositionChess() { return idPositionChess; }
 
+		void setCanMoveChess(bool canMoveChess) { this->canMoveChess = canMoveChess; }
+		bool getCanMoveChess() { return canMoveChess; }
+		
 		void setChess(int widthChess, int heightChess, SDL_Rect clipChess, string linkImgChess);
-
-		int getIdPositionChess()	{ return idPositionChess; }
-
 		int getWidthChess()			{ return widthChess; }
-
 		int getHeightChess()		{ return heightChess; }
-
 		SDL_Rect getClipChess()		{ return clipChess; }
-
 		string getLinkImgChess()	{ return linkImgChess; }
 };
 
 class Player {
 	private:
-		bool playerWin = false;
+		bool playerWin;
 
 		int clipWidthAvatar, clipHeightAvatar;
 
@@ -86,6 +88,8 @@ class Player {
 		Chess chess[4];
 
 	public:
+		Player() { playerWin = false; }
+
 		void setWinner() { playerWin = true; }
 
 		bool getWinner() { return playerWin; }
@@ -96,32 +100,34 @@ class Player {
 		
 		void setIdPositionChess(int id, int idPositionChess) { chess[id].setIdPositionChess(idPositionChess); }
 
-		int getClipWidthAvatar()	{ return clipWidthAvatar;  };
+		void setCanMoveChess(int id, bool canMoveChess) { chess[id].setCanMoveChess(canMoveChess); }
 
-		int getClipHeightAvatar()	{ return clipHeightAvatar;  };
+		int getClipWidthAvatar()	{ return clipWidthAvatar; }
 
-		string getLinkImgAvatar()	{ return linkImgAvatar;  };
+		int getClipHeightAvatar()	{ return clipHeightAvatar; }
 
-		SDL_Rect getSizeAvatar()	{ return sizeAvatar;  };
+		string getLinkImgAvatar()	{ return linkImgAvatar; }
 
-		Chess getChess(int id)		{ return chess[id]; };
+		SDL_Rect getSizeAvatar()	{ return sizeAvatar; }
+
+		Chess getChess(int id)		{ return chess[id]; }
 };
 
 class MouseEvents {
-private:
-	int mousePosition_x;
-	int mousePosition_y;
+	private:
+		int mousePosition_x;
+		int mousePosition_y;
 
-	void setPosition(int x, int y);
+		void setPosition(int x, int y);
 
-public:
-	void mouseHandleEvent();
+	public:
+		void mouseHandleEvent();
 
-	bool CheckMouseInRect(SDL_Rect rect);
+		bool CheckMouseInRect(SDL_Rect rect);
 
-	bool CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess);
+		bool CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess);
 
-	bool CheckMouseInButton(Button* button);
+		bool CheckMouseInButton(Button* button);
 };
 
 #endif // __GAMECOMPONENTS__

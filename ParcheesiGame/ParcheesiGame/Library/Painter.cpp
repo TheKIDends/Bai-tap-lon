@@ -14,6 +14,10 @@ Painter::Painter(SDL_Window* window, SDL_Renderer* renderer_) : renderer(rendere
     clearWithBgColor(DEFAULT_COLOR);
 }
 
+Painter::~Painter() {
+
+}
+
 void Painter::clearWithBgColor(SDL_Color bgColor) {
     SDL_SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 0);
     SDL_RenderClear(renderer);

@@ -32,6 +32,7 @@ class Painter {
 
     public:
         Painter(SDL_Window* window, SDL_Renderer* renderer);
+        ~Painter();
 
         void setPosition(float x, float y);
         float getX() const {

@@ -30,6 +30,11 @@ void WindowRenderer::loadAvatar(Player* player) {
 void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess) {
     texture = painter->loadTexture(chess.getLinkImgChess());
     painter->createRenderingImage(texture, chess.getClipChess(), { chessPosition_x, chessPosition_y, chess.getWidthChess(), chess.getHeightChess() });
+
+    if (chess.getCanMoveChess()) {
+        texture = painter->loadTexture("Image/can_move.png");
+        painter->createImage(texture, { chessPosition_x + 10, chessPosition_y + 7, 10, 10 });
+    }
     deleteTexture();
 }
 
@@ -55,7 +60,7 @@ void WindowRenderer::displayImage() {
 void WindowRenderer::createWindow(int screenWidth, int screenHeight, string windowTitle) {
     if (SDL_Init(SDL_INIT_EVERYTHING)) logSDLError(std::cout, "SDL_Init", true);
 
-    window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
     if (window == nullptr) logSDLError(std::cout, "CreateWindow", true);
 

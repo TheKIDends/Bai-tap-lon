@@ -19,6 +19,7 @@ enum DISPLAY{
 
 enum STATE {
     ROLLDICE,
+    CHOSECHESS,
     MOVECHESS,
     ENDTURN,
 };
@@ -26,8 +27,8 @@ enum STATE {
 class ParcheesiGame {
     private:
         const int FRAME_PER_SECOND  = 60;
-        const int SCREEN_WIDTH      = int (1747.0 * 0.63);
-        const int SCREEN_HEIGHT     = int (1086.0 * 0.63);
+        const int SCREEN_WIDTH      = 1100;     // int (1747.0 * 0.63);
+        const int SCREEN_HEIGHT     = 684;      // int (1086.0 * 0.63);
         const string WINDOW_TITLE   = "Parcheesi Game";
 
         DISPLAY display;
@@ -69,7 +70,8 @@ class ParcheesiGame {
         void eventsGame();
 
         bool canMove();
-        int chessNextStep(int idPositionChess);
+        bool checkIdInStartPosition(int idPosition);
+        int chessNextStep(int idPosition);
 
     public:
         void startGame();
