@@ -5,11 +5,11 @@ void WindowRenderer::loadButton(Button* button) {
 //    SDL_RenderDrawLine(renderer, 0, 100, 100, 100);
 
     if (!button->getTypeButton()) {
-        texture = painter->loadTexture(button->getLinkImgButton());
+        texture = painter->loadTexture(button->getPathImgButton());
         painter->createRenderingImage(texture, { 0, 0, button->getClipWidthButton(), button->getClipHeightButton() }, button->getSizeButton());
     }
     else {
-        texture = painter->loadTexture(button->getLinkImgButton());
+        texture = painter->loadTexture(button->getPathImgButton());
         painter->createRenderingImage(texture, { button->getClipWidthButton(), 0, button->getClipWidthButton(), button->getClipHeightButton() }, button->getSizeButton());
     }
     deleteTexture();
@@ -17,38 +17,33 @@ void WindowRenderer::loadButton(Button* button) {
 
 void WindowRenderer::loadAvatar(Player* player) {
     if (player->getWinner()) {
-        texture = painter->loadTexture(player->getLinkImgAvatar());
+        texture = painter->loadTexture(player->getPathImgAvatar());
         painter->createRenderingImage(texture, { 128, 0, player->getClipWidthAvatar(), player->getClipHeightAvatar() }, player->getSizeAvatar());
     }
     else {
-        texture = painter->loadTexture(player->getLinkImgAvatar());
+        texture = painter->loadTexture(player->getPathImgAvatar());
         painter->createRenderingImage(texture, { 0, 0, player->getClipWidthAvatar(), player->getClipHeightAvatar() }, player->getSizeAvatar());
     }
     deleteTexture();
 }
 
-void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess) {
-    texture = painter->loadTexture(chess.getLinkImgChess());
-    painter->createRenderingImage(texture, chess.getClipChess(), { chessPosition_x, chessPosition_y, chess.getWidthChess(), chess.getHeightChess() });
+void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int stateChess) {
+    texture = painter->loadTexture(chess.getPathImgChess());
 
-    if (chess.getCanMoveChess()) {
-        texture = painter->loadTexture("Image/can_move.png");
-        painter->createImage(texture, { chessPosition_x + 10, chessPosition_y + 7, 10, 10 });
-    }
+    SDL_Rect clipChess = chess.getClipChess();
+    for (int i = 0; i < stateChess; ++i) clipChess.x += clipChess.w;
+    painter->createRenderingImage(texture, clipChess, { chessPosition_x, chessPosition_y, chess.getWidthChess(), chess.getHeightChess() });
     deleteTexture();
-}
-
-void WindowRenderer::loadChessBoard(int numLayer) {
-    for (int i = numLayer; i >= 1; --i) {
-        string add = string("Image/chess_board/img") + char(i + '0') + string(".png");
-        texture = painter->loadTexture(add);
-        painter->createImageFullWindow(texture);
+    
+    if (stateChess == 0 && chess.getCanMoveChess()) {
+        texture = painter->loadTexture("Image/can_move.png");
+        painter->createImage(texture, { chessPosition_x + 11, chessPosition_y + 7, 10, 10 });
         deleteTexture();
     }
 }
 
-void WindowRenderer::loadBackGround(string linkImgBackGround) {
-    texture = painter->loadTexture(linkImgBackGround);
+void WindowRenderer::loadImgFullWindow(string pathImage) {
+    texture = painter->loadTexture(pathImage);
     painter->createImageFullWindow(texture);
     deleteTexture();
 }

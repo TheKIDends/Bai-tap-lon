@@ -2,34 +2,34 @@
 
 // Button
 
-void Button::setButton(SDL_Rect sizeButton, int clipWidthButton, int clipHeightButton, string linkImgButton) {
+void Button::setButton(SDL_Rect sizeButton, int clipWidthButton, int clipHeightButton, string pathImgButton) {
     this->clipWidthButton   = clipWidthButton;
     this->clipHeightButton  = clipHeightButton;
     this->sizeButton        = sizeButton;
-    this->linkImgButton     = linkImgButton;
+    this->pathImgButton     = pathImgButton;
 }
 
 // Chess
 
-void Chess::setChess(int widthChess, int heightChess, SDL_Rect clipChess, string linkImgChess) {
+void Chess::setChess(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess) {
     this->widthChess      = widthChess;
     this->heightChess     = heightChess;
-    this->clipChess         = clipChess;
-    this->linkImgChess    = linkImgChess;
+    this->clipChess       = clipChess;
+    this->pathImgChess    = pathImgChess;
 }
 
 // Player
 
-void Player::setAllChessPlayer(int widthChess, int heightChess, SDL_Rect clipChess, string linkImgChess) {
+void Player::setAllChessPlayer(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess) {
     for (int i = 0; i < 4; ++i) {
-        chess[i].setChess(widthChess, heightChess, clipChess, linkImgChess);
+        chess[i].setChess(widthChess, heightChess, clipChess, pathImgChess);
     }
 }
 
-void Player::setAvatarPlayer(SDL_Rect sizeAvatar, int clipWidthAvatar, int clipHeightAvatar, string linkImgAvatar) {
+void Player::setAvatarPlayer(SDL_Rect sizeAvatar, int clipWidthAvatar, int clipHeightAvatar, string pathImgAvatar) {
     this->clipWidthAvatar   = clipWidthAvatar;
     this->clipHeightAvatar  = clipHeightAvatar;
-    this->linkImgAvatar     = linkImgAvatar;
+    this->pathImgAvatar     = pathImgAvatar;
     this->sizeAvatar        = sizeAvatar;
 }
 

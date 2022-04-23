@@ -14,14 +14,14 @@ class Button {
 
 		int clipWidthButton, clipHeightButton;
 
-		string linkImgButton;
+		string pathImgButton;
 
 		SDL_Rect sizeButton;
 
 	public:
 		Button() { typeButton = false;  }
 
-		void setButton(SDL_Rect sizeButton, int clipWidthButton, int clipHeightButton, string linkImgButton);
+		void setButton(SDL_Rect sizeButton, int clipWidthButton, int clipHeightButton, string pathImgButton);
 
 		void setTypeButton(bool typeButton) { this->typeButton = typeButton; }
 
@@ -29,7 +29,7 @@ class Button {
 
 		SDL_Rect getSizeButton()	{ return sizeButton; }
 
-		string getLinkImgButton()	{ return linkImgButton; }
+		string getPathImgButton()	{ return pathImgButton; }
 
 		int getClipWidthButton()	{ return clipWidthButton; }
 		
@@ -55,7 +55,7 @@ class Chess {
 
 		int widthChess, heightChess;
 
-		string linkImgChess;
+		string pathImgChess;
 
 		SDL_Rect clipChess;
 
@@ -68,11 +68,11 @@ class Chess {
 		void setCanMoveChess(bool canMoveChess) { this->canMoveChess = canMoveChess; }
 		bool getCanMoveChess() { return canMoveChess; }
 		
-		void setChess(int widthChess, int heightChess, SDL_Rect clipChess, string linkImgChess);
+		void setChess(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess);
 		int getWidthChess()			{ return widthChess; }
 		int getHeightChess()		{ return heightChess; }
 		SDL_Rect getClipChess()		{ return clipChess; }
-		string getLinkImgChess()	{ return linkImgChess; }
+		string getPathImgChess()	{ return pathImgChess; }
 };
 
 class Player {
@@ -81,7 +81,7 @@ class Player {
 
 		int clipWidthAvatar, clipHeightAvatar;
 
-		string linkImgAvatar;
+		string pathImgAvatar;
 
 		SDL_Rect sizeAvatar;
 
@@ -94,19 +94,20 @@ class Player {
 
 		bool getWinner() { return playerWin; }
 		
-		void setAllChessPlayer(int widthChess, int heightChess, SDL_Rect clipChess, string linkImgChess);
+		void setAllChessPlayer(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess);
 
-		void setAvatarPlayer(SDL_Rect sizeAvatar, int clipWidthAvatar, int clipHeightAvatar, string linkImgAvatar);
+		void setAvatarPlayer(SDL_Rect sizeAvatar, int clipWidthAvatar, int clipHeightAvatar, string pathImgAvatar);
 		
 		void setIdPositionChess(int id, int idPositionChess) { chess[id].setIdPositionChess(idPositionChess); }
 
 		void setCanMoveChess(int id, bool canMoveChess) { chess[id].setCanMoveChess(canMoveChess); }
+		bool getCanMoveChess(int id) { return chess[id].getCanMoveChess(); }
 
 		int getClipWidthAvatar()	{ return clipWidthAvatar; }
 
 		int getClipHeightAvatar()	{ return clipHeightAvatar; }
 
-		string getLinkImgAvatar()	{ return linkImgAvatar; }
+		string getPathImgAvatar()	{ return pathImgAvatar; }
 
 		SDL_Rect getSizeAvatar()	{ return sizeAvatar; }
 

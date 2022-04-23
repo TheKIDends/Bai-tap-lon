@@ -4,6 +4,7 @@
 #include "FPS.h"
 #include "GameComponents.h"
 #include "WindowRenderer.h"
+#include "Animations.h"
 
 #include <iostream>
 #include <SDL.h>
@@ -19,8 +20,7 @@ enum DISPLAY{
 
 enum STATE {
     ROLLDICE,
-    CHOSECHESS,
-    MOVECHESS,
+    CHOOSECHESS,
     ENDTURN,
 };
 
@@ -32,8 +32,11 @@ class ParcheesiGame {
         const string WINDOW_TITLE   = "Parcheesi Game";
 
         DISPLAY display;
-        int numberPlayers;
+        int numberPlayers = 4;
         int playerTurn;
+
+        ChessAnimations chessAnimation = ChessAnimations(3);
+        BackgroundAnimations backgroundAnimations = BackgroundAnimations(2);
 
         int idStartPosition[4];
         pair <int, int> mapChessBoard[100];
@@ -61,6 +64,8 @@ class ParcheesiGame {
 
         void setGameObject();
         
+        bool idChessInLayer(int idPositionChess, int layer);
+
         void displayMenu();
         void displayPlayerNumberSelection();
         void displayGame();
@@ -72,6 +77,9 @@ class ParcheesiGame {
         bool canMove();
         bool checkIdInStartPosition(int idPosition);
         int chessNextStep(int idPosition);
+        int idStepOne(int idPosition);
+
+        void animationMoveChess();
 
     public:
         void startGame();

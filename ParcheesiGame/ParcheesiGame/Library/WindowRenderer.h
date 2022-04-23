@@ -3,6 +3,7 @@
 
 #include "Painter.h"
 #include "GameComponents.h"
+#include "Animations.h"
 
 #include <iostream>
 #include <SDL.h>
@@ -27,15 +28,13 @@ class WindowRenderer {
 
 		void deleteWindow();
 
-		void loadBackGround(string linkImgBackGround);
+		void loadImgFullWindow(string pathImage);
 
 		void loadButton(Button* button);
 
-		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess);
+		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int stateChess);
 
 		void loadAvatar(Player* player);
-
-		void loadChessBoard(int numLayer);
 
 		void displayImage();
 };
