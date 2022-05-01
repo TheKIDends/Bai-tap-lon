@@ -128,7 +128,7 @@ class MouseEvents {
 
 		bool CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess);
 
-		bool CheckMouseInButton(Button* button);
+		bool CheckMouseInButton(Button button);
 };
 
 #endif // __GAMECOMPONENTS__

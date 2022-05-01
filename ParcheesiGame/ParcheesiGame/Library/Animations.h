@@ -7,41 +7,61 @@ using namespace std;
 
 class ChessAnimations {
 	private:
-		bool animations;
+
+		// Chess
+		bool animationsChess;
 
 		int idPositionChess;
 		int endIdPositionChess;
 
-		int maxState, state;
+		int maxStateChess, stateChess;
 
 		int chess;
 
+		// Arrow
+		bool animationsArrow;
+
+		int maxStateArrow, stateArrow;
+
 	public:
-		ChessAnimations() { animations = false; maxState = 4; }
-		ChessAnimations(int maxState) { animations = false; this->maxState = maxState; }
+		ChessAnimations();
+		ChessAnimations(int maxStateChess, int maxStateArrow);
 
-		int getMaxState() { return maxState; }
+		// Chess
+		int getMaxStateChess() { return maxStateChess; }
 
-		void setChessAnimations(bool animations, int chess, int endIdPositionChess) {
-			this->animations = animations;
+		void setChessAnimations(bool animationsChess, int chess, int endIdPositionChess) {
+			this->animationsChess = animationsChess;
 			this->endIdPositionChess = endIdPositionChess;
 			setChess(chess);
 		}
 
-		bool getAnimations() { return animations; }
+		bool getAnimationsChess() { return animationsChess; }
 
 		int getEndIdPositionChess() { return endIdPositionChess; }
 
 		void setIdPositionChess(int idPositionChess) { this->idPositionChess = idPositionChess; }
 		int  getIdPositionChess() { return idPositionChess; }
 
-		void nextState() { state = (state + 1) % maxState; }
-		int  getState() { return state; }
+		void nextStateChess() { stateChess = (stateChess + 1) % maxStateChess; }
+		int  getStateChess() { return stateChess; }
 		
 		void setChess(int chess) { this->chess = chess; }
 		int  getChess() { return chess; }
 
-		void finishChessAnimations() { animations = false; state = 0; }
+		void finishAnimationsChess() { animationsChess = false; stateChess = 0; }
+
+		// Arrow
+		int getMaxStateArrow() { return maxStateArrow; }
+
+		void setArrowAnimations(bool animationsArrow) { this->animationsArrow = animationsArrow; }
+
+		bool getAnimationsArrow() { return animationsArrow; }
+
+		void nextStateArrow() { stateArrow = (stateArrow + 1) % maxStateArrow; }
+		int  getStateArrow() { return stateArrow; }
+
+		void finishAnimationsArrow() { animationsArrow = false; stateArrow = 0; }
 };
 
 class BackgroundAnimations {
@@ -58,45 +78,6 @@ class BackgroundAnimations {
 		int  getState() { return state; }
 
 		void finishChessAnimations() { state = 0; }
-};
-
-class ArrowChooseChessAnimations {
-	private:
-		bool animations;
-
-		int idPositionChess;
-		int endIdPositionChess;
-
-		int maxState, state;
-
-		int chess;
-
-	public:
-		ArrowChooseChessAnimations() { animations = false; maxState = 4; }
-		ArrowChooseChessAnimations(int maxState) { animations = false; this->maxState = maxState; }
-
-		int getMaxState() { return maxState; }
-
-		void setChessAnimations(bool animations, int chess, int endIdPositionChess) {
-			this->animations = animations;
-			this->endIdPositionChess = endIdPositionChess;
-			setChess(chess);
-		}
-
-		bool getAnimations() { return animations; }
-
-		int getEndIdPositionChess() { return endIdPositionChess; }
-
-		void setIdPositionChess(int idPositionChess) { this->idPositionChess = idPositionChess; }
-		int  getIdPositionChess() { return idPositionChess; }
-
-		void nextState() { state = (state + 1) % maxState; }
-		int  getState() { return state; }
-
-		void setChess(int chess) { this->chess = chess; }
-		int  getChess() { return chess; }
-
-		void finishChessAnimations() { animations = false; state = 0; }
 };
 
 #endif // __ANIMATIONS__

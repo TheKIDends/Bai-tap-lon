@@ -9,6 +9,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <exception>
 
 using namespace std;
 
@@ -35,7 +36,7 @@ class ParcheesiGame {
         int numberPlayers = 4;
         int playerTurn;
 
-        ChessAnimations chessAnimation = ChessAnimations(3);
+        ChessAnimations chessAnimation = ChessAnimations(3, 2);
         BackgroundAnimations backgroundAnimations = BackgroundAnimations(2);
 
         int idStartPosition[4];
@@ -46,13 +47,13 @@ class ParcheesiGame {
         Dice* dice;
         Player* player[4];
         
-        Button* playButton;
-        Button* exitButton;
-        Button* _2playersButton;
-        Button* _3playersButton;
-        Button* _4playersButton;
-        Button* backButton;
-        Button* rollButton;
+        Button playButton;
+        Button exitButton;
+        Button _2playersButton;
+        Button _3playersButton;
+        Button _4playersButton;
+        Button backButton;
+        Button rollButton;
 
         STATE statePlayer;
 

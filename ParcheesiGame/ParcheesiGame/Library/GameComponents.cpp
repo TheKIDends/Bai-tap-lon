@@ -62,8 +62,8 @@ bool MouseEvents::CheckMouseInRect(SDL_Rect rect) {
     return true;
 }
 
-bool MouseEvents::CheckMouseInButton(Button* button) {
-    return CheckMouseInRect(button->getSizeButton());
+bool MouseEvents::CheckMouseInButton(Button button) {
+    return CheckMouseInRect(button.getSizeButton());
 }
 
 bool MouseEvents::CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess) {

@@ -30,7 +30,7 @@ class WindowRenderer {
 
 		void loadImgFullWindow(string pathImage);
 
-		void loadButton(Button* button);
+		void loadButton(Button button);
 
 		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int stateChess);
 

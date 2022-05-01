@@ -1,16 +1,16 @@
 #include "WindowRenderer.h"
 
-void WindowRenderer::loadButton(Button* button) {
+void WindowRenderer::loadButton(Button button) {
 //    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
 //    SDL_RenderDrawLine(renderer, 0, 100, 100, 100);
 
-    if (!button->getTypeButton()) {
-        texture = painter->loadTexture(button->getPathImgButton());
-        painter->createRenderingImage(texture, { 0, 0, button->getClipWidthButton(), button->getClipHeightButton() }, button->getSizeButton());
+    if (!button.getTypeButton()) {
+        texture = painter->loadTexture(button.getPathImgButton());
+        painter->createRenderingImage(texture, { 0, 0, button.getClipWidthButton(), button.getClipHeightButton() }, button.getSizeButton());
     }
     else {
-        texture = painter->loadTexture(button->getPathImgButton());
-        painter->createRenderingImage(texture, { button->getClipWidthButton(), 0, button->getClipWidthButton(), button->getClipHeightButton() }, button->getSizeButton());
+        texture = painter->loadTexture(button.getPathImgButton());
+        painter->createRenderingImage(texture, { button.getClipWidthButton(), 0, button.getClipWidthButton(), button.getClipHeightButton() }, button.getSizeButton());
     }
     deleteTexture();
 }

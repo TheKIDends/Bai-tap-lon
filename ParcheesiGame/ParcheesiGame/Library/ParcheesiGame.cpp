@@ -138,26 +138,19 @@ void ParcheesiGame::setGameObject() {
     }
 
     // Set button
-    playButton = new Button;
-    playButton->setButton({ int(SCREEN_WIDTH / 2.7), int(SCREEN_HEIGHT / 2.5) , 1326 / 5, 515 / 5 }, 1326, 515, "Image/play_button.png");
+    playButton.setButton({ int(SCREEN_WIDTH / 2.7), int(SCREEN_HEIGHT / 2.5) , 1326 / 5, 515 / 5 }, 1326, 515, "Image/play_button.png");
     
-    exitButton = new Button;
-    exitButton->setButton({ int(SCREEN_WIDTH / 2.55) , int(SCREEN_HEIGHT / 1.55), 1326 / 6, 515 / 6 }, 1326, 515, "Image/exit_button.png");
+    exitButton.setButton({ int(SCREEN_WIDTH / 2.55) , int(SCREEN_HEIGHT / 1.55), 1326 / 6, 515 / 6 }, 1326, 515, "Image/exit_button.png");
 
-    _2playersButton = new Button;
-    _2playersButton->setButton({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 4), 1560 / 5, 513 / 5 }, 1560, 513, "Image/2_players_button.png");
+    _2playersButton.setButton({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 4), 1560 / 5, 513 / 5 }, 1560, 513, "Image/2_players_button.png");
 
-    _3playersButton = new Button;
-    _3playersButton->setButton({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 2.17), 1560 / 5, 513 / 5 }, 1560, 513, "Image/3_players_button.png");
+    _3playersButton.setButton({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 2.17), 1560 / 5, 513 / 5 }, 1560, 513, "Image/3_players_button.png");
 
-    _4playersButton = new Button;
-    _4playersButton->setButton({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 1.5), 1560 / 5, 513 / 5 }, 1560, 513, "Image/4_players_button.png");
+    _4playersButton.setButton({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 1.5), 1560 / 5, 513 / 5 }, 1560, 513, "Image/4_players_button.png");
 
-    backButton = new Button;
-    backButton->setButton({ int(SCREEN_WIDTH / 1.1), int(SCREEN_HEIGHT / 1.18), 448 / 6, 497 / 6 }, 448, 497, "Image/back_button.png");
+    backButton.setButton({ int(SCREEN_WIDTH / 1.1), int(SCREEN_HEIGHT / 1.18), 448 / 6, 497 / 6 }, 448, 497, "Image/back_button.png");
 
-    rollButton = new Button;
-    rollButton->setButton({ 150, 10, 448 / 6, 497 / 6 }, 448, 497, "Image/back_button.png");
+    rollButton.setButton({ 150, 10, 448 / 6, 497 / 6 }, 448, 497, "Image/back_button.png");
 }
 
 bool ParcheesiGame::idChessInLayer(int idPositionChess, int layer) {
@@ -212,7 +205,7 @@ void ParcheesiGame::displayPlayerNumberSelection() {
 void ParcheesiGame::animationMoveChess() {
     int idPositionChess = chessAnimation.getIdPositionChess();
     int chess = chessAnimation.getChess();
-    int state = chessAnimation.getState();
+    int state = chessAnimation.getStateChess();
     int position_x = mapChessBoard[idPositionChess].first;
     int position_y = mapChessBoard[idPositionChess].second;
 
@@ -239,12 +232,12 @@ void ParcheesiGame::animationMoveChess() {
             break;
     }
 
-    if (state == chessAnimation.getMaxState() - 1) {
-        if (nextIdPositionChess == chessAnimation.getEndIdPositionChess()) { chessAnimation.finishChessAnimations(); return; }
+    if (state == chessAnimation.getMaxStateChess() - 1) {
+        if (nextIdPositionChess == chessAnimation.getEndIdPositionChess()) { chessAnimation.finishAnimationsChess(); return; }
         chessAnimation.setIdPositionChess(nextIdPositionChess);
     }
 
-    chessAnimation.nextState();
+    chessAnimation.nextStateChess();
 }
 
 void ParcheesiGame::displayGame() {
@@ -267,7 +260,7 @@ void ParcheesiGame::displayGame() {
             for (int chess = 0; chess < 4; ++chess) {
                 int idPositionChess = player[i]->getChess(chess).getIdPositionChess();
 
-                if (chessAnimation.getAnimations() && i == playerTurn && chess == chessAnimation.getChess()) {
+                if (chessAnimation.getAnimationsChess() && i == playerTurn && chess == chessAnimation.getChess()) {
                     if (idChessInLayer(chessAnimation.getIdPositionChess(), layer)) animationMoveChess();
                     continue;
                 }
@@ -321,33 +314,33 @@ bool ParcheesiGame::canMove() {
 }
 
 void ParcheesiGame::eventsMenu() {
-    playButton->setTypeButton(mouse->CheckMouseInButton(playButton));
-    exitButton->setTypeButton(mouse->CheckMouseInButton(exitButton));
+    playButton.setTypeButton(mouse->CheckMouseInButton(playButton));
+    exitButton.setTypeButton(mouse->CheckMouseInButton(exitButton));
 
     if (events->type == SDL_MOUSEBUTTONDOWN) {
-        if (playButton->getTypeButton()) display = PLAYER_NUMBER_SELECTION;
-        if (exitButton->getTypeButton()) { SDL_Quit(); exit(1); }
+        if (playButton.getTypeButton()) display = PLAYER_NUMBER_SELECTION;
+        if (exitButton.getTypeButton()) { SDL_Quit(); exit(1); }
     }
 }
 
 void ParcheesiGame::eventsPlayerNumberSelection() {
-    backButton->setTypeButton(mouse->CheckMouseInButton(backButton));
-    _2playersButton->setTypeButton(mouse->CheckMouseInButton(_2playersButton));
-    _3playersButton->setTypeButton(mouse->CheckMouseInButton(_3playersButton));
-    _4playersButton->setTypeButton(mouse->CheckMouseInButton(_4playersButton));
+    backButton.setTypeButton(mouse->CheckMouseInButton(backButton));
+    _2playersButton.setTypeButton(mouse->CheckMouseInButton(_2playersButton));
+    _3playersButton.setTypeButton(mouse->CheckMouseInButton(_3playersButton));
+    _4playersButton.setTypeButton(mouse->CheckMouseInButton(_4playersButton));
 
     if (events->type == SDL_MOUSEBUTTONDOWN) {
-        if (backButton->getTypeButton()) { display = MENU; return; }
-        if (_2playersButton->getTypeButton()) { display = GAME; numberPlayers = 2; return; }
-        if (_3playersButton->getTypeButton()) { display = GAME; numberPlayers = 3; return; }
-        if (_4playersButton->getTypeButton()) { display = GAME; numberPlayers = 4; return; }
+        if (backButton.getTypeButton()) { display = MENU; return; }
+        if (_2playersButton.getTypeButton()) { display = GAME; numberPlayers = 2; return; }
+        if (_3playersButton.getTypeButton()) { display = GAME; numberPlayers = 3; return; }
+        if (_4playersButton.getTypeButton()) { display = GAME; numberPlayers = 4; return; }
     }
 }
 
 void ParcheesiGame::eventsGame() {
-    if (chessAnimation.getAnimations()) return;
+    if (chessAnimation.getAnimationsChess()) return;
 
-    rollButton->setTypeButton(mouse->CheckMouseInButton(rollButton));
+    rollButton.setTypeButton(mouse->CheckMouseInButton(rollButton));
 
     //cout << playerTurn << '\n';
     switch (statePlayer) {
@@ -392,7 +385,8 @@ void ParcheesiGame::eventsGame() {
                     int idPositionChess = player[playerTurn]->getChess(chess).getIdPositionChess();
                     if (mouse->CheckMouseInChess(mapChessBoard[idPositionChess].first, mapChessBoard[idPositionChess].second, player[playerTurn]->getChess(chess))) {
 
-                        // move chess
+                        // move chess                        
+
                         int nextStep = chessNextStep(idPositionChess);
                         if (nextStep != -1) {
 
