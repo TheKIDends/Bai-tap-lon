@@ -27,6 +27,12 @@ void WindowRenderer::loadAvatar(Player* player) {
     deleteTexture();
 }
 
+void WindowRenderer::loadArrow(int position_x, int position_y) {
+    texture = painter->loadTexture("Image/can_move.png");
+    painter->createImage(texture, { position_x, position_y, 10, 10 });
+    deleteTexture();
+}
+
 void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int stateChess) {
     texture = painter->loadTexture(chess.getPathImgChess());
 
@@ -34,12 +40,6 @@ void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess c
     for (int i = 0; i < stateChess; ++i) clipChess.x += clipChess.w;
     painter->createRenderingImage(texture, clipChess, { chessPosition_x, chessPosition_y, chess.getWidthChess(), chess.getHeightChess() });
     deleteTexture();
-    
-    if (stateChess == 0 && chess.getCanMoveChess()) {
-        texture = painter->loadTexture("Image/can_move.png");
-        painter->createImage(texture, { chessPosition_x + 11, chessPosition_y + 7, 10, 10 });
-        deleteTexture();
-    }
 }
 
 void WindowRenderer::loadImgFullWindow(string pathImage) {

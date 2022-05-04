@@ -32,6 +32,8 @@ class WindowRenderer {
 
 		void loadButton(Button button);
 
+		void loadArrow(int position_x, int position_y);
+
 		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int stateChess);
 
 		void loadAvatar(Player* player);

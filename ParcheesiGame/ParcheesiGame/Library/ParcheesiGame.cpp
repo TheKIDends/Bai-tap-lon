@@ -6,7 +6,7 @@ bool ParcheesiGame::checkIdInStartPosition(int idPosition) {
     return false;
 }
 
-int ParcheesiGame::idStepOne(int idPosition) {
+int ParcheesiGame::idMoveForward(int idPosition) {
     int nextIdPosition = idPosition + 1;
     if (nextIdPosition > 71) nextIdPosition -= 56;
     if (checkIdInStartPosition(nextIdPosition)) { ++nextIdPosition; }
@@ -203,13 +203,13 @@ void ParcheesiGame::displayPlayerNumberSelection() {
 }
 
 void ParcheesiGame::animationMoveChess() {
-    int idPositionChess = chessAnimation.getIdPositionChess();
+    int idPositionChess = chessAnimation.getIdPosition();
     int chess = chessAnimation.getChess();
-    int state = chessAnimation.getStateChess();
+    int state = chessAnimation.getState();
     int position_x = mapChessBoard[idPositionChess].first;
     int position_y = mapChessBoard[idPositionChess].second;
 
-    int nextIdPositionChess = idStepOne(idPositionChess);
+    int nextIdPositionChess = idMoveForward(idPositionChess);
 
     int nextPosition_x = mapChessBoard[nextIdPositionChess].first;
     int nextPosition_y = mapChessBoard[nextIdPositionChess].second;
@@ -227,22 +227,41 @@ void ParcheesiGame::animationMoveChess() {
             windowRenderer->loadChess((position_x + nextPosition_x) / 2, (position_y + nextPosition_y) / 2, player[playerTurn]->getChess(chess), state);
             break;
 
-        case 3:
-            windowRenderer->loadChess(nextPosition_x, nextPosition_y, player[playerTurn]->getChess(chess), 1);
-            break;
+        //case 3:
+        //    windowRenderer->loadChess(nextPosition_x, nextPosition_y, player[playerTurn]->getChess(chess), 1);
+        //    break;
     }
 
-    if (state == chessAnimation.getMaxStateChess() - 1) {
-        if (nextIdPositionChess == chessAnimation.getEndIdPositionChess()) { chessAnimation.finishAnimationsChess(); return; }
-        chessAnimation.setIdPositionChess(nextIdPositionChess);
-    }
+    if (state == chessAnimation.getMaxState() - 1) {
+        player[playerTurn]->setIdPositionChess(chess, nextIdPositionChess);
 
-    chessAnimation.nextStateChess();
+        if (nextIdPositionChess == chessAnimation.getEndIdPosition()) { chessAnimation.finishAnimations(); return; }
+        chessAnimation.setIdPosition(nextIdPositionChess);
+        
+    }
+    
+    chessAnimation.nextState();
 }
 
 void ParcheesiGame::displayGame() {
     // Back ground display game
     //windowRenderer->loadBackGround("Image/background.png");
+
+    // Set chess
+    for (int i = 0; i < 4; ++i) {
+        for (int chess = 0; chess < 4; ++chess) {
+            int idPositionChess = player[i]->getChess(chess).getIdPositionChess();
+
+            if (idPositionChess <= 15) continue;
+
+            int nextIdPositionChess = idMoveForward(idPositionChess);
+
+            if (mapChessBoard[idPositionChess].first < mapChessBoard[nextIdPositionChess].first) {
+                player[i]->setPathImgChess(chess, "Image/chess.png");
+            }
+            else player[i]->setPathImgChess(chess, "Image/chess_rev.png");
+        }
+    }
 
     // Load avatar players
     for (int i = 0; i < numberPlayers; ++i) windowRenderer->loadAvatar(player[i]);
@@ -250,31 +269,44 @@ void ParcheesiGame::displayGame() {
     // Load button 
     windowRenderer->loadButton(rollButton);
 
-    // Load chess board
-    int numLayer = 7;
-    for (int layer = numLayer; layer >= 1; --layer) {
-        string pathChessBoard = string("Image/chess_board/img") + char(layer + '0') + string(".png");
+    // Load layers board
+    int numLayers = 7;
+    for (int layerBoard = numLayers; layerBoard >= 1; --layerBoard) {
+        string pathChessBoard = string("Image/chess_board/img") + char(layerBoard + '0') + string(".png");
         windowRenderer->loadImgFullWindow(pathChessBoard);
 
         for (int i = 0; i < numberPlayers; ++i) {
             for (int chess = 0; chess < 4; ++chess) {
                 int idPositionChess = player[i]->getChess(chess).getIdPositionChess();
 
-                if (chessAnimation.getAnimationsChess() && i == playerTurn && chess == chessAnimation.getChess()) {
-                    if (idChessInLayer(chessAnimation.getIdPositionChess(), layer)) animationMoveChess();
+                // Animation move chess
+                if (chessAnimation.getAnimations() && i == playerTurn && chess == chessAnimation.getChess()) {
+                    if (idChessInLayer(chessAnimation.getIdPosition(), layerBoard)) animationMoveChess();
                     continue;
                 }
+                
+                if (idChessInLayer(idPositionChess, layerBoard)) {
 
-                if (idChessInLayer(idPositionChess, layer)) {
+                    // Load arrow
+                    if (player[i]->getChess(chess).getCanMoveChess()) {
+                        switch (arrowAnimations.getState()) {
+                            case 0:
+                                windowRenderer->loadArrow(mapChessBoard[idPositionChess].first + 11, mapChessBoard[idPositionChess].second + 5);
+                                break;
+                            case 1:
+                                windowRenderer->loadArrow(mapChessBoard[idPositionChess].first + 11, mapChessBoard[idPositionChess].second + 8);
+                                break;
+                        }
+                    }
+
+                    // Load chess
                     windowRenderer->loadChess(mapChessBoard[idPositionChess].first, mapChessBoard[idPositionChess].second, player[i]->getChess(chess), 0);
                 }
             }
         }
     }   
-    //windowRenderer->loadChess(mapChessBoard[idPositionChess].first, mapChessBoard[idPositionChess].second, player[i]->getChess(chess));
-    //for (int i = 1; i <= 15; ++i) {
-    //    windowRenderer->loadChess(mapChessBoard[i].first, mapChessBoard[i].second, player[0]->getChess(0));
-    //}
+
+    arrowAnimations.nextState();
 }
 
 int ParcheesiGame::chessNextStep(int idPosition) {
@@ -290,7 +322,7 @@ int ParcheesiGame::chessNextStep(int idPosition) {
     int nextIdPosition = idPosition;
     int step = dice->getDice();
     while (step--) {
-        nextIdPosition = idStepOne(nextIdPosition);
+        nextIdPosition = idMoveForward(nextIdPosition);
 
         for (int i = 0; i < numberPlayers; ++i) {
             if (!step && i != playerTurn) continue;
@@ -338,7 +370,7 @@ void ParcheesiGame::eventsPlayerNumberSelection() {
 }
 
 void ParcheesiGame::eventsGame() {
-    if (chessAnimation.getAnimationsChess()) return;
+    if (chessAnimation.getAnimations()) return;
 
     rollButton.setTypeButton(mouse->CheckMouseInButton(rollButton));
 
@@ -363,20 +395,13 @@ void ParcheesiGame::eventsGame() {
                 break;
             }
 
-            // Load chess can move
+            // Chess can move
             for (int chess = 0; chess < 4; ++chess) {
                 if (player[playerTurn]->getCanMoveChess(chess)) continue;
 
                 int idPositionChess = player[playerTurn]->getChess(chess).getIdPositionChess();
                 if (chessNextStep(idPositionChess) != -1) player[playerTurn]->setCanMoveChess(chess, true);
             }
-
-            //for (int chess = 0; chess < 4; ++chess) {
-            //    int idPositionChess = player[playerTurn]->getChess(chess).getIdPositionChess();
-            //    if (mouse->CheckMouseInChess(mapChessBoard[idPositionChess].first, mapChessBoard[idPositionChess].second, player[playerTurn]->getChess(chess))) {
-            //        
-            //    }
-            //}
 
             if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
                 for (int chess = 0; chess < 4; ++chess) {
@@ -386,17 +411,16 @@ void ParcheesiGame::eventsGame() {
                     if (mouse->CheckMouseInChess(mapChessBoard[idPositionChess].first, mapChessBoard[idPositionChess].second, player[playerTurn]->getChess(chess))) {
 
                         // move chess                        
-
                         int nextStep = chessNextStep(idPositionChess);
                         if (nextStep != -1) {
 
                             if (idPositionChess > 15) {
-                                chessAnimation.setIdPositionChess(idPositionChess);
+                                chessAnimation.setIdPosition(idPositionChess);
                                 chessAnimation.setChessAnimations(true, chess, nextStep);
                             }
+                            else player[playerTurn]->setIdPositionChess(chess, nextStep);
 
-                            player[playerTurn]->setIdPositionChess(chess, nextStep);
-
+                           
                             for (int chess1 = 0; chess1 < 4; ++chess1) {
                                 player[playerTurn]->setCanMoveChess(chess1, false);
                             }
@@ -430,7 +454,7 @@ void ParcheesiGame::startGame() {
 
     FPS fpsTimer;
 
-    display = MENU;
+    display = GAME;
 
     bool quit = false;
     while (!quit) {
@@ -481,12 +505,12 @@ void ParcheesiGame::startGame() {
         windowRenderer->displayImage();
 
         // FPS
-        //int real_time = fpsTimer.get_ticks();
-        //int time_one_frame = 1000 / FRAME_PER_SECOND; // ms
-        //if (real_time < time_one_frame) {
-        //    int delay_time = time_one_frame - real_time;
-        //    if (delay_time >= 0) SDL_Delay(delay_time);
-        //}
+        int real_time = fpsTimer.get_ticks();
+        int time_one_frame = 1000 / FRAME_PER_SECOND; // ms
+        if (real_time < time_one_frame) {
+            int delay_time = time_one_frame - real_time;
+            if (delay_time >= 0) SDL_Delay(delay_time);
+        }
     }
 
     windowRenderer->deleteWindow();

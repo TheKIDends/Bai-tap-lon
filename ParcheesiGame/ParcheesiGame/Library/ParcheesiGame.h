@@ -36,7 +36,8 @@ class ParcheesiGame {
         int numberPlayers = 4;
         int playerTurn;
 
-        ChessAnimations chessAnimation = ChessAnimations(3, 2);
+        ArrowAnimations arrowAnimations = ArrowAnimations(2);
+        ChessAnimations chessAnimation = ChessAnimations(3);
         BackgroundAnimations backgroundAnimations = BackgroundAnimations(2);
 
         int idStartPosition[4];
@@ -78,7 +79,7 @@ class ParcheesiGame {
         bool canMove();
         bool checkIdInStartPosition(int idPosition);
         int chessNextStep(int idPosition);
-        int idStepOne(int idPosition);
+        int idMoveForward(int idPosition);
 
         void animationMoveChess();
 

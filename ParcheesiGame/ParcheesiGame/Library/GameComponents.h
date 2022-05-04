@@ -68,6 +68,8 @@ class Chess {
 		void setCanMoveChess(bool canMoveChess) { this->canMoveChess = canMoveChess; }
 		bool getCanMoveChess() { return canMoveChess; }
 		
+		void setPathImgChess(string pathImgChess) { this->pathImgChess = pathImgChess; }
+
 		void setChess(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess);
 		int getWidthChess()			{ return widthChess; }
 		int getHeightChess()		{ return heightChess; }
@@ -98,10 +100,12 @@ class Player {
 
 		void setAvatarPlayer(SDL_Rect sizeAvatar, int clipWidthAvatar, int clipHeightAvatar, string pathImgAvatar);
 		
-		void setIdPositionChess(int id, int idPositionChess) { chess[id].setIdPositionChess(idPositionChess); }
+		void setIdPositionChess(int idChess, int idPositionChess) { chess[idChess].setIdPositionChess(idPositionChess); }
 
-		void setCanMoveChess(int id, bool canMoveChess) { chess[id].setCanMoveChess(canMoveChess); }
-		bool getCanMoveChess(int id) { return chess[id].getCanMoveChess(); }
+		void setPathImgChess(int idChess, string pathImgChess) { chess[idChess].setPathImgChess(pathImgChess); }
+
+		void setCanMoveChess(int idChess, bool canMoveChess) { chess[idChess].setCanMoveChess(canMoveChess); }
+		bool getCanMoveChess(int idChess) { return chess[idChess].getCanMoveChess(); }
 
 		int getClipWidthAvatar()	{ return clipWidthAvatar; }
 
