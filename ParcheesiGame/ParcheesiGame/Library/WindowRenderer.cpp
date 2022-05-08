@@ -1,30 +1,25 @@
 #include "WindowRenderer.h"
 
-void WindowRenderer::loadButton(Button button) {
-//    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
-//    SDL_RenderDrawLine(renderer, 0, 100, 100, 100);
+void WindowRenderer::loadButton(Button* button) {
+    if (button->getTexture() == NULL) button->loadTexture(renderer, button->getPathImg());
 
-    if (!button.getTypeButton()) {
-        texture = painter->loadTexture(button.getPathImgButton());
-        painter->createRenderingImage(texture, { 0, 0, button.getClipWidthButton(), button.getClipHeightButton() }, button.getSizeButton());
+    if (!button->getStatus()) {
+        button->createRenderingImage(renderer, button->getClip(), button->getRect());
     }
     else {
-        texture = painter->loadTexture(button.getPathImgButton());
-        painter->createRenderingImage(texture, { button.getClipWidthButton(), 0, button.getClipWidthButton(), button.getClipHeightButton() }, button.getSizeButton());
+        button->createRenderingImage(renderer, { button->getClip().w, 0, button->getClip().w, button->getClip().h }, button->getRect());
     }
-    deleteTexture();
 }
 
 void WindowRenderer::loadAvatar(Player* player) {
+    if (player->getTexture() == NULL) player->loadTexture(renderer, player->getPathImg());
+
     if (player->getWinner()) {
-        texture = painter->loadTexture(player->getPathImgAvatar());
-        painter->createRenderingImage(texture, { 128, 0, player->getClipWidthAvatar(), player->getClipHeightAvatar() }, player->getSizeAvatar());
+        player->createRenderingImage(renderer, { player->getClip().w, 0, player->getClip().w, player->getClip().h }, player->getRect());
     }
     else {
-        texture = painter->loadTexture(player->getPathImgAvatar());
-        painter->createRenderingImage(texture, { 0, 0, player->getClipWidthAvatar(), player->getClipHeightAvatar() }, player->getSizeAvatar());
+        player->createRenderingImage(renderer, player->getClip(), player->getRect());
     }
-    deleteTexture();
 }
 
 void WindowRenderer::loadArrow(int position_x, int position_y) {
@@ -33,12 +28,11 @@ void WindowRenderer::loadArrow(int position_x, int position_y) {
     deleteTexture();
 }
 
-void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int stateChess) {
-    texture = painter->loadTexture(chess.getPathImgChess());
-
-    SDL_Rect clipChess = chess.getClipChess();
-    for (int i = 0; i < stateChess; ++i) clipChess.x += clipChess.w;
-    painter->createRenderingImage(texture, clipChess, { chessPosition_x, chessPosition_y, chess.getWidthChess(), chess.getHeightChess() });
+void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int statusChess) {
+    texture = painter->loadTexture(chess.getPathImg());
+    SDL_Rect clipChess = chess.getClip();
+    for (int i = 0; i < statusChess; ++i) clipChess.x += clipChess.w;
+    painter->createRenderingImage(renderer, clipChess, { chessPosition_x, chessPosition_y, chess.getRect().w, chess.getRect().h });
     deleteTexture();
 }
 

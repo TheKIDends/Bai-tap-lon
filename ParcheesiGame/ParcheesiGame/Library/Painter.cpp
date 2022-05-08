@@ -2,7 +2,7 @@
 
 Painter::Painter(SDL_Window* window, SDL_Renderer* renderer_) : renderer(renderer_) {
     int width, height;
-    
+
     SDL_RenderGetLogicalSize(renderer, &width, &height);
 
     if (!width && !height)
@@ -14,9 +14,7 @@ Painter::Painter(SDL_Window* window, SDL_Renderer* renderer_) : renderer(rendere
     clearWithBgColor(DEFAULT_COLOR);
 }
 
-Painter::~Painter() {
-
-}
+Painter::~Painter() {}
 
 void Painter::clearWithBgColor(SDL_Color bgColor) {
     SDL_SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 0);
@@ -38,9 +36,15 @@ void Painter::setAngle(float angle) {
     this->angle = angle - floor(angle / 360) * 360;
 }
 
-bool Painter::createRenderingImage(SDL_Texture* texture, SDL_Rect clip, SDL_Rect renderQuad) {
+void Painter::setObject(SDL_Rect rect, SDL_Rect clip, string pathImg) {
+    this->rect      = rect;
+    this->clip      = clip;
+    this->pathImg   = pathImg;
+}
+
+bool Painter::createRenderingImage(SDL_Renderer* renderer, SDL_Rect clip, SDL_Rect rect) {
     if (texture == NULL) return false;
-    SDL_RenderCopy(renderer, texture, &clip, &renderQuad);
+    SDL_RenderCopy(renderer, texture, &clip, &rect);
     return true;
 }
 
@@ -50,7 +54,7 @@ bool Painter::createImage(SDL_Texture* texture, SDL_Rect renderQuad) {
     return true;
 }
 
-bool Painter::createImageFullWindow(SDL_Texture * texture) {
+bool Painter::createImageFullWindow(SDL_Texture* texture) {
     if (texture == NULL) return false;
     SDL_RenderCopy(renderer, texture, NULL, NULL);
     return true;
@@ -67,7 +71,23 @@ SDL_Texture* Painter::loadTexture(string path) {
             cout << "Unable to create texture from " << path << " SDL Error: " << SDL_GetError() << '\n';
         SDL_FreeSurface(loadedSurface);
     }
-    return newTexture;
+    texture = newTexture;
+    return texture;
+}
+
+bool Painter::loadTexture(SDL_Renderer* renderer, string path) {
+    SDL_Texture* newTexture = NULL;
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+    if (loadedSurface == NULL)
+        cout << "Unable to load image " << path << " SDL_image Error: " << IMG_GetError() << '\n';
+    else {
+        newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
+        if (newTexture == NULL)
+            cout << "Unable to create texture from " << path << " SDL Error: " << SDL_GetError() << '\n';
+        SDL_FreeSurface(loadedSurface);
+    }
+    texture = newTexture;
+    return bool (texture != NULL);
 }
 
 bool Painter::displayImage() {

@@ -1,23 +1,26 @@
 #ifndef __ANIMATIONS__
 #define __ANIMATIONS__
 
+#include "GameComponents.h"
+
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 class ArrowAnimations {
 	private:
-		int maxState, state;
+		int maxStatus, status;
 
 	public:
-		ArrowAnimations(int maxState) { this->maxState = maxState; }
+		ArrowAnimations(int maxStatus) { this->maxStatus = maxStatus; }
 
-		int getMaxState() { return maxState; }
+		int getMaxStatus() { return maxStatus; }
 
-		void nextState() { state = (state + 1) % maxState; }
-		int  getState() { return state; }
+		void nextStatus() { status = (status + 1) % maxStatus; }
+		int  getStatus() { return status; }
 
-		void finishAnimations() { state = 0; }
+		void finishAnimations() { status = 0; }
 };
 
 class ChessAnimations {
@@ -27,14 +30,14 @@ class ChessAnimations {
 		int idPosition;
 		int endIdPosition;
 
-		int maxState, state;
+		int maxStatus, status;
 
 		int chess;
 
 	public:
-		ChessAnimations(int maxState) { animations = false; this->maxState = maxState; }
+		ChessAnimations(int maxStatus) { animations = false; this->maxStatus = maxStatus; }
 
-		int getMaxState() { return maxState; }
+		int getMaxStatus() { return maxStatus; }
 
 		void setChessAnimations(bool animations, int chess, int endIdPosition) {
 			this->animations = animations;
@@ -49,28 +52,28 @@ class ChessAnimations {
 		void setIdPosition(int idPosition) { this->idPosition = idPosition; }
 		int  getIdPosition() { return idPosition; }
 
-		void nextState() { state = (state + 1) % maxState; }
-		int  getState() { return state; }
+		void nextStatus() { status = (status + 1) % maxStatus; }
+		int  getStatus() { return status; }
 		
 		void setChess(int chess) { this->chess = chess; }
 		int  getChess() { return chess; }
 
-		void finishAnimations() { animations = false; state = 0; }
+		void finishAnimations() { animations = false; status = 0; }
 };
 
 class BackgroundAnimations {
 	private:
-		int maxState, state;
+		int maxStatus, status;
 
 	public:
-		BackgroundAnimations(int maxState) { this->maxState = maxState; }
+		BackgroundAnimations(int maxStatus) { this->maxStatus = maxStatus; }
 
-		int getMaxState() { return maxState; }
+		int getMaxStatus() { return maxStatus; }
 
-		void nextState() { state = (state + 1) % maxState; }
-		int  getState() { return state; }
+		void nextStatus() { status = (status + 1) % maxStatus; }
+		int  getStatus() { return status; }
 
-		void finishChessAnimations() { state = 0; }
+		void finishChessAnimations() { status = 0; }
 };
 
 #endif // __ANIMATIONS__

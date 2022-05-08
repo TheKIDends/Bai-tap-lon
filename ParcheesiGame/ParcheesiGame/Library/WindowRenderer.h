@@ -15,8 +15,9 @@ class WindowRenderer {
 	private:
 		SDL_Window* window;
 		SDL_Renderer* renderer;
-		
+
 		Painter* painter;
+
 		SDL_Texture* texture;
 
 		void logSDLError(std::ostream& os, const std::string& msg, bool fatal = false);
@@ -30,11 +31,11 @@ class WindowRenderer {
 
 		void loadImgFullWindow(string pathImage);
 
-		void loadButton(Button button);
+		void loadButton(Button* button);
 
 		void loadArrow(int position_x, int position_y);
 
-		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int stateChess);
+		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int statusChess);
 
 		void loadAvatar(Player* player);
 

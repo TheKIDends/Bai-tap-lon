@@ -1,36 +1,15 @@
 #include "GameComponents.h"
 
-// Button
-
-void Button::setButton(SDL_Rect sizeButton, int clipWidthButton, int clipHeightButton, string pathImgButton) {
-    this->clipWidthButton   = clipWidthButton;
-    this->clipHeightButton  = clipHeightButton;
-    this->sizeButton        = sizeButton;
-    this->pathImgButton     = pathImgButton;
-}
-
-// Chess
-
-void Chess::setChess(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess) {
-    this->widthChess      = widthChess;
-    this->heightChess     = heightChess;
-    this->clipChess       = clipChess;
-    this->pathImgChess    = pathImgChess;
-}
-
 // Player
 
-void Player::setAllChessPlayer(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess) {
-    for (int i = 0; i < 4; ++i) {
-        chess[i].setChess(widthChess, heightChess, clipChess, pathImgChess);
-    }
+void Player::setAllChessPlayer(SDL_Rect rect, SDL_Rect clip, string pathImg) {
+    for (int i = 0; i < 4; ++i) chess[i].setObject(rect, clip, pathImg);
 }
 
-void Player::setAvatarPlayer(SDL_Rect sizeAvatar, int clipWidthAvatar, int clipHeightAvatar, string pathImgAvatar) {
-    this->clipWidthAvatar   = clipWidthAvatar;
-    this->clipHeightAvatar  = clipHeightAvatar;
-    this->pathImgAvatar     = pathImgAvatar;
-    this->sizeAvatar        = sizeAvatar;
+void Player::setAvatarPlayer(SDL_Rect rect, SDL_Rect clip, string pathImg) {
+    this->rect = rect;
+    this->clip = clip;
+    this->pathImg = pathImg;
 }
 
 // MouseEvents
@@ -46,26 +25,26 @@ void MouseEvents::setPosition(int x, int y) {
     mousePosition_y = y;
 }
 
-bool MouseEvents::CheckMouseInRect(SDL_Rect rect) {
+CLICK MouseEvents::CheckMouseInRect(SDL_Rect rect) {
     // Mouse is left of the rect
-    if (mousePosition_x < rect.x) return false;
+    if (mousePosition_x < rect.x) return NORMAL;
 
     //Mouse is right of the rect
-    if (mousePosition_x > rect.x + rect.w - 1) return false;
+    if (mousePosition_x > rect.x + rect.w - 1) return NORMAL;
 
     //Mouse above the rect
-    if (mousePosition_y < rect.y) return false;
+    if (mousePosition_y < rect.y) return NORMAL;
 
     //Mouse below the rect
-    if (mousePosition_y > rect.y + rect.h - 1) return false;
+    if (mousePosition_y > rect.y + rect.h - 1) return NORMAL;
 
-    return true;
+    return ON_CLICK;
 }
 
-bool MouseEvents::CheckMouseInButton(Button button) {
-    return CheckMouseInRect(button.getSizeButton());
+CLICK MouseEvents::CheckMouseInButton(Button button) {
+    return CheckMouseInRect(button.getRect());
 }
 
-bool MouseEvents::CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess) {
-    return CheckMouseInRect({ chessPosition_x, chessPosition_y, chess.getWidthChess(), chess.getHeightChess() });
+CLICK MouseEvents::CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess) {
+    return CheckMouseInRect({ chessPosition_x, chessPosition_y, chess.getRect().w, chess.getRect().h });
 }

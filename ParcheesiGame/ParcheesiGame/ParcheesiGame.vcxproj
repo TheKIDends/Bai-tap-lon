@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Library\Animations.cpp" />
+    <ClCompile Include="Library\CommonFunction.cpp" />
     <ClCompile Include="Library\FPS.cpp" />
     <ClCompile Include="Library\GameComponents.cpp" />
     <ClCompile Include="Library\Painter.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\Animations.h" />
+    <ClInclude Include="Library\CommonFunction.h" />
     <ClInclude Include="Library\FPS.h" />
     <ClInclude Include="Library\GameComponents.h" />
     <ClInclude Include="Library\Painter.h" />

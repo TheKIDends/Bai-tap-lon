@@ -2,6 +2,7 @@
 #define __PARCHEESIGAME__
 
 #include "FPS.h"
+#include "CommonFunction.h"
 #include "GameComponents.h"
 #include "WindowRenderer.h"
 #include "Animations.h"
@@ -13,13 +14,13 @@
 
 using namespace std;
 
-enum DISPLAY{
+enum DISPLAY {
     MENU,
     PLAYER_NUMBER_SELECTION,
     GAME,
 };
 
-enum STATE {
+enum STATUS_PLAYER {
     ROLLDICE,
     CHOOSECHESS,
     ENDTURN,
@@ -27,15 +28,13 @@ enum STATE {
 
 class ParcheesiGame {
     private:
-        const int FRAME_PER_SECOND  = 60;
-        const int SCREEN_WIDTH      = 1100;     // int (1747.0 * 0.63);
-        const int SCREEN_HEIGHT     = 684;      // int (1086.0 * 0.63);
-        const string WINDOW_TITLE   = "Parcheesi Game";
-
         DISPLAY display;
+
+        STATUS_PLAYER statusPlayer;
         int numberPlayers = 4;
         int playerTurn;
 
+        
         ArrowAnimations arrowAnimations = ArrowAnimations(2);
         ChessAnimations chessAnimation = ChessAnimations(3);
         BackgroundAnimations backgroundAnimations = BackgroundAnimations(2);
@@ -45,9 +44,9 @@ class ParcheesiGame {
 
         MouseEvents* mouse;
 
-        Dice* dice;
-        Player* player[4];
-        
+        Dice dice;
+        Player player[4];
+
         Button playButton;
         Button exitButton;
         Button _2playersButton;
@@ -56,16 +55,10 @@ class ParcheesiGame {
         Button backButton;
         Button rollButton;
 
-        STATE statePlayer;
-
-        SDL_Event* events = new SDL_Event;
-
-        WindowRenderer* windowRenderer;
-
         void buildMap();
 
         void setGameObject();
-        
+
         bool idChessInLayer(int idPositionChess, int layer);
 
         void displayMenu();
@@ -78,12 +71,13 @@ class ParcheesiGame {
 
         bool canMove();
         bool checkIdInStartPosition(int idPosition);
-        int chessNextStep(int idPosition);
-        int idMoveForward(int idPosition);
+        int  chessNextStep(int idPosition);
+        int  idMoveForward(int idPosition);
 
         void animationMoveChess();
 
     public:
+        ParcheesiGame() {}
         void startGame();
 };
 

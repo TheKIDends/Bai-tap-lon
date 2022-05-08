@@ -1,121 +1,80 @@
 #ifndef __GAMECOMPONENTS__
 #define __GAMECOMPONENTS__
 
+#include "Painter.h"
 #include "Utils.h"
 
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 
 using namespace std;
 
-class Button {
-	private:
-		bool typeButton;
-
-		int clipWidthButton, clipHeightButton;
-
-		string pathImgButton;
-
-		SDL_Rect sizeButton;
-
-	public:
-		Button() { typeButton = false;  }
-
-		void setButton(SDL_Rect sizeButton, int clipWidthButton, int clipHeightButton, string pathImgButton);
-
-		void setTypeButton(bool typeButton) { this->typeButton = typeButton; }
-
-		int getTypeButton() { return typeButton; }
-
-		SDL_Rect getSizeButton()	{ return sizeButton; }
-
-		string getPathImgButton()	{ return pathImgButton; }
-
-		int getClipWidthButton()	{ return clipWidthButton; }
-		
-		int getClipHeightButton()	{ return clipHeightButton; }
-
+enum CLICK {
+	NORMAL,
+	ON_CLICK,
 };
 
-class Dice {
+class Button : public Painter {
+	private:
+		CLICK status;
+
+	public:
+		Button() { status = NORMAL; }
+
+		void setStatus(CLICK status) { this->status = status; }
+		CLICK getStatus() { return status; }
+};
+
+class Dice : public Painter {
 	private:
 		int dice;
 
 	public:
+		Dice() {}
 		int getDice() { return dice; }
-
 		void rollDice() { dice = Random::random(3, 6); }
 };
 
-class Chess {
+class Chess : public Painter {
 	private:
-		bool canMoveChess;
-
+		bool canMoveChess = false;
 		int idPositionChess;
 
-		int widthChess, heightChess;
-
-		string pathImgChess;
-
-		SDL_Rect clipChess;
-
 	public:
-		Chess() { canMoveChess = false; }
-
-		void setIdPositionChess(int idPositionChess) { this->idPositionChess = idPositionChess;  }
+		Chess() {}
+		void setIdPositionChess(int idPositionChess) { this->idPositionChess = idPositionChess; }
 		int  getIdPositionChess() { return idPositionChess; }
 
 		void setCanMoveChess(bool canMoveChess) { this->canMoveChess = canMoveChess; }
 		bool getCanMoveChess() { return canMoveChess; }
-		
-		void setPathImgChess(string pathImgChess) { this->pathImgChess = pathImgChess; }
-
-		void setChess(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess);
-		int getWidthChess()			{ return widthChess; }
-		int getHeightChess()		{ return heightChess; }
-		SDL_Rect getClipChess()		{ return clipChess; }
-		string getPathImgChess()	{ return pathImgChess; }
 };
 
-class Player {
+class Player : public Painter {
 	private:
-		bool playerWin;
-
-		int clipWidthAvatar, clipHeightAvatar;
-
-		string pathImgAvatar;
-
-		SDL_Rect sizeAvatar;
-
+		bool playerWin = false;
 		Chess chess[4];
 
 	public:
-		Player() { playerWin = false; }
+		Player() {}
 
 		void setWinner() { playerWin = true; }
-
 		bool getWinner() { return playerWin; }
-		
-		void setAllChessPlayer(int widthChess, int heightChess, SDL_Rect clipChess, string pathImgChess);
 
-		void setAvatarPlayer(SDL_Rect sizeAvatar, int clipWidthAvatar, int clipHeightAvatar, string pathImgAvatar);
-		
+		// Avatar
+		void setAvatarPlayer(SDL_Rect rect, SDL_Rect clip, string pathImg);
+
+		// chess
+		void setAllChessPlayer(SDL_Rect rect, SDL_Rect clip, string pathImg);
+
 		void setIdPositionChess(int idChess, int idPositionChess) { chess[idChess].setIdPositionChess(idPositionChess); }
 
-		void setPathImgChess(int idChess, string pathImgChess) { chess[idChess].setPathImgChess(pathImgChess); }
+		void setPathImgChess(int idChess, string pathImg) { chess[idChess].setPathImg(pathImg); }
 
 		void setCanMoveChess(int idChess, bool canMoveChess) { chess[idChess].setCanMoveChess(canMoveChess); }
 		bool getCanMoveChess(int idChess) { return chess[idChess].getCanMoveChess(); }
 
-		int getClipWidthAvatar()	{ return clipWidthAvatar; }
-
-		int getClipHeightAvatar()	{ return clipHeightAvatar; }
-
-		string getPathImgAvatar()	{ return pathImgAvatar; }
-
-		SDL_Rect getSizeAvatar()	{ return sizeAvatar; }
-
-		Chess getChess(int id)		{ return chess[id]; }
+		Chess getChess(int id) { return chess[id]; }
 };
 
 class MouseEvents {
@@ -126,13 +85,11 @@ class MouseEvents {
 		void setPosition(int x, int y);
 
 	public:
+		MouseEvents() {}
 		void mouseHandleEvent();
-
-		bool CheckMouseInRect(SDL_Rect rect);
-
-		bool CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess);
-
-		bool CheckMouseInButton(Button button);
+		CLICK CheckMouseInRect(SDL_Rect rect);
+		CLICK CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess);
+		CLICK CheckMouseInButton(Button button);
 };
 
 #endif // __GAMECOMPONENTS__
