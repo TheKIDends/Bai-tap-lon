@@ -29,17 +29,33 @@ class WindowRenderer {
 
 		void deleteWindow();
 
-		void loadImgFullWindow(string pathImage);
+		// Load Image
 
-		void loadButton(Button* button);
+		void loadButton(Button button);
 
 		void loadArrow(int position_x, int position_y);
 
 		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int statusChess);
 
-		void loadAvatar(Player* player);
+		void loadAvatar(Player player);
 
+		void loadChessboard(Chessboard chessboard);
+
+		void loadBackground(Background background);
+
+		void loadDice(Dice dice);
+		
+		void loadDiceAnimations(Dice dice, int status);
+
+		void loadBackDice(BackDice backDice, int idPlayer);
+	
 		void displayImage();
+
+		// Renderer texture
+		template <class obj>
+		void rendererTexture(obj* object) {
+			object->loadTexture(renderer, object->getPathImg());
+		}
 };
 
 #endif // __WINDOWRENDERER__

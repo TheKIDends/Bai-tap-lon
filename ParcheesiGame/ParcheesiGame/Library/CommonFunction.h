@@ -9,8 +9,6 @@
 
 using namespace std;
 
-//static SDL_Window* window		= NULL;
-//static SDL_Renderer* renderer	= NULL;
 static SDL_Event* events = new SDL_Event;
 static WindowRenderer* windowRenderer = new WindowRenderer;
 
@@ -20,7 +18,7 @@ const int SCREEN_WIDTH		= 1100;     // int (1747.0 * 0.63);
 const int SCREEN_HEIGHT		= 684;      // int (1086.0 * 0.63);
 
 // FRAME
-const int FRAME_PER_SECOND	= 60;
+const int FRAME_PER_SECOND	= 20;
 
 // TITLE
 const string WINDOW_TITLE	= "Parcheesi Game";

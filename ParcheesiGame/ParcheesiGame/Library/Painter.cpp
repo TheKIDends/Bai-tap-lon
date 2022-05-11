@@ -54,12 +54,6 @@ bool Painter::createImage(SDL_Texture* texture, SDL_Rect renderQuad) {
     return true;
 }
 
-bool Painter::createImageFullWindow(SDL_Texture* texture) {
-    if (texture == NULL) return false;
-    SDL_RenderCopy(renderer, texture, NULL, NULL);
-    return true;
-}
-
 SDL_Texture* Painter::loadTexture(string path) {
     SDL_Texture* newTexture = NULL;
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());

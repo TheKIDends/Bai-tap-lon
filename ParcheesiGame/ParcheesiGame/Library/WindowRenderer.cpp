@@ -1,51 +1,91 @@
 #include "WindowRenderer.h"
 
-void WindowRenderer::loadButton(Button* button) {
-    if (button->getTexture() == NULL) button->loadTexture(renderer, button->getPathImg());
-
-    if (!button->getStatus()) {
-        button->createRenderingImage(renderer, button->getClip(), button->getRect());
+// Button
+void WindowRenderer::loadButton(Button button) {
+    if (!button.getStatus()) {
+        button.createRenderingImage(renderer, button.getClip(), button.getRect());
     }
     else {
-        button->createRenderingImage(renderer, { button->getClip().w, 0, button->getClip().w, button->getClip().h }, button->getRect());
+        button.createRenderingImage(renderer, { button.getClip().w, 0, button.getClip().w, button.getClip().h }, button.getRect());
     }
 }
 
-void WindowRenderer::loadAvatar(Player* player) {
-    if (player->getTexture() == NULL) player->loadTexture(renderer, player->getPathImg());
-
-    if (player->getWinner()) {
-        player->createRenderingImage(renderer, { player->getClip().w, 0, player->getClip().w, player->getClip().h }, player->getRect());
+// Avatar
+void WindowRenderer::loadAvatar(Player player) {
+    if (player.getWinner()) {
+        player.createRenderingImage(renderer, { player.getClip().w, 0, player.getClip().w, player.getClip().h }, player.getRect());
     }
     else {
-        player->createRenderingImage(renderer, player->getClip(), player->getRect());
+        player.createRenderingImage(renderer, player.getClip(), player.getRect());
     }
 }
 
+// Arrow
 void WindowRenderer::loadArrow(int position_x, int position_y) {
     texture = painter->loadTexture("Image/can_move.png");
     painter->createImage(texture, { position_x, position_y, 10, 10 });
     deleteTexture();
 }
 
+// Chess
 void WindowRenderer::loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int statusChess) {
-    texture = painter->loadTexture(chess.getPathImg());
-    SDL_Rect clipChess = chess.getClip();
-    for (int i = 0; i < statusChess; ++i) clipChess.x += clipChess.w;
-    painter->createRenderingImage(renderer, clipChess, { chessPosition_x, chessPosition_y, chess.getRect().w, chess.getRect().h });
-    deleteTexture();
+    SDL_Rect clip = chess.getClip();
+    
+    for (int i = 0; i < statusChess; ++i) clip.x += clip.w;
+
+    if (chess.getDirection() == LEFT) clip.y += 4 * clip.h;
+
+    chess.createRenderingImage(renderer, clip, { chessPosition_x, chessPosition_y, chess.getRect().w, chess.getRect().h });
 }
 
-void WindowRenderer::loadImgFullWindow(string pathImage) {
-    texture = painter->loadTexture(pathImage);
-    painter->createImageFullWindow(texture);
-    deleteTexture();
+// Chessboard
+void WindowRenderer::loadChessboard(Chessboard chessboard) {
+    SDL_Rect clip = chessboard.getClip();
+    for (int i = 0; i < chessboard.getLayer(); ++i) clip.x += clip.w;
+    chessboard.createRenderingImage(renderer, clip, chessboard.getRect());
+}
+
+// Back dice
+void WindowRenderer::loadBackDice(BackDice backDice, int idPlayer) {
+    SDL_Rect rect;
+    if (idPlayer == 0) rect = { 150, 540, 160 , 132 };
+    if (idPlayer == 1) rect = { 792, 540, 160 , 132 };
+    if (idPlayer == 2) rect = { 792, 5, 160 , 132 };
+    if (idPlayer == 3) rect = { 150, 5, 160 , 132 };
+
+    SDL_Rect clip = backDice.getClip();
+    for (int i = 0; i < idPlayer; ++i) clip.x += clip.w;
+    backDice.createRenderingImage(renderer, clip, rect);
+}
+
+// Dice
+void WindowRenderer::loadDice(Dice dice) {
+    SDL_Rect clip = dice.getClip();
+    for (int i = 0; i < dice.getNumDice(); ++i) clip.x += clip.w;
+
+    dice.createRenderingImage(renderer, clip, dice.getRect());
+}
+
+void WindowRenderer::loadDiceAnimations(Dice dice, int status) {
+    SDL_Rect clip = dice.getClip();
+    clip.y -= clip.h;
+    for (int i = 0; i < status; ++i) clip.x += clip.w;
+
+    dice.createRenderingImage(renderer, clip, dice.getRect());
+}
+
+// Background
+void WindowRenderer::loadBackground(Background background) {
+    SDL_Rect clip = background.getClip();
+    for (int i = 0; i < background.getLayer(); ++i) clip.x += clip.w;
+    background.createRenderingImage(renderer, clip, background.getRect());
 }
 
 void WindowRenderer::displayImage() {
     painter->displayImage();
 }
 
+// Init SDL
 void WindowRenderer::createWindow(int screenWidth, int screenHeight, string windowTitle) {
     if (SDL_Init(SDL_INIT_EVERYTHING)) logSDLError(std::cout, "SDL_Init", true);
 

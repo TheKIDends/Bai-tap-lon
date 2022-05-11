@@ -34,16 +34,19 @@ class ParcheesiGame {
         int numberPlayers = 4;
         int playerTurn;
 
-        
+        DiceAnimations diceAnimations = DiceAnimations(6);
         ArrowAnimations arrowAnimations = ArrowAnimations(2);
-        ChessAnimations chessAnimation = ChessAnimations(3);
-        BackgroundAnimations backgroundAnimations = BackgroundAnimations(2);
+        ChessAnimations chessAnimations = ChessAnimations(3);
 
         int idStartPosition[4];
-        pair <int, int> mapChessBoard[100];
+        pair <int, int> mapChessboard[100];
 
         MouseEvents* mouse;
 
+        Background background = Background(2);
+        Chessboard chessboard = Chessboard(7);
+
+        BackDice backDice;
         Dice dice;
         Player player[4];
 
@@ -53,13 +56,12 @@ class ParcheesiGame {
         Button _3playersButton;
         Button _4playersButton;
         Button backButton;
-        Button rollButton;
 
         void buildMap();
 
-        void setGameObject();
+        void setGameComponents();
 
-        bool idChessInLayer(int idPositionChess, int layer);
+        bool checkIdChessInLayer(int idPositionChess, int layer);
 
         void displayMenu();
         void displayPlayerNumberSelection();
@@ -75,6 +77,7 @@ class ParcheesiGame {
         int  idMoveForward(int idPosition);
 
         void animationMoveChess();
+        void animationRollDice();
 
     public:
         ParcheesiGame() {}

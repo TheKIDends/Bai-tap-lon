@@ -35,6 +35,7 @@ class ChessAnimations {
 		int chess;
 
 	public:
+		ChessAnimations() { animations = false; }
 		ChessAnimations(int maxStatus) { animations = false; this->maxStatus = maxStatus; }
 
 		int getMaxStatus() { return maxStatus; }
@@ -61,19 +62,28 @@ class ChessAnimations {
 		void finishAnimations() { animations = false; status = 0; }
 };
 
-class BackgroundAnimations {
+class DiceAnimations {
 	private:
+		bool animations;
+
 		int maxStatus, status;
 
 	public:
-		BackgroundAnimations(int maxStatus) { this->maxStatus = maxStatus; }
+		DiceAnimations() { animations = false; }
+		DiceAnimations(int maxStatus) { animations = false; this->maxStatus = maxStatus; }
 
 		int getMaxStatus() { return maxStatus; }
+
+		void setDiceAnimations(bool animations) {
+			this->animations = animations;
+		}
+
+		bool getAnimations() { return animations; }
 
 		void nextStatus() { status = (status + 1) % maxStatus; }
 		int  getStatus() { return status; }
 
-		void finishChessAnimations() { status = 0; }
+		void finishAnimations() { animations = false; status = 0; }
 };
 
 #endif // __ANIMATIONS__

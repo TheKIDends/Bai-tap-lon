@@ -45,6 +45,10 @@ CLICK MouseEvents::CheckMouseInButton(Button button) {
     return CheckMouseInRect(button.getRect());
 }
 
-CLICK MouseEvents::CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess) {
-    return CheckMouseInRect({ chessPosition_x, chessPosition_y, chess.getRect().w, chess.getRect().h });
+CLICK MouseEvents::CheckMouseInDice(Dice dice) {
+    return CheckMouseInRect(dice.getRect());
+}
+
+CLICK MouseEvents::CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess* chess) {
+    return CheckMouseInRect({ chessPosition_x, chessPosition_y, chess->getRect().w, chess->getRect().h });
 }

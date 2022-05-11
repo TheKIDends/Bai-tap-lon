@@ -15,6 +15,11 @@ enum CLICK {
 	ON_CLICK,
 };
 
+enum DIRECTION {
+	LEFT,
+	RIGHT,
+};
+
 class Button : public Painter {
 	private:
 		CLICK status;
@@ -22,32 +27,60 @@ class Button : public Painter {
 	public:
 		Button() { status = NORMAL; }
 
-		void setStatus(CLICK status) { this->status = status; }
 		CLICK getStatus() { return status; }
+		void  setStatus(CLICK status) { this->status = status; }
+};
+
+class BackDice : public Painter {
+	private:
+
+	public:
+		BackDice() {}
 };
 
 class Dice : public Painter {
 	private:
-		int dice;
+		int numDice;
 
 	public:
 		Dice() {}
-		int getDice() { return dice; }
+		int  getNumDice() { return numDice; }
+		void setNumDice(int numDice) { this->numDice = numDice; }
+		void rollDice() { numDice = Random::random(3, 6); }
+};
+
+class Arrow : public Painter {
+	private:
+		int dice;
+
+	public:
+		Arrow() {}
+		int  getDice() { return dice; }
 		void rollDice() { dice = Random::random(3, 6); }
 };
 
 class Chess : public Painter {
 	private:
-		bool canMoveChess = false;
-		int idPositionChess;
+		int startId;
+		int idPosition;
+		bool canMoveChess;
+
+		DIRECTION direction;
 
 	public:
-		Chess() {}
-		void setIdPositionChess(int idPositionChess) { this->idPositionChess = idPositionChess; }
-		int  getIdPositionChess() { return idPositionChess; }
+		Chess() { canMoveChess = false; direction = RIGHT; }
 
-		void setCanMoveChess(bool canMoveChess) { this->canMoveChess = canMoveChess; }
+		void setDirection(DIRECTION direction) { this->direction = direction;  }
+		DIRECTION getDirection() { return direction;  }
+
+		int  getStartId() { return startId; }
+		void setStartId(int startId) { this->startId = startId; this->idPosition = startId; }
+
+		int  getIdPosition() { return idPosition; }
+		void setIdPosition(int idPosition) { this->idPosition = idPosition; }
+
 		bool getCanMoveChess() { return canMoveChess; }
+		void setCanMoveChess(bool canMoveChess) { this->canMoveChess = canMoveChess; }
 };
 
 class Player : public Painter {
@@ -67,14 +100,54 @@ class Player : public Painter {
 		// chess
 		void setAllChessPlayer(SDL_Rect rect, SDL_Rect clip, string pathImg);
 
-		void setIdPositionChess(int idChess, int idPositionChess) { chess[idChess].setIdPositionChess(idPositionChess); }
+		void setDirectionChess(int idChess, DIRECTION direction) { chess[idChess].setDirection(direction); }
+
+		int  getIdPositionChess(int idChess) { return chess[idChess].getIdPosition(); }
+		void setIdPositionChess(int idChess, int idPosition) { chess[idChess].setIdPosition(idPosition); }
+
+		int  getStartIdChess(int idChess) { return chess[idChess].getStartId(); }
+		void setStartIdChess(int idChess, int startId) { chess[idChess].setStartId(startId); }
 
 		void setPathImgChess(int idChess, string pathImg) { chess[idChess].setPathImg(pathImg); }
 
-		void setCanMoveChess(int idChess, bool canMoveChess) { chess[idChess].setCanMoveChess(canMoveChess); }
 		bool getCanMoveChess(int idChess) { return chess[idChess].getCanMoveChess(); }
+		void setCanMoveChess(int idChess, bool canMoveChess) { chess[idChess].setCanMoveChess(canMoveChess); }
 
-		Chess getChess(int id) { return chess[id]; }
+		Chess  getChess(int idChess) { return chess[idChess]; }
+		Chess* getChessIterator(int idChess) { return &chess[idChess]; }
+};
+
+class Chessboard : public Painter {
+	private:
+		int numLayers;
+		int layer;
+
+	public:
+		Chessboard() { layer = 0; }
+		Chessboard(int numLayers) { layer = 0; this->numLayers = numLayers; }
+
+		int  getNumLayers() { return numLayers; }
+		void setNumLayers(int numLayers) { this->numLayers = numLayers; }
+
+		int  getLayer() { return layer; }
+		void setLayer(int layer) { this->layer = layer; }
+};
+
+class Background : public Painter {
+	private:
+		int numLayers;
+		int layer;
+
+	public:
+		Background() { layer = 0; }
+		Background(int numLayers) { layer = 0; this->numLayers = numLayers; }
+
+		int  getNumLayers() { return numLayers; }
+		void setNumLayers(int numLayers) { this->numLayers = numLayers; }
+
+		int  getLayer() { return layer; }
+		void setLayer(int layer) { this->layer = layer; }
+		void nextLayer() { layer = (layer + 1) % numLayers; }
 };
 
 class MouseEvents {
@@ -88,8 +161,9 @@ class MouseEvents {
 		MouseEvents() {}
 		void mouseHandleEvent();
 		CLICK CheckMouseInRect(SDL_Rect rect);
-		CLICK CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess chess);
+		CLICK CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess* chess);
 		CLICK CheckMouseInButton(Button button);
+		CLICK CheckMouseInDice(Dice dice);
 };
 
 #endif // __GAMECOMPONENTS__
