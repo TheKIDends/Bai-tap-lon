@@ -8,6 +8,7 @@
 #include "Animations.h"
 
 #include <iostream>
+#include <fstream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <exception>
@@ -15,13 +16,18 @@
 using namespace std;
 
 enum DISPLAY {
-    MENU,
+    HOME,
     PLAYER_NUMBER_SELECTION,
     GAME,
+    MENU,
+    ALERT_RETURN_HOME,
+    ALERT_RESTART_GAME,
+    NOTI_SAVE_GAME,
+    ABOUT,
 };
 
 enum STATUS_PLAYER {
-    ROLLDICE,
+    ROLL_DICE,
     CHOOSECHESS,
     ENDTURN,
 };
@@ -29,28 +35,30 @@ enum STATUS_PLAYER {
 class ParcheesiGame {
     private:
         DISPLAY display;
-
         STATUS_PLAYER statusPlayer;
+
         int numberPlayers = 4;
         int playerTurn;
-
-        DiceAnimations diceAnimations = DiceAnimations(6);
-        ArrowAnimations arrowAnimations = ArrowAnimations(2);
-        ChessAnimations chessAnimations = ChessAnimations(3);
 
         int idStartPosition[4];
         pair <int, int> mapChessboard[100];
 
-        MouseEvents* mouse;
+        Mouse* mouse;
 
+        Dice dice = Dice(6);
+        Arrow arrow;
+        Arrow clickToRoll;
         Background background = Background(2);
         Chessboard chessboard = Chessboard(7);
 
         BackDice backDice;
-        Dice dice;
         Player player[4];
 
+        MenuBoard menuBoard;
+
+        Button openMenu;
         Button playButton;
+        Button continueButton;
         Button exitButton;
         Button _2playersButton;
         Button _3playersButton;
@@ -58,25 +66,37 @@ class ParcheesiGame {
         Button backButton;
 
         void buildMap();
+        void restartGame();
+        void saveGame();
 
         void setGameComponents();
+        void setMenuComponents();
+        void setAlertComponents();
 
         bool checkIdChessInLayer(int idPositionChess, int layer);
 
-        void displayMenu();
+        void displayHome();
         void displayPlayerNumberSelection();
         void displayGame();
+        void displayMenu();
+        void displayAlertBoard(BOARD nameAlert);
+        void displaySaveGame();
+        void displayAbout();
 
-        void eventsMenu();
+        void eventsHome();
         void eventsPlayerNumberSelection();
         void eventsGame();
+        void eventsMenu();
+        void eventsAlertBoard(BOARD nameAlert);
+        void eventsSaveGame();
+        void eventsAbout();
 
         bool canMove();
         bool checkIdInStartPosition(int idPosition);
         int  chessNextStep(int idPosition);
         int  idMoveForward(int idPosition);
 
-        void animationMoveChess();
+        void animationMoveChess(Chess* chess);
         void animationRollDice();
 
     public:

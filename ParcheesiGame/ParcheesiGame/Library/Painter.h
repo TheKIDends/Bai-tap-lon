@@ -42,28 +42,24 @@ class Painter {
         float getPosition_x() const { return x; }
         float getPosition_y() const { return y; }
 
-        void setAngle(float angle);
+        void  setAngle(float angle);
         float getAngle() const { return angle; }
 
         void setColor(SDL_Color color);
         SDL_Color getColor() const { return color; }
 
         void clearWithBgColor(SDL_Color bgColor);
-        bool createRenderingImage(SDL_Renderer* renderer, SDL_Rect clip, SDL_Rect rect);
-        bool createImage(SDL_Texture* texture, SDL_Rect rect);
-        bool createImageFullWindow(SDL_Texture* texture);
+        bool createImage(SDL_Renderer* renderer, SDL_Rect clip, SDL_Rect rect);
         bool displayImage();
 
         bool loadTexture(SDL_Renderer* renderer, string path);
-
-        SDL_Texture* loadTexture(string path);
         SDL_Texture* getTexture() { return texture; }
+
+        void setObject(SDL_Rect rect, SDL_Rect clip, string pathImg);
 
         SDL_Rect getRect()  { return rect; }
         SDL_Rect getClip()  { return clip; }
-        string getPathImg() { cout << "***" << pathImg << '\n'; return pathImg; }
-
-        void setObject(SDL_Rect rect, SDL_Rect clip, string pathImg);
+        string getPathImg() { return pathImg; }
 
         void setRect(SDL_Rect rect)     { this->rect = rect; }
         void setClip(SDL_Rect clip)     { this->clip = clip; }

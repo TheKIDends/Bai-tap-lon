@@ -8,6 +8,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "FPS.h"
 
 using namespace std;
 
@@ -29,31 +30,37 @@ class WindowRenderer {
 
 		void deleteWindow();
 
-		// Load Image
+		// renderer Image
 
-		void loadButton(Button button);
+		void rendererButton(Button* button);
 
-		void loadArrow(int position_x, int position_y);
+		void rendererArrow(int position_x, int position_y, Arrow* arrow);
 
-		void loadChess(int chessPosition_x, int chessPosition_y, Chess chess, int statusChess);
+		void rendererChess(int chessPosition_x, int chessPosition_y, Chess* chess);
 
-		void loadAvatar(Player player);
+		void rendererAvatar(Player player);
 
-		void loadChessboard(Chessboard chessboard);
+		void rendererChessboard(Chessboard chessboard);
 
-		void loadBackground(Background background);
+		void rendererBackground(Background* background);
 
-		void loadDice(Dice dice);
+		void rendererDice(Dice dice);
 		
-		void loadDiceAnimations(Dice dice, int status);
+		void rendererDiceAnimations(Dice dice, int status);
 
-		void loadBackDice(BackDice backDice, int idPlayer);
+		void rendererBackDice(BackDice backDice, int idPlayer);
+
+		void rendererMenuBoard(MenuBoard* menuBoard);
 	
+		void rendererAlert(Board* board);
+
+		void rendererMouse(Mouse* mouse);
+
 		void displayImage();
 
 		// Renderer texture
 		template <class obj>
-		void rendererTexture(obj* object) {
+		void loadTexture(obj* object) {
 			object->loadTexture(renderer, object->getPathImg());
 		}
 };
