@@ -1,24 +1,45 @@
 #include "WindowRenderer.h"
 
+// Noti
+void WindowRenderer::rendererNoti(Notification* noti, int idPlayer) {
+    SDL_Rect clip = noti->getClip();
+    for (int i = 0; i < idPlayer; ++i) clip.y += clip.h;
+
+    noti->createImage(renderer, clip, noti->getRect());
+}
+
 // Button
 void WindowRenderer::rendererButton(Button* button) {
     if (!button->getStatus()) {
         button->createImage(renderer, button->getClip(), button->getRect());
     }
     else {
-        button->createImage(renderer, { button->getClip().w, 0, button->getClip().w, button->getClip().h }, button->getRect());
+        button->createImage(renderer, { button->getClip().w, button->getClip().y, button->getClip().w, button->getClip().h }, button->getRect());
     }
 }
 
 // Avatar
 void WindowRenderer::rendererAvatar(Player player) {
     if (player.getWinner()) {
-        player.createImage(renderer, { player.getClip().w, 0, player.getClip().w, player.getClip().h }, player.getRect());
+        player.createImage(renderer, { player.getClip().w, player.getClip().y, player.getClip().w, player.getClip().h }, player.getRect());
     }
     else {
         player.createImage(renderer, player.getClip(), player.getRect());
     }
 }
+
+void WindowRenderer::rendererAvatar(int position_x, int position_y, Player player) {
+    SDL_Rect rect = player.getRect();
+    rect.x = position_x;
+    rect.y = position_y;
+    if (player.getWinner()) {
+        player.createImage(renderer, { player.getClip().w, player.getClip().y, player.getClip().w, player.getClip().h }, rect);
+    }
+    else {
+        player.createImage(renderer, player.getClip(), rect);
+    }
+}
+
 
 // Arrow
 void WindowRenderer::rendererArrow(int position_x, int position_y, Arrow* arrow) {
@@ -63,7 +84,7 @@ void WindowRenderer::rendererChessboard(Chessboard chessboard) {
 }
 
 // Back dice
-void WindowRenderer::rendererBackDice(BackDice backDice, int idPlayer) {
+void WindowRenderer::rendererBackDice(Image backDice, int idPlayer) {
     SDL_Rect clip = backDice.getClip();
     for (int i = 0; i < idPlayer; ++i) clip.x += clip.w;
 
@@ -78,10 +99,10 @@ void WindowRenderer::rendererDice(Dice dice) {
     dice.createImage(renderer, clip, dice.getRect());
 }
 
-void WindowRenderer::rendererDiceAnimations(Dice dice, int status) {
+void WindowRenderer::rendererDiceAnimations(Dice dice) {
     SDL_Rect clip = dice.getClip();
     clip.y -= clip.h;
-    for (int i = 0; i < status; ++i) clip.x += clip.w;
+    for (int i = 0; i < dice.getStatus(); ++i) clip.x += clip.w;
     dice.createImage(renderer, clip, dice.getRect());
 }
 
@@ -92,21 +113,8 @@ void WindowRenderer::rendererBackground(Background* background) {
     background->createImage(renderer, clip, background->getRect());
 }
 
-// Menu board
-void WindowRenderer::rendererMenuBoard(MenuBoard* menuBoard) {
-    menuBoard->createImage(renderer, menuBoard->getClip(), menuBoard->getRect());
-}
-
 void WindowRenderer::displayImage() {
     painter->displayImage();
-}
-
-void WindowRenderer::rendererAlert(Board* board) {
-    board->createImage(renderer, board->getClip(), board->getRect());
-}
-
-void WindowRenderer::rendererMouse(Mouse* mouse) {
-    mouse->createImage(renderer, mouse->getClip(), mouse->getRect());
 }
 
 // Init SDL
@@ -128,6 +136,7 @@ void WindowRenderer::createWindow(int screenWidth, int screenHeight, string wind
 }
 
 void WindowRenderer::deleteWindow() {
+    IMG_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

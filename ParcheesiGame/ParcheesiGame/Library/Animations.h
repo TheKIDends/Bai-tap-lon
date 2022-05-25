@@ -35,7 +35,7 @@ class Animations {
 
 		FPS* getFpsTime() { return &fpsTime; }
 
-		void setFps(int time) {
+		void nextStatus_Fps(int time) {
 			if (fpsTime.getTicks() > time) {
 				nextStatus();
 				fpsTime.start();

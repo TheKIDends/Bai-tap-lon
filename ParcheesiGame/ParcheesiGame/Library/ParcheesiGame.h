@@ -5,12 +5,14 @@
 #include "CommonFunction.h"
 #include "GameComponents.h"
 #include "WindowRenderer.h"
+#include "GameMap.h"
 #include "Animations.h"
 
 #include <iostream>
 #include <fstream>
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <exception>
 
 using namespace std;
@@ -24,6 +26,7 @@ enum DISPLAY {
     ALERT_RESTART_GAME,
     NOTI_SAVE_GAME,
     ABOUT,
+    RANK,
 };
 
 enum STATUS_PLAYER {
@@ -32,30 +35,35 @@ enum STATUS_PLAYER {
     ENDTURN,
 };
 
-class ParcheesiGame {
+class ParcheesiGame : public GameMap {
     private:
         DISPLAY display;
         STATUS_PLAYER statusPlayer;
 
-        int numberPlayers = 4;
+        bool animations;
         int playerTurn;
+        int numberPlayers = MAX_PLAYERS;
 
-        int idStartPosition[4];
-        pair <int, int> mapChessboard[100];
+        Player player[MAX_PLAYERS];
 
-        Mouse* mouse;
+        string ordWinner;
 
-        Dice dice = Dice(6);
+        Dice dice = Dice(MAX_DICE);
         Arrow arrow;
         Arrow clickToRoll;
-        Background background = Background(2);
-        Chessboard chessboard = Chessboard(7);
+        Background background = Background(MAX_LAYERS_BACKGROUND);
+        Chessboard chessboard = Chessboard(MAX_LAYERS_CHESSBOARD);
 
-        BackDice backDice;
-        Player player[4];
+        Image title;
+        Image leaderboard;
+        Image canNotMove = Image(20);
+        Image boom;
+        Image backDice;
+        Notification notiLoser = Notification(20);
 
         MenuBoard menuBoard;
 
+        Button backHome;
         Button openMenu;
         Button playButton;
         Button continueButton;
@@ -65,13 +73,26 @@ class ParcheesiGame {
         Button _4playersButton;
         Button backButton;
 
-        void buildMap();
-        void restartGame();
-        void saveGame();
+        Mix_Chunk* win       = NULL;
+        Mix_Chunk* loser     = NULL;
+        Mix_Chunk* ono       = NULL;
+        Mix_Chunk* rollDice  = NULL;
+        Mix_Chunk* greenTurn = NULL;
+        Mix_Chunk* kick      = NULL;
+        Mix_Chunk* jump      = NULL;
+        Mix_Chunk* click     = NULL;
+        Mix_Music* gMusic    = NULL;
 
+        void restartGame();
+        void continueGame();
+        void saveGame();
+        void setWinner();
+        void nextPlayer();
+
+        void setAudioMixer();
         void setGameComponents();
         void setMenuComponents();
-        void setAlertComponents();
+        void setBoardComponents();
 
         bool checkIdChessInLayer(int idPositionChess, int layer);
 
@@ -82,6 +103,15 @@ class ParcheesiGame {
         void displayAlertBoard(BOARD nameAlert);
         void displaySaveGame();
         void displayAbout();
+        void displayRank();
+
+        void setWindowHome();
+        void setWindowPlayerNumberSelection();
+        void setWindowGame();
+        void setWindowMenu();
+        void setWindowAlertBoard(BOARD nameAlert);
+        void setWindowSaveGame();
+        void setWindowAbout();
 
         void eventsHome();
         void eventsPlayerNumberSelection();
@@ -90,12 +120,15 @@ class ParcheesiGame {
         void eventsAlertBoard(BOARD nameAlert);
         void eventsSaveGame();
         void eventsAbout();
+        void eventsRank();
 
         bool canMove();
         bool checkIdInStartPosition(int idPosition);
-        int  chessNextStep(int idPosition);
-        int  idMoveForward(int idPosition);
+        int  chessNextStep(Chess* chess);
+        int  idMoveForward(int idPosition, int turn);
 
+        void checkEndGame();
+        void showNotiCanNotMove();
         void animationMoveChess(Chess* chess);
         void animationRollDice();
 

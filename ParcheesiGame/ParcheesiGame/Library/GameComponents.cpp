@@ -30,6 +30,9 @@ Button MenuBoard::getButton(BUTTON nameButton) {
         case ABOUT_BUTTON:
             return about;
             break;
+        case MUSIC_BUTTON:
+            return music;
+            break;
         case SOUND_BUTTON:
             return sound;
             break;
@@ -53,6 +56,9 @@ Button* MenuBoard::getButton_It(BUTTON nameButton) {
         case ABOUT_BUTTON:
             return &about;
             break;
+        case MUSIC_BUTTON:
+            return &music;
+            break;
         case SOUND_BUTTON:
             return &sound;
             break;
@@ -67,17 +73,23 @@ Board MenuBoard::getBoard(BOARD nameBoard) {
         case RESTART_GAME:
             return restartGame;
             break;
+        case SAVE_GAME:
+            return saveGame;
+            break;
     }
 }
 
 Board* MenuBoard::getBoard_It(BOARD nameBoard) {
     switch (nameBoard) {
-    case RETURN_HOME:
-        return &returnHome; 
-        break;
-    case RESTART_GAME:
-        return &restartGame;
-        break;
+        case RETURN_HOME:
+            return &returnHome; 
+            break;
+        case RESTART_GAME:
+            return &restartGame;
+            break;
+        case SAVE_GAME:
+            return &saveGame;
+            break;
     }
 }
 

@@ -40,23 +40,27 @@ class WindowRenderer {
 
 		void rendererAvatar(Player player);
 
+		void rendererAvatar(int position_x, int position_y, Player player);
+
 		void rendererChessboard(Chessboard chessboard);
 
 		void rendererBackground(Background* background);
 
 		void rendererDice(Dice dice);
 		
-		void rendererDiceAnimations(Dice dice, int status);
+		void rendererDiceAnimations(Dice dice);
 
-		void rendererBackDice(BackDice backDice, int idPlayer);
+		void rendererBackDice(Image backDice, int idPlayer);
 
-		void rendererMenuBoard(MenuBoard* menuBoard);
-	
-		void rendererAlert(Board* board);
-
-		void rendererMouse(Mouse* mouse);
+		void rendererNoti(Notification* noti, int idPlayer);
 
 		void displayImage();
+
+		// Renderer Image
+		template <class img>
+		void rendererImage(img* image) {
+			image->createImage(renderer, image->getClip(), image->getRect());
+		}
 
 		// Renderer texture
 		template <class obj>

@@ -30,6 +30,7 @@ enum BUTTON {
 	RESTART_BUTTON,
 	SAVE_BUTTON,
 	ABOUT_BUTTON,
+	MUSIC_BUTTON,
 	SOUND_BUTTON,
 };
 
@@ -37,6 +38,14 @@ enum BOARD {
 	RETURN_HOME,
 	RESTART_GAME,
 	SAVE_GAME,
+};
+
+class Image : public Painter, public Animations {
+	private:
+
+	public:
+		Image() {}
+		Image(int maxStatus) { this->maxStatus = maxStatus; }
 };
 
 class Button : public Painter {
@@ -50,13 +59,6 @@ class Button : public Painter {
 		void  setStatus(CLICK status) { this->status = status; }
 };
 
-class BackDice : public Painter {
-	private:
-
-	public:
-		BackDice() {}
-};
-
 class Dice : public Painter, public Animations {
 	private:
 		int numDice;
@@ -66,8 +68,8 @@ class Dice : public Painter, public Animations {
 		Dice(int maxStatus) { this->maxStatus = maxStatus; }
 
 		int  getNumDice() { return numDice; }
+		void rollDice() { numDice = Random::random(1, 6); }
 		void setNumDice(int numDice) { this->numDice = numDice; }
-		void rollDice() { numDice = Random::random(3, 6); }
 };
 
 class Arrow : public Painter, public Animations {
@@ -93,15 +95,15 @@ class Arrow : public Painter, public Animations {
 
 class Chess : public Painter, public Animations {
 	private:
+		int stepsTaken;
 		int startId;
 		int idPosition;
 		bool canMoveChess;
 		DIRECTION direction;
-
 		int endIdPosition;
 
 	public:
-		Chess() { maxStatus = 3; status = 0; canMoveChess = false; direction = RIGHT; }
+		Chess() { stepsTaken = 0; maxStatus = 3; status = 0; canMoveChess = false; direction = RIGHT; }
 
 		void setDirection(DIRECTION direction) { this->direction = direction;  }
 		DIRECTION getDirection() { return direction;  }
@@ -114,6 +116,9 @@ class Chess : public Painter, public Animations {
 
 		bool getCanMoveChess() { return canMoveChess; }
 		void setCanMoveChess(bool canMoveChess) { this->canMoveChess = canMoveChess; }
+
+		int  getStepsTaken() { return stepsTaken; }
+		void setStepsTaken(int stepsTaken) { this->stepsTaken = stepsTaken; }
 
 		// Animations
 		void setChessAnimations(bool animations, int endIdPosition) {
@@ -177,25 +182,33 @@ class Background : public Painter, public Animations {
 		Background(int maxStatus) { this->maxStatus = maxStatus; }
 };
 
+class Notification : public Painter, public Animations {
+	private:
+	public:
+		Notification() {}
+		Notification(int maxStatus) { this->maxStatus = maxStatus; }
+};
+
 class Board : public Painter {
 	private:
-		Button yes, no;
+		Button yes, no, ok;
 
 	public:
 		Board() {}
 
-	Button* getButtonYes_It() { return &yes; }
-	Button  getButtonYes() { return yes; }
+		Button* getButtonYes_It() { return &yes; }
+		Button  getButtonYes() { return yes; }
 
-	Button* getButtonNo_It() { return &no; }
-	Button  getButtonNo() { return no; }
+		Button* getButtonNo_It() { return &no; }
+		Button  getButtonNo() { return no; }
+
+		Button* getButtonOk_It() { return &ok; }
+		Button  getButtonOk() { return ok; }
 
 };
 
 class MenuBoard : public Painter {
 	private:
-		bool shadow_on;
-
 		Background shadow = Background(1);
 
 		Board returnHome;
@@ -207,13 +220,11 @@ class MenuBoard : public Painter {
 		Button restart;
 		Button save;
 		Button about;
+		Button music;
 		Button sound;
 	
 	public:
-		MenuBoard() { shadow_on = false; }
-
-		bool getShadow_on() { return shadow_on; }
-		void setShadow_on(bool shadow_on) { this->shadow_on = shadow_on; }
+		MenuBoard() {}
 
 		Background* getBackground_It() { return &shadow; }
 		Background  getBackground() { return shadow; }
