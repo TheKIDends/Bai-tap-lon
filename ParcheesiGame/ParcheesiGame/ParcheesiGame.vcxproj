@@ -148,6 +148,7 @@
     <ClCompile Include="Library\FPS.cpp" />
     <ClCompile Include="Library\GameComponents.cpp" />
     <ClCompile Include="Library\GameMap.cpp" />
+    <ClCompile Include="Library\Mouse.cpp" />
     <ClCompile Include="Library\Painter.cpp" />
     <ClCompile Include="Library\ParcheesiGame.cpp" />
     <ClCompile Include="Library\Utils.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Library\FPS.h" />
     <ClInclude Include="Library\GameComponents.h" />
     <ClInclude Include="Library\GameMap.h" />
+    <ClInclude Include="Library\Mouse.h" />
     <ClInclude Include="Library\Painter.h" />
     <ClInclude Include="Library\ParcheesiGame.h" />
     <ClInclude Include="Library\Utils.h" />

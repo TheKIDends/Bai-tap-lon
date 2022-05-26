@@ -15,25 +15,25 @@ void Player::setAvatarPlayer(SDL_Rect rect, SDL_Rect clip, string pathImg) {
 // Menu board
 Button MenuBoard::getButton(BUTTON nameButton) {
     switch (nameButton) {
-        case EXIT_MENU:
+        case BUTTON::EXIT_MENU:
             return exit;
             break;
-        case HOME_BUTTON:
+        case BUTTON::HOME_BUTTON:
             return home;
             break;
-        case RESTART_BUTTON:
+        case BUTTON::RESTART_BUTTON:
             return restart;
             break;
-        case SAVE_BUTTON:
+        case BUTTON::SAVE_BUTTON:
             return save;
             break;
-        case ABOUT_BUTTON:
+        case BUTTON::ABOUT_BUTTON:
             return about;
             break;
-        case MUSIC_BUTTON:
+        case BUTTON::MUSIC_BUTTON:
             return music;
             break;
-        case SOUND_BUTTON:
+        case BUTTON::CHUNK_BUTTON:
             return sound;
             break;
     }
@@ -41,25 +41,25 @@ Button MenuBoard::getButton(BUTTON nameButton) {
 
 Button* MenuBoard::getButton_It(BUTTON nameButton) {
     switch (nameButton) {
-        case EXIT_MENU:
+        case BUTTON::EXIT_MENU:
             return &exit;
             break;
-        case HOME_BUTTON:
+        case BUTTON::HOME_BUTTON:
             return &home;
             break;
-        case RESTART_BUTTON:
+        case BUTTON::RESTART_BUTTON:
             return &restart;
             break;
-        case SAVE_BUTTON:
+        case BUTTON::SAVE_BUTTON:
             return &save;
             break;
-        case ABOUT_BUTTON:
+        case BUTTON::ABOUT_BUTTON:
             return &about;
             break;
-        case MUSIC_BUTTON:
+        case BUTTON::MUSIC_BUTTON:
             return &music;
             break;
-        case SOUND_BUTTON:
+        case BUTTON::CHUNK_BUTTON:
             return &sound;
             break;
     }
@@ -67,13 +67,13 @@ Button* MenuBoard::getButton_It(BUTTON nameButton) {
 
 Board MenuBoard::getBoard(BOARD nameBoard) {
     switch (nameBoard) {
-        case RETURN_HOME:
+        case BOARD::RETURN_HOME:
             return returnHome;
             break;
-        case RESTART_GAME:
+        case BOARD::RESTART_GAME:
             return restartGame;
             break;
-        case SAVE_GAME:
+        case BOARD::SAVE_GAME:
             return saveGame;
             break;
     }
@@ -81,56 +81,14 @@ Board MenuBoard::getBoard(BOARD nameBoard) {
 
 Board* MenuBoard::getBoard_It(BOARD nameBoard) {
     switch (nameBoard) {
-        case RETURN_HOME:
+        case BOARD::RETURN_HOME:
             return &returnHome; 
             break;
-        case RESTART_GAME:
+        case BOARD::RESTART_GAME:
             return &restartGame;
             break;
-        case SAVE_GAME:
+        case BOARD::SAVE_GAME:
             return &saveGame;
             break;
     }
-}
-
-
-// MouseEvents
-
-void Mouse::mouseHandleEvent() {
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-    setPosition(x, y);
-}
-
-void Mouse::setPosition(int x, int y) {
-    position_x = x;
-    position_y = y;
-}
-
-CLICK Mouse::CheckMouseInRect(SDL_Rect rect) {
-    // Mouse is left of the rect
-    if (position_x < rect.x) return NORMAL;
-
-    //Mouse is right of the rect
-    if (position_x > rect.x + rect.w - 1) return NORMAL;
-
-    //Mouse above the rect
-    if (position_y < rect.y) return NORMAL;
-
-    //Mouse below the rect
-    if (position_y > rect.y + rect.h - 1) return NORMAL;
-
-    return ON_CLICK;
-}
-
-CLICK Mouse::CheckMouseInButton(Button button) {
-    return CheckMouseInRect(button.getRect());
-}
-
-CLICK Mouse::CheckMouseInDice(Dice dice) {
-    return CheckMouseInRect(dice.getRect());
-}
-
-CLICK Mouse::CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess* chess) {
-    return CheckMouseInRect({ chessPosition_x, chessPosition_y, chess->getRect().w, chess->getRect().h });
 }

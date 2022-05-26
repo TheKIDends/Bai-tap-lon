@@ -31,7 +31,7 @@ enum BUTTON {
 	SAVE_BUTTON,
 	ABOUT_BUTTON,
 	MUSIC_BUTTON,
-	SOUND_BUTTON,
+	CHUNK_BUTTON,
 };
 
 enum BOARD {
@@ -53,7 +53,7 @@ class Button : public Painter {
 		CLICK status;
 
 	public:
-		Button() { status = NORMAL; }
+		Button() { status = CLICK::NORMAL; }
 
 		CLICK getStatus() { return status; }
 		void  setStatus(CLICK status) { this->status = status; }
@@ -78,7 +78,7 @@ class Arrow : public Painter, public Animations {
 		DIRECTION direction;
 
 	public:
-		Arrow() { direction = UP; maxStatus = 2; }
+		Arrow() { direction = DIRECTION::UP; maxStatus = 2; }
 
 		void setArrow(int distance, DIRECTION direction, SDL_Rect rect, SDL_Rect clip, string pathImg) {
 			this->distance  = distance;
@@ -103,7 +103,7 @@ class Chess : public Painter, public Animations {
 		int endIdPosition;
 
 	public:
-		Chess() { stepsTaken = 0; maxStatus = 3; status = 0; canMoveChess = false; direction = RIGHT; }
+		Chess() { stepsTaken = 0; maxStatus = 3; status = 0; canMoveChess = false; direction = DIRECTION::RIGHT; }
 
 		void setDirection(DIRECTION direction) { this->direction = direction;  }
 		DIRECTION getDirection() { return direction;  }
@@ -234,26 +234,6 @@ class MenuBoard : public Painter {
 
 		Button* getButton_It(BUTTON nameButton);
 		Button  getButton(BUTTON nameButton);
-};
-
-class Mouse : public Painter {
-	private:
-		int position_x;
-		int position_y;
-
-		void setPosition(int x, int y);
-
-	public:
-		Mouse() {}
-		void mouseHandleEvent();
-
-		int getPosition_x() { return position_x; }
-		int getPosition_y() { return position_y; }
-
-		CLICK CheckMouseInRect(SDL_Rect rect);
-		CLICK CheckMouseInChess(int chessPosition_x, int chessPosition_y, Chess* chess);
-		CLICK CheckMouseInButton(Button button);
-		CLICK CheckMouseInDice(Dice dice);
 };
 
 #endif // __GAMECOMPONENTS__ 

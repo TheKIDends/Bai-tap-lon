@@ -134,7 +134,7 @@ void ParcheesiGame::setWinner() {
 
 void ParcheesiGame::restartGame() {
     playerTurn = 0;
-    statusPlayer = ROLL_DICE;
+    statusPlayer = STATUS_PLAYER::ROLL_DICE;
     ordWinner = ">";
     
     // Reset chess
@@ -220,7 +220,7 @@ void ParcheesiGame::setGameComponents() {
 
     // Set arrow
     arrow.getFpsTime()->start();
-    arrow.setArrow(3, DOWN, { 0, 0, 10, 10 }, {0, 0, 122, 98}, "Image/arrow.png");
+    arrow.setArrow(3, DIRECTION::DOWN, { 0, 0, 10, 10 }, {0, 0, 122, 98}, "Image/arrow.png");
     windowRenderer->loadTexture(&arrow);
 
     clickToRoll.getFpsTime()->start();
@@ -298,27 +298,27 @@ void ParcheesiGame::setGameComponents() {
 }
 
 void ParcheesiGame::setBoardComponents() {
-    menuBoard.getBoard_It(RETURN_HOME)->setObject({ 417, 204, 277, 215 }, { 0, 0, 387, 300 }, "Image/menu/really_return_home_board.png");
-    menuBoard.getBoard_It(RETURN_HOME)->getButtonYes_It()->setObject({ 458, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/yes_button.png");
-    menuBoard.getBoard_It(RETURN_HOME)->getButtonNo_It()->setObject({ 575, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/no_button.png");
+    menuBoard.getBoard_It(BOARD::RETURN_HOME)->setObject({ 417, 204, 277, 215 }, { 0, 0, 387, 300 }, "Image/menu/really_return_home_board.png");
+    menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonYes_It()->setObject({ 458, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/yes_button.png");
+    menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonNo_It()->setObject({ 575, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/no_button.png");
 
-    windowRenderer->loadTexture(menuBoard.getBoard_It(RETURN_HOME));
-    windowRenderer->loadTexture(menuBoard.getBoard_It(RETURN_HOME)->getButtonYes_It());
-    windowRenderer->loadTexture(menuBoard.getBoard_It(RETURN_HOME)->getButtonNo_It());
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RETURN_HOME));
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonYes_It());
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonNo_It());
 
-    menuBoard.getBoard_It(RESTART_GAME)->setObject({ 417, 204, 277, 215 }, { 0, 0, 387, 300 }, "Image/menu/really_restart_game_board.png");
-    menuBoard.getBoard_It(RESTART_GAME)->getButtonYes_It()->setObject({ 458, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/yes_button.png");
-    menuBoard.getBoard_It(RESTART_GAME)->getButtonNo_It()->setObject({ 575, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/no_button.png");
+    menuBoard.getBoard_It(BOARD::RESTART_GAME)->setObject({ 417, 204, 277, 215 }, { 0, 0, 387, 300 }, "Image/menu/really_restart_game_board.png");
+    menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonYes_It()->setObject({ 458, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/yes_button.png");
+    menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonNo_It()->setObject({ 575, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/no_button.png");
 
-    windowRenderer->loadTexture(menuBoard.getBoard_It(RESTART_GAME));
-    windowRenderer->loadTexture(menuBoard.getBoard_It(RESTART_GAME)->getButtonYes_It());
-    windowRenderer->loadTexture(menuBoard.getBoard_It(RESTART_GAME)->getButtonNo_It());
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RESTART_GAME));
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonYes_It());
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonNo_It());
 
-    menuBoard.getBoard_It(SAVE_GAME)->setObject({ 417, 220, 277, 197 }, { 0, 0, 387, 275 }, "Image/menu/save_game_board.png");
-    menuBoard.getBoard_It(SAVE_GAME)->getButtonOk_It()->setObject({ 518, 355, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/ok_button.png");
+    menuBoard.getBoard_It(BOARD::SAVE_GAME)->setObject({ 417, 220, 277, 197 }, { 0, 0, 387, 275 }, "Image/menu/save_game_board.png");
+    menuBoard.getBoard_It(BOARD::SAVE_GAME)->getButtonOk_It()->setObject({ 518, 355, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/ok_button.png");
 
-    windowRenderer->loadTexture(menuBoard.getBoard_It(SAVE_GAME));
-    windowRenderer->loadTexture(menuBoard.getBoard_It(SAVE_GAME)->getButtonOk_It());
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::SAVE_GAME));
+    windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::SAVE_GAME)->getButtonOk_It());
 
 }
 
@@ -336,24 +336,24 @@ void ParcheesiGame::setMenuComponents() {
     // Set button
     openMenu.setObject({ 19, 180, 68, 68 }, { 0, 0, 68, 68 }, "Image/menu/menu_button.png");
     
-    menuBoard.getButton_It(EXIT_MENU)->setObject({ 633, 76, 82, 82 }, { 0, 0, 82, 82 }, "Image/menu/exit_menu.png");
-    menuBoard.getButton_It(HOME_BUTTON)->setObject({ 442, 164, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/home_button.png");
-    menuBoard.getButton_It(RESTART_BUTTON)->setObject({ 442, 255, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/restart_button.png");
-    menuBoard.getButton_It(SAVE_BUTTON)->setObject({ 442, 346, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/save_button.png");
-    menuBoard.getButton_It(ABOUT_BUTTON)->setObject({ 427, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/about_button.png");
-    menuBoard.getButton_It(MUSIC_BUTTON)->setObject({ 463, 459, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/music_button.png");
-    menuBoard.getButton_It(SOUND_BUTTON)->setObject({ 573, 459, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/sound_button.png");
-    //menuBoard.getButton_It(MUSIC_BUTTON)->setObject({ 517, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/music_button.png");
-    //menuBoard.getButton_It(SOUND_BUTTON)->setObject({ 609, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/sound_button.png");
+    menuBoard.getButton_It(BUTTON::EXIT_MENU)->setObject({ 633, 76, 82, 82 }, { 0, 0, 82, 82 }, "Image/menu/exit_menu.png");
+    menuBoard.getButton_It(BUTTON::HOME_BUTTON)->setObject({ 442, 164, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/home_button.png");
+    menuBoard.getButton_It(BUTTON::RESTART_BUTTON)->setObject({ 442, 255, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/restart_button.png");
+    menuBoard.getButton_It(BUTTON::SAVE_BUTTON)->setObject({ 442, 346, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/save_button.png");
+    menuBoard.getButton_It(BUTTON::ABOUT_BUTTON)->setObject({ 427, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/about_button.png");
+    menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setObject({ 463, 459, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/music_button.png");
+    menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setObject({ 573, 459, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/sound_button.png");
+    //menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setObject({ 517, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/music_button.png");
+    //menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setObject({ 609, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/sound_button.png");
 
     windowRenderer->loadTexture(&openMenu);
-    windowRenderer->loadTexture(menuBoard.getButton_It(EXIT_MENU));
-    windowRenderer->loadTexture(menuBoard.getButton_It(HOME_BUTTON));
-    windowRenderer->loadTexture(menuBoard.getButton_It(RESTART_BUTTON));
-    windowRenderer->loadTexture(menuBoard.getButton_It(SAVE_BUTTON));
-    windowRenderer->loadTexture(menuBoard.getButton_It(ABOUT_BUTTON));
-    windowRenderer->loadTexture(menuBoard.getButton_It(MUSIC_BUTTON));
-    windowRenderer->loadTexture(menuBoard.getButton_It(SOUND_BUTTON));
+    windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::EXIT_MENU));
+    windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::HOME_BUTTON));
+    windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::RESTART_BUTTON));
+    windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::SAVE_BUTTON));
+    windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::ABOUT_BUTTON));
+    windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::MUSIC_BUTTON));
+    windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::CHUNK_BUTTON));
 }
 
 void ParcheesiGame::setAudioMixer() {
@@ -465,12 +465,12 @@ void ParcheesiGame::setWindowGame() {
             int idPositionChess = player[idPlayer].getChess_It(idChess)->getIdPosition();
 
             if (idPositionChess <= 15) {
-                player[idPlayer].setDirectionChess(idChess, RIGHT);
+                player[idPlayer].setDirectionChess(idChess, DIRECTION::RIGHT);
                 continue;
             }
 
             if (idPositionChess == idStartDestination[idPlayer] + 6 - 1) {
-                if (idPlayer == 0 || idPlayer == 3) player[idPlayer].setDirectionChess(idChess, RIGHT);
+                if (idPlayer == 0 || idPlayer == 3) player[idPlayer].setDirectionChess(idChess, DIRECTION::RIGHT);
                 if (idPlayer == 1 || idPlayer == 2) player[idPlayer].setDirectionChess(idChess, LEFT);
                 continue;
             }
@@ -478,7 +478,7 @@ void ParcheesiGame::setWindowGame() {
             int nextIdPositionChess = idMoveForward(idPositionChess, idPlayer);
 
             if (mapChessboard[idPositionChess].first < mapChessboard[nextIdPositionChess].first) {
-                player[idPlayer].setDirectionChess(idChess, RIGHT);
+                player[idPlayer].setDirectionChess(idChess, DIRECTION::RIGHT);
             }
             else player[idPlayer].setDirectionChess(idChess, LEFT);
         }
@@ -498,7 +498,7 @@ void ParcheesiGame::setWindowGame() {
     if (playerTurn == 3) dice.setRect({ 189,  13, 110 , 110 });
 
     // Arrow click to roll
-    if (animations == false && statusPlayer == ROLL_DICE) {
+    if (animations == false && statusPlayer == STATUS_PLAYER::ROLL_DICE) {
         switch (playerTurn) {
         case 0:
             clickToRoll.setClip({ 98, 98, 98, 98 });
@@ -541,7 +541,7 @@ void ParcheesiGame::setWindowGame() {
     if (canNotMove.getAnimations() == true) showNotiCanNotMove();
 
     // Chess can move
-    if (statusPlayer == CHOOSECHESS && animations == false) {
+    if (statusPlayer == STATUS_PLAYER::CHOOSECHESS && animations == false) {
         for (int idChess = 0; idChess < 4; ++idChess) {
             if (player[playerTurn].getCanMoveChess(idChess)) continue;
             if (chessNextStep(player[playerTurn].getChess_It(idChess)) != -1) player[playerTurn].setCanMoveChess(idChess, true);
@@ -555,18 +555,18 @@ void ParcheesiGame::setWindowGame() {
 }
 
 void ParcheesiGame::setWindowMenu() {
-    SDL_Rect clipMusicBtn = menuBoard.getButton_It(MUSIC_BUTTON)->getClip();
-    SDL_Rect clipSoundBtn = menuBoard.getButton_It(SOUND_BUTTON)->getClip();
+    SDL_Rect clipMusicBtn = menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->getClip();
+    SDL_Rect clipSoundBtn = menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->getClip();
 
     if (audioMixer->getMutedMusic() == true) {
-        menuBoard.getButton_It(MUSIC_BUTTON)->setClip({ 0, clipMusicBtn.h, clipMusicBtn.w, clipMusicBtn.h });
+        menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setClip({ 0, clipMusicBtn.h, clipMusicBtn.w, clipMusicBtn.h });
     }
-    else menuBoard.getButton_It(MUSIC_BUTTON)->setClip({ 0, 0, clipMusicBtn.w, clipMusicBtn.h });
+    else menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setClip({ 0, 0, clipMusicBtn.w, clipMusicBtn.h });
 
     if (audioMixer->getMutedChunk() == true) {
-        menuBoard.getButton_It(SOUND_BUTTON)->setClip({ 0, clipSoundBtn.h, clipSoundBtn.w, clipSoundBtn.h });
+        menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setClip({ 0, clipSoundBtn.h, clipSoundBtn.w, clipSoundBtn.h });
     }
-    else menuBoard.getButton_It(SOUND_BUTTON)->setClip({ 0, 0, clipSoundBtn.w, clipSoundBtn.h });
+    else menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setClip({ 0, 0, clipSoundBtn.w, clipSoundBtn.h });
         
 }
 
@@ -657,7 +657,7 @@ void ParcheesiGame::displayGame() {
     else windowRenderer->rendererDice(dice);
 
     // Load arrow click to roll
-    if (statusPlayer == ROLL_DICE) {
+    if (statusPlayer == STATUS_PLAYER::ROLL_DICE) {
         switch (playerTurn) {
             case 0:
                 windowRenderer->rendererArrow(336, 585, &clickToRoll);
@@ -676,7 +676,7 @@ void ParcheesiGame::displayGame() {
 
     if (canNotMove.getAnimations() == true) windowRenderer->rendererImage(&canNotMove);
 
-    //if (statusPlayer == ENDTURN) windowRenderer->rendererImage(&blueTurn);
+    //if (statusPlayer == STATUS_PLAYER::ENDTURN) windowRenderer->rendererImage(&blueTurn);
     //for (int i = 72; i <= 100; ++i) {
     //    Chess* chess = player[0].getChess_It(0);
     //    int position_x = mapChessboard[i].first;
@@ -689,13 +689,13 @@ void ParcheesiGame::displayMenu() {
     displayGame();
     windowRenderer->rendererBackground(menuBoard.getBackground_It());
     windowRenderer->rendererImage(&menuBoard);
-    windowRenderer->rendererButton(menuBoard.getButton_It(EXIT_MENU));
-    windowRenderer->rendererButton(menuBoard.getButton_It(HOME_BUTTON));
-    windowRenderer->rendererButton(menuBoard.getButton_It(RESTART_BUTTON));
-    windowRenderer->rendererButton(menuBoard.getButton_It(SAVE_BUTTON));
-    //windowRenderer->rendererButton(menuBoard.getButton_It(ABOUT_BUTTON));
-    windowRenderer->rendererButton(menuBoard.getButton_It(MUSIC_BUTTON));
-    windowRenderer->rendererButton(menuBoard.getButton_It(SOUND_BUTTON));
+    windowRenderer->rendererButton(menuBoard.getButton_It(BUTTON::EXIT_MENU));
+    windowRenderer->rendererButton(menuBoard.getButton_It(BUTTON::HOME_BUTTON));
+    windowRenderer->rendererButton(menuBoard.getButton_It(BUTTON::RESTART_BUTTON));
+    windowRenderer->rendererButton(menuBoard.getButton_It(BUTTON::SAVE_BUTTON));
+    //windowRenderer->rendererButton(menuBoard.getButton_It(BUTTON::ABOUT_BUTTON));
+    windowRenderer->rendererButton(menuBoard.getButton_It(BUTTON::MUSIC_BUTTON));
+    windowRenderer->rendererButton(menuBoard.getButton_It(BUTTON::CHUNK_BUTTON));
 }
 
 void ParcheesiGame::displayAlertBoard(BOARD nameAlert) {
@@ -707,8 +707,8 @@ void ParcheesiGame::displayAlertBoard(BOARD nameAlert) {
 
 void ParcheesiGame::displaySaveGame() {
     displayMenu();
-    windowRenderer->rendererImage(menuBoard.getBoard_It(SAVE_GAME));
-    windowRenderer->rendererButton(menuBoard.getBoard_It(SAVE_GAME)->getButtonOk_It());
+    windowRenderer->rendererImage(menuBoard.getBoard_It(BOARD::SAVE_GAME));
+    windowRenderer->rendererButton(menuBoard.getBoard_It(BOARD::SAVE_GAME)->getButtonOk_It());
 }
 
 void ParcheesiGame::displayAbout() {
@@ -747,14 +747,14 @@ void ParcheesiGame::eventsHome() {
 
     // sound
     if (audioMixer->getMutedChunk() == false && events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (playButton.getStatus() == ON_CLICK)     Mix_PlayChannel(-1, click, 0);
-        if (continueButton.getStatus() == ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (playButton.getStatus()      == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (continueButton.getStatus()  == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
     }
 
     if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (playButton.getStatus() == ON_CLICK)     { display = PLAYER_NUMBER_SELECTION; return; }
-        if (exitButton.getStatus() == ON_CLICK)     { SDL_Quit(); windowRenderer->deleteWindow(); exit(1); }
-        if (continueButton.getStatus() == ON_CLICK) { continueGame(); display = GAME; return; }
+        if (playButton.getStatus()      == CLICK::ON_CLICK) { display = DISPLAY::PLAYER_NUMBER_SELECTION; return; }
+        if (exitButton.getStatus()      == CLICK::ON_CLICK) { SDL_Quit(); windowRenderer->deleteWindow(); exit(1); }
+        if (continueButton.getStatus()  == CLICK::ON_CLICK) { continueGame(); display = DISPLAY::GAME; return; }
     }
 }
 
@@ -766,17 +766,17 @@ void ParcheesiGame::eventsPlayerNumberSelection() {
 
     // sound
     if (audioMixer->getMutedChunk() == false && events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (backButton.getStatus() == ON_CLICK)      Mix_PlayChannel(-1, click, 0);
-        if (_2playersButton.getStatus() == ON_CLICK) Mix_PlayChannel(-1, click, 0);
-        if (_3playersButton.getStatus() == ON_CLICK) Mix_PlayChannel(-1, click, 0);
-        if (_4playersButton.getStatus() == ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (backButton.getStatus()      == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (_2playersButton.getStatus() == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (_3playersButton.getStatus() == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (_4playersButton.getStatus() == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
     }
 
     if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (backButton.getStatus() == ON_CLICK)      { display = HOME; return; }
-        if (_2playersButton.getStatus() == ON_CLICK) { display = GAME; numberPlayers = 2; return; }
-        if (_3playersButton.getStatus() == ON_CLICK) { display = GAME; numberPlayers = 3; return; }
-        if (_4playersButton.getStatus() == ON_CLICK) { display = GAME; numberPlayers = 4; return; }
+        if (backButton.getStatus()      == CLICK::ON_CLICK) { display = DISPLAY::HOME; return; }
+        if (_2playersButton.getStatus() == CLICK::ON_CLICK) { display = DISPLAY::GAME; numberPlayers = 2; return; }
+        if (_3playersButton.getStatus() == CLICK::ON_CLICK) { display = DISPLAY::GAME; numberPlayers = 3; return; }
+        if (_4playersButton.getStatus() == CLICK::ON_CLICK) { display = DISPLAY::GAME; numberPlayers = 4; return; }
     }
 }
 
@@ -785,9 +785,9 @@ void ParcheesiGame::eventsGame() {
     openMenu.setStatus(mouse->CheckMouseInButton(openMenu));
 
     if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (openMenu.getStatus() == ON_CLICK) {
-            openMenu.setStatus(NORMAL);
-            display = MENU;
+        if (openMenu.getStatus() == CLICK::ON_CLICK) {
+            openMenu.setStatus(CLICK::NORMAL);
+            display = DISPLAY::MENU;
             if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, click, 0);
             return;
         }
@@ -805,24 +805,24 @@ void ParcheesiGame::eventsGame() {
 
     // Player
     switch (statusPlayer) {
-        case ROLL_DICE:
+        case STATUS_PLAYER::ROLL_DICE:
 
             if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-                if (mouse->CheckMouseInDice(dice) == ON_CLICK) {
+                if (mouse->CheckMouseInDice(dice) == CLICK::ON_CLICK) {
                     int x;  cin >> x; dice.setNumDice(x);
                     //dice.rollDice();
                     dice.setAnimations(true);
                     if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, rollDice, 0);
-                    statusPlayer = CHOOSECHESS;
+                    statusPlayer = STATUS_PLAYER::CHOOSECHESS;
                 }
             }
             break;
 
-        case CHOOSECHESS:
+        case STATUS_PLAYER::CHOOSECHESS:
             if (!canMove()) {
                 canNotMove.setAnimations(true);
                 if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, ono, 0);
-                statusPlayer = (dice.getNumDice() == 6) ? ROLL_DICE : ENDTURN;
+                statusPlayer = (dice.getNumDice() == 6) ? STATUS_PLAYER::ROLL_DICE : STATUS_PLAYER::ENDTURN;
                 break;
             }
 
@@ -849,7 +849,7 @@ void ParcheesiGame::eventsGame() {
 
                             for (int i = 0; i < 4; ++i) player[playerTurn].setCanMoveChess(i, false);
 
-                            statusPlayer = (dice.getNumDice() == 6) ? ROLL_DICE : ENDTURN;
+                            statusPlayer = (dice.getNumDice() == 6) ? STATUS_PLAYER::ROLL_DICE : STATUS_PLAYER::ENDTURN;
                             break;
 
                         }
@@ -860,43 +860,42 @@ void ParcheesiGame::eventsGame() {
 
             break;
 
-        case ENDTURN:
-            //Mix_PlayChannel(-1, greenTurn, 0);
+        case STATUS_PLAYER::ENDTURN:
             playerTurn = (playerTurn + 1) % numberPlayers;
             dice.setNumDice(0);
-            statusPlayer = ROLL_DICE;
+            statusPlayer = STATUS_PLAYER::ROLL_DICE;
             break;
     }
 }
 
 void ParcheesiGame::eventsMenu() {
-    menuBoard.getButton_It(EXIT_MENU)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(EXIT_MENU)));
-    menuBoard.getButton_It(HOME_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(HOME_BUTTON)));
-    menuBoard.getButton_It(RESTART_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(RESTART_BUTTON)));
-    menuBoard.getButton_It(SAVE_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(SAVE_BUTTON)));
-    //menuBoard.getButton_It(ABOUT_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(ABOUT_BUTTON)));
-    menuBoard.getButton_It(MUSIC_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(MUSIC_BUTTON)));
-    menuBoard.getButton_It(SOUND_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(SOUND_BUTTON)));
+    menuBoard.getButton_It(BUTTON::EXIT_MENU)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(BUTTON::EXIT_MENU)));
+    menuBoard.getButton_It(BUTTON::HOME_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(BUTTON::HOME_BUTTON)));
+    menuBoard.getButton_It(BUTTON::RESTART_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(BUTTON::RESTART_BUTTON)));
+    menuBoard.getButton_It(BUTTON::SAVE_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(BUTTON::SAVE_BUTTON)));
+    //menuBoard.getButton_It(BUTTON::ABOUT_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(BUTTON::ABOUT_BUTTON)));
+    menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(BUTTON::MUSIC_BUTTON)));
+    menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setStatus(mouse->CheckMouseInButton(menuBoard.getButton(BUTTON::CHUNK_BUTTON)));
 
     // Sound
     if (audioMixer->getMutedChunk() == false && events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (menuBoard.getButton_It(EXIT_MENU)->getStatus() == ON_CLICK)        Mix_PlayChannel(-1, click, 0);
-        if (menuBoard.getButton_It(HOME_BUTTON)->getStatus() == ON_CLICK)      Mix_PlayChannel(-1, click, 0);
-        if (menuBoard.getButton_It(RESTART_BUTTON)->getStatus() == ON_CLICK)   Mix_PlayChannel(-1, click, 0);
-        if (menuBoard.getButton_It(SAVE_BUTTON)->getStatus() == ON_CLICK)      Mix_PlayChannel(-1, click, 0);
-        //if (menuBoard.getButton_It(ABOUT_BUTTON)->getStatus() == ON_CLICK)     Mix_PlayChannel(-1, click, 0);
-        if (menuBoard.getButton_It(MUSIC_BUTTON)->getStatus() == ON_CLICK)     Mix_PlayChannel(-1, click, 0);
-        if (menuBoard.getButton_It(SOUND_BUTTON)->getStatus() == ON_CLICK)     Mix_PlayChannel(-1, click, 0);
+        if (menuBoard.getButton_It(BUTTON::EXIT_MENU)->getStatus()      == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (menuBoard.getButton_It(BUTTON::HOME_BUTTON)->getStatus()    == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (menuBoard.getButton_It(BUTTON::RESTART_BUTTON)->getStatus() == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (menuBoard.getButton_It(BUTTON::SAVE_BUTTON)->getStatus()    == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        //if (menuBoard.getButton_It(BUTTON::ABOUT_BUTTON)->getStatus() == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->getStatus()   == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->getStatus()   == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
     }
 
     if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (menuBoard.getButton_It(EXIT_MENU)->getStatus() == ON_CLICK)      { display = GAME; return; }
-        if (menuBoard.getButton_It(HOME_BUTTON)->getStatus() == ON_CLICK)    { display = ALERT_RETURN_HOME; return; }
-        if (menuBoard.getButton_It(RESTART_BUTTON)->getStatus() == ON_CLICK) { display = ALERT_RESTART_GAME; return; }
-        if (menuBoard.getButton_It(SAVE_BUTTON)->getStatus() == ON_CLICK)    { saveGame(); display = NOTI_SAVE_GAME;  return; }
-        //if (menuBoard.getButton_It(ABOUT_BUTTON)->getStatus() == ON_CLICK)   { return; }
-        if (menuBoard.getButton_It(MUSIC_BUTTON)->getStatus() == ON_CLICK)   { audioMixer->changeMutedMusic(); return; }
-        if (menuBoard.getButton_It(SOUND_BUTTON)->getStatus() == ON_CLICK)   { audioMixer->changeMutedChunk(); return; }
+        if (menuBoard.getButton_It(BUTTON::EXIT_MENU)->getStatus()      == CLICK::ON_CLICK) { display = DISPLAY::GAME; return; }
+        if (menuBoard.getButton_It(BUTTON::HOME_BUTTON)->getStatus()    == CLICK::ON_CLICK) { display = DISPLAY::ALERT_RETURN_HOME; return; }
+        if (menuBoard.getButton_It(BUTTON::RESTART_BUTTON)->getStatus() == CLICK::ON_CLICK) { display = DISPLAY::ALERT_RESTART_GAME; return; }
+        if (menuBoard.getButton_It(BUTTON::SAVE_BUTTON)->getStatus()    == CLICK::ON_CLICK) { saveGame(); display = DISPLAY::NOTI_SAVE_GAME;  return; }
+        //if (menuBoard.getButton_It(BUTTON::ABOUT_BUTTON)->getStatus() == CLICK::ON_CLICK) { return; }
+        if (menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->getStatus()   == CLICK::ON_CLICK) { audioMixer->changeMutedMusic(); return; }
+        if (menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->getStatus()   == CLICK::ON_CLICK) { audioMixer->changeMutedChunk(); return; }
     }
 }
 
@@ -907,16 +906,16 @@ void ParcheesiGame::eventsAlertBoard(BOARD nameAlert) {
     board->getButtonNo_It()->setStatus(mouse->CheckMouseInButton(board->getButtonNo()));
 
     if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (board->getButtonYes_It()->getStatus() == ON_CLICK) {
+        if (board->getButtonYes_It()->getStatus() == CLICK::ON_CLICK) {
             if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, click, 0);
-            if (nameAlert ==  RETURN_HOME) display = HOME;
-            if (nameAlert == RESTART_GAME) display = GAME; 
+            if (nameAlert ==  BOARD::RETURN_HOME) display = DISPLAY::HOME;
+            if (nameAlert == BOARD::RESTART_GAME) display = DISPLAY::GAME; 
             restartGame();
             return; 
         }
-        if (board->getButtonNo_It()->getStatus()  == ON_CLICK) {
+        if (board->getButtonNo_It()->getStatus()  == CLICK::ON_CLICK) {
             if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, click, 0);
-            display = MENU; 
+            display = DISPLAY::MENU; 
             return; 
             
         }
@@ -924,13 +923,13 @@ void ParcheesiGame::eventsAlertBoard(BOARD nameAlert) {
 }
  
 void ParcheesiGame::eventsSaveGame() {
-    Board* board = menuBoard.getBoard_It(SAVE_GAME);
+    Board* board = menuBoard.getBoard_It(BOARD::SAVE_GAME);
     board->getButtonOk_It()->setStatus(mouse->CheckMouseInButton(board->getButtonOk()));
 
     if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (board->getButtonOk_It()->getStatus() == ON_CLICK) {
+        if (board->getButtonOk_It()->getStatus() == CLICK::ON_CLICK) {
             if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, click, 0);
-            display = MENU;
+            display = DISPLAY::MENU;
             return;
         }
     }
@@ -944,17 +943,17 @@ void ParcheesiGame::eventsRank() {
 
     // sound
     if (audioMixer->getMutedChunk() == false && events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (backHome.getStatus() == ON_CLICK) Mix_PlayChannel(-1, click, 0);
+        if (backHome.getStatus() == CLICK::ON_CLICK) Mix_PlayChannel(-1, click, 0);
     }
 
     if (events->type == SDL_MOUSEBUTTONDOWN && events->button.button == SDL_BUTTON_LEFT) {
-        if (backHome.getStatus() == ON_CLICK) { display = HOME; restartGame(); return; }
+        if (backHome.getStatus() == CLICK::ON_CLICK) { display = DISPLAY::HOME; restartGame(); return; }
     }
 }
 
 void ParcheesiGame::checkEndGame() {
     if (ordWinner.size() < 4) return;
-    display = RANK;
+    display = DISPLAY::RANKING;
 
     SDL_Delay(1000);
     if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, win, 0);
@@ -965,14 +964,14 @@ void ParcheesiGame::checkEndGame() {
 
 void ParcheesiGame::startGame() {
     audioMixer->createAudio();
-    windowRenderer->createWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+    windowRenderer->createWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE, "Image/window_icon.png");
 
     setAudioMixer();
     setGameComponents();
 
     FPS fpsTimer;
 
-    display = HOME;
+    display = DISPLAY::HOME;
 
     Mix_PlayMusic(gMusic, -1);
 
@@ -984,7 +983,7 @@ void ParcheesiGame::startGame() {
         if (Mix_PlayingMusic() == true && audioMixer->getMutedMusic() ==  true) Mix_PauseMusic();
         if (Mix_PausedMusic()  == true && audioMixer->getMutedMusic() == false) Mix_ResumeMusic();
 
-        if (display != RANK) checkEndGame();
+        if (display != DISPLAY::RANKING) checkEndGame();
 
         // Handle Events
         while (SDL_PollEvent(events)) {
@@ -998,31 +997,31 @@ void ParcheesiGame::startGame() {
             mouse->mouseHandleEvent();
 
             switch (display) {
-                case HOME:
+                case DISPLAY::HOME:
                     eventsHome();
                     break;
-                case PLAYER_NUMBER_SELECTION:
+                case DISPLAY::PLAYER_NUMBER_SELECTION:
                     eventsPlayerNumberSelection();
                     break;
-                case GAME:
+                case DISPLAY::GAME:
                     eventsGame();
                     break;
-                case MENU:
+                case DISPLAY::MENU:
                     eventsMenu();
                     break;
-                case ALERT_RETURN_HOME:
-                    eventsAlertBoard(RETURN_HOME);
+                case DISPLAY::ALERT_RETURN_HOME:
+                    eventsAlertBoard(BOARD::RETURN_HOME);
                     break;
-                case ALERT_RESTART_GAME:
-                    eventsAlertBoard(RESTART_GAME);
+                case DISPLAY::ALERT_RESTART_GAME:
+                    eventsAlertBoard(BOARD::RESTART_GAME);
                     break;
-                case NOTI_SAVE_GAME:
+                case DISPLAY::NOTI_SAVE_GAME:
                     eventsSaveGame();
                     break;
-                case ABOUT:
+                case DISPLAY::ABOUT:
                     eventsAbout();
                     break;
-                case RANK:
+                case DISPLAY::RANKING:
                     eventsRank();
                     break;
             }
@@ -1030,34 +1029,34 @@ void ParcheesiGame::startGame() {
 
         // Update game status, draw the current frame
         switch (display) {
-            case HOME:
+            case DISPLAY::HOME:
                 setWindowHome();
                 displayHome();
                 break;
-            case PLAYER_NUMBER_SELECTION:
+            case DISPLAY::PLAYER_NUMBER_SELECTION:
                 setWindowPlayerNumberSelection();
                 displayPlayerNumberSelection();
                 break;
-            case GAME:
+            case DISPLAY::GAME:
                 setWindowGame();
                 displayGame();
                 break;
-            case MENU:
+            case DISPLAY::MENU:
                 setWindowMenu();
                 displayMenu();
                 break;
-            case ALERT_RETURN_HOME:
-                displayAlertBoard(RETURN_HOME);
+            case DISPLAY::ALERT_RETURN_HOME:
+                displayAlertBoard(BOARD::RETURN_HOME);
                 break;
-            case ALERT_RESTART_GAME:
-                displayAlertBoard(RESTART_GAME);
+            case DISPLAY::ALERT_RESTART_GAME:
+                displayAlertBoard(BOARD::RESTART_GAME);
                 break;
-            case NOTI_SAVE_GAME:
+            case DISPLAY::NOTI_SAVE_GAME:
                 displaySaveGame();
-            case ABOUT:
+            case DISPLAY::ABOUT:
                 displayAbout();
                 break;
-            case RANK:
+            case DISPLAY::RANKING:
                 displayRank();
                 break;
         }

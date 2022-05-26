@@ -26,7 +26,7 @@ class WindowRenderer {
 		void deleteTexture() { SDL_DestroyTexture(texture); texture = NULL; }
 
 	public:
-		void createWindow(int screenWidth, int screenHeight, string windowTitle);
+		void createWindow(int screenWidth, int screenHeight, string windowTitle, string pathWindowIcon);
 
 		void deleteWindow();
 

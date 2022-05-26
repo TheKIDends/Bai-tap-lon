@@ -2,8 +2,8 @@
 
 void GameMap::buildMap() {
     idLeaderboard[0] = { 515, 147 - 70 };
-    idLeaderboard[1] = { 292, 300 - 70};
-    idLeaderboard[2] = { 727, 300 - 70};
+    idLeaderboard[1] = { 292, 300 - 70 };
+    idLeaderboard[2] = { 727, 300 - 70 };
 
     idStartPosition[0] = 17;
     idStartPosition[1] = 31;
@@ -28,8 +28,8 @@ void GameMap::buildMap() {
     mapChessboard[7] = { 993, 265 };
 
     // Start red
-    mapChessboard[8] = { 436,   56 };
-    mapChessboard[9] = { 633,   56 };
+    mapChessboard[8]  = { 436,   56 };
+    mapChessboard[9]  = { 633,   56 };
     mapChessboard[10] = { 535,  113 };
     mapChessboard[11] = { 535,   -1 };
 

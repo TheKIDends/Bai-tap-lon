@@ -6,6 +6,7 @@
 #include "GameComponents.h"
 #include "WindowRenderer.h"
 #include "GameMap.h"
+#include "Mouse.h"
 #include "Animations.h"
 
 #include <iostream>
@@ -26,7 +27,7 @@ enum DISPLAY {
     ALERT_RESTART_GAME,
     NOTI_SAVE_GAME,
     ABOUT,
-    RANK,
+    RANKING,
 };
 
 enum STATUS_PLAYER {

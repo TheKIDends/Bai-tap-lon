@@ -1,6 +1,7 @@
 #ifndef __COMMONFUNCTION__
 #define __COMMONFUNCTION__
 
+#include "Mouse.h"
 #include "AudioMixer.h"
 #include "WindowRenderer.h"
 

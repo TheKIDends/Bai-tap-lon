@@ -47,16 +47,16 @@ void WindowRenderer::rendererArrow(int position_x, int position_y, Arrow* arrow)
 
     if (arrow->getStatus()) {
         switch (arrow->getDirection()) {
-            case LEFT:
+            case DIRECTION::LEFT:
                 rect.x -= arrow->getDistance();
                 break;
-            case RIGHT:
+            case DIRECTION::RIGHT:
                 rect.x += arrow->getDistance();
                 break;
-            case UP:
+            case DIRECTION::UP:
                 rect.y -= arrow->getDistance();
                 break;
-            case DOWN:
+            case DIRECTION::DOWN:
                 rect.y += arrow->getDistance();
                 break;
         }
@@ -118,7 +118,7 @@ void WindowRenderer::displayImage() {
 }
 
 // Init SDL
-void WindowRenderer::createWindow(int screenWidth, int screenHeight, string windowTitle) {
+void WindowRenderer::createWindow(int screenWidth, int screenHeight, string windowTitle, string pathWindowIcon) {
     if (SDL_Init(SDL_INIT_EVERYTHING)) logSDLError(std::cout, "SDL_Init", true);
 
     window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
@@ -131,6 +131,11 @@ void WindowRenderer::createWindow(int screenWidth, int screenHeight, string wind
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
+
+    // Create window icon
+    SDL_Surface* surfaceIcon = IMG_Load(pathWindowIcon.c_str());
+    if (surfaceIcon == NULL) cout << "Unable to load surfaceIcon " << pathWindowIcon << " SDL_image Error: " << IMG_GetError() << '\n';
+    else SDL_SetWindowIcon(window, surfaceIcon);
 
     painter = new Painter(window, renderer);
 }
