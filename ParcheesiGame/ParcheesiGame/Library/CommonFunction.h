@@ -1,9 +1,12 @@
 #ifndef __COMMONFUNCTION__
 #define __COMMONFUNCTION__
 
+#include "FPS.h"
+#include "GameComponents.h"
+#include "WindowRenderer.h"
 #include "Mouse.h"
 #include "AudioMixer.h"
-#include "WindowRenderer.h"
+#include "Animations.h"
 
 #include <iostream>
 #include <SDL.h>
@@ -12,8 +15,8 @@
 using namespace std;
 
 static Mouse* mouse = new Mouse;
-static SDL_Event* events = new SDL_Event;
 static AudioMixer* audioMixer = new AudioMixer;
+static SDL_Event* events = new SDL_Event;
 static WindowRenderer* windowRenderer = new WindowRenderer;
 
 // SCREEN
@@ -33,7 +36,5 @@ const int MAX_DICE = 6;
 const int MAX_ID_MAP = 200;
 const int MAX_LAYERS_CHESSBOARD = 7;
 const int MAX_LAYERS_BACKGROUND = 2;
-
-
 
 #endif // __COMMONFUNCTION__

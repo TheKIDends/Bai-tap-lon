@@ -74,15 +74,15 @@ class ParcheesiGame : public GameMap {
         Button _4playersButton;
         Button backButton;
 
-        Mix_Chunk* win       = NULL;
-        Mix_Chunk* loser     = NULL;
-        Mix_Chunk* ono       = NULL;
-        Mix_Chunk* rollDice  = NULL;
-        Mix_Chunk* greenTurn = NULL;
-        Mix_Chunk* kick      = NULL;
-        Mix_Chunk* jump      = NULL;
-        Mix_Chunk* click     = NULL;
-        Mix_Music* gMusic    = NULL;
+        Mix_Chunk* player_win = NULL;
+        Mix_Chunk* win = NULL;
+        Mix_Chunk* loser = NULL;
+        Mix_Chunk* ono = NULL;
+        Mix_Chunk* rollDice = NULL;
+        Mix_Chunk* kick = NULL;
+        Mix_Chunk* jump = NULL;
+        Mix_Chunk* click = NULL;
+        Mix_Music* gMusic = NULL;
 
         void restartGame();
         void continueGame();
@@ -110,9 +110,6 @@ class ParcheesiGame : public GameMap {
         void setWindowPlayerNumberSelection();
         void setWindowGame();
         void setWindowMenu();
-        void setWindowAlertBoard(BOARD nameAlert);
-        void setWindowSaveGame();
-        void setWindowAbout();
 
         void eventsHome();
         void eventsPlayerNumberSelection();
