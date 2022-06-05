@@ -9,11 +9,11 @@ using namespace std;
 
 class GameMap {
     protected:
-        int idStartPosition[MAX_PLAYERS];
-        int idStartDestination[MAX_PLAYERS];
+        int idStartPosition[MAX_NUMBER_PLAYERS];
+        int idStartStable[MAX_NUMBER_PLAYERS];
         
         pair <int, int> mapChessboard[MAX_ID_MAP];
-        pair <int, int> idLeaderboard[MAX_PLAYERS];
+        pair <int, int> idLeaderboard[MAX_NUMBER_PLAYERS];
 
     public:
         GameMap() {}

@@ -10,10 +10,10 @@ void GameMap::buildMap() {
     idStartPosition[2] = 45;
     idStartPosition[3] = 59;
 
-    idStartDestination[0] = 72;
-    idStartDestination[1] = 78;
-    idStartDestination[2] = 84;
-    idStartDestination[3] = 90;
+    idStartStable[0] = 72;
+    idStartStable[1] = 78;
+    idStartStable[2] = 84;
+    idStartStable[3] = 90;
 
     // Start green
     mapChessboard[0] = { 433, 478 };

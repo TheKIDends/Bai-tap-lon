@@ -1,32 +1,36 @@
 #include "ParcheesiGame.h"
 
 bool ParcheesiGame::checkIdInStartPosition(int idPosition) {
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer)
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer)
         if (idPosition == idStartPosition[idPlayer]) return true;
     return false;
 }
 
 int ParcheesiGame::idMoveForward(int idPosition, int turn) {
-    if (idPosition == idStartPosition[turn] - 1) return idStartDestination[turn];
+    // chess in stable door
+    if (idPosition == idStartPosition[turn] - 1) return idStartStable[turn];
 
     int nextIdPosition = idPosition + 1;
 
-    if (idPosition > 71) {
-        if (nextIdPosition > idStartDestination[turn] + 5) return -1;
+    // chess in stable
+    if (idPosition > MAX_ID_RACETRACK) {
+        if (nextIdPosition > idStartStable[turn] + NUMBER_ID_STABLE - 1) return -1;
         return nextIdPosition;
     }
 
-    if (nextIdPosition > 71) nextIdPosition -= 56;
+    // chess in racetrack
+    if (nextIdPosition > MAX_ID_RACETRACK) nextIdPosition -= NUMBER_ID_RACETRACK;
     if (checkIdInStartPosition(nextIdPosition)) { ++nextIdPosition; }
-    if (nextIdPosition > 71) nextIdPosition -= 56;
+    if (nextIdPosition > MAX_ID_RACETRACK) nextIdPosition -= NUMBER_ID_RACETRACK;
     return nextIdPosition;
 }
 
 int ParcheesiGame::chessNextStep(Chess* chess) {
     int idPosition = chess->getIdPosition();
 
-    if (idPosition <= 15) {
-        for (int idChess = 0; idChess < 4; ++idChess) {
+    // chess in start
+    if (idPosition <= NUMBER_ID_START) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             int id = player[playerTurn].getChess_It(idChess)->getIdPosition();
             if (idStartPosition[playerTurn] == id) return -1;
         }
@@ -36,13 +40,13 @@ int ParcheesiGame::chessNextStep(Chess* chess) {
 
     int step = dice.getNumDice();
 
-    // chess in destination
-    if (idPosition > 71) {
-        if (step != (idPosition - idStartDestination[playerTurn] + 1) + 1) return -1;
+    // chess in stable
+    if (idPosition > MAX_ID_RACETRACK) {
+        if (step != (idPosition - idStartStable[playerTurn] + 1) + 1) return -1;
         int nextIdPosition = idMoveForward(idPosition, playerTurn);
         if (nextIdPosition == -1) return -1;
 
-        for (int idChess = 0; idChess < 4; ++idChess) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             int id = player[playerTurn].getChess_It(idChess)->getIdPosition();
             if (nextIdPosition == id) return -1;
         }
@@ -50,6 +54,7 @@ int ParcheesiGame::chessNextStep(Chess* chess) {
         return nextIdPosition;
     }
 
+    // chess in racetrack
     int nextIdPosition = idPosition;
     while (step--) {
         nextIdPosition = idMoveForward(nextIdPosition, playerTurn);
@@ -60,7 +65,7 @@ int ParcheesiGame::chessNextStep(Chess* chess) {
         for (int idPlayer = 0; idPlayer < numberPlayers; ++idPlayer) {
             if (!step && idPlayer != playerTurn) continue;
 
-            for (int idChess = 0; idChess < 4; ++idChess) {
+            for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
                 int id = player[idPlayer].getChess_It(idChess)->getIdPosition();
                 if (nextIdPosition == id) return -1;
             }
@@ -70,41 +75,41 @@ int ParcheesiGame::chessNextStep(Chess* chess) {
 }
 
 bool ParcheesiGame::canMove() {
-    for (int idChess = 0; idChess < 4; ++idChess) {
+    for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
         if (chessNextStep(player[playerTurn].getChess_It(idChess)) != -1) return true;
     }
     return false;
 }
 
-bool ParcheesiGame::checkIdChessInLayer(int idPositionChess, int layer) {
+bool ParcheesiGame::checkIdChessInLayer(int idPosition, int layer) {
     switch (layer) {
-    case 0:
-        if (17 <= idPositionChess && idPositionChess <= 29) return true;
-        break;
-    case 1:
-        if (idPositionChess == 30 || idPositionChess == 16) return true;
-        if (72 <= idPositionChess && idPositionChess <= 77) return true;
-        if (78 <= idPositionChess && idPositionChess <= 83) return true;
-        break;
-    case 2:
-        if (31 <= idPositionChess && idPositionChess <= 37) return true;
-        if (65 <= idPositionChess && idPositionChess <= 71) return true;
-        break;
-    case 3:
-        if (38 <= idPositionChess && idPositionChess <= 43) return true;
-        if (59 <= idPositionChess && idPositionChess <= 64) return true;
-        break;
-    case 4:
-        if (44 == idPositionChess || idPositionChess == 58) return true;
-        if (84 <= idPositionChess && idPositionChess <= 89) return true;
-        if (90 <= idPositionChess && idPositionChess <= 95) return true;
-        break;
-    case 5:
-        if (45 <= idPositionChess && idPositionChess <= 57) return true;
-        break;
-    case 6:
-        if (0 <= idPositionChess && idPositionChess <= 15) return true;
-        break;
+        case 0:
+            if (17 <= idPosition && idPosition <= 29) return true;
+            break;
+        case 1:
+            if (idPosition == 30 || idPosition == 16) return true;
+            if (72 <= idPosition && idPosition <= 77) return true;
+            if (78 <= idPosition && idPosition <= 83) return true;
+            break;
+        case 2:
+            if (31 <= idPosition && idPosition <= 37) return true;
+            if (65 <= idPosition && idPosition <= 71) return true;
+            break;
+        case 3:
+            if (38 <= idPosition && idPosition <= 43) return true;
+            if (59 <= idPosition && idPosition <= 64) return true;
+            break;
+        case 4:
+            if (44 == idPosition || idPosition == 58) return true;
+            if (84 <= idPosition && idPosition <= 89) return true;
+            if (90 <= idPosition && idPosition <= 95) return true;
+            break;
+        case 5:
+            if (45 <= idPosition && idPosition <= 57) return true;
+            break;
+        case 6:
+            if ( 0 <= idPosition && idPosition <= 15) return true;
+            break;
     }
     return false;
 }
@@ -119,14 +124,14 @@ void ParcheesiGame::setWinner() {
     for (int idPlayer = 0; idPlayer < numberPlayers; ++idPlayer) {
         if (player[idPlayer].getWinner() == true) continue;
 
-        int cnt = 0;
-        for (int idChess = 0; idChess < 4; ++idChess) {
+        int numberWinChess = 0;
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             int idPosition = player[idPlayer].getChess_It(idChess)->getIdPosition();
-            if (idStartDestination[idPlayer] + 2 <= idPosition && idPosition <= idStartDestination[idPlayer] + 5) ++cnt;
+            if (idStartStable[idPlayer] + 2 <= idPosition && idPosition <= idStartStable[idPlayer] + NUMBER_ID_STABLE - 1) ++numberWinChess;
         }
 
-        if (cnt == 4) {
-            ordWinner += char(idPlayer + '0');
+        if (numberWinChess == MAX_NUMBER_CHESS) {
+            ordWinner += char (idPlayer + '0');
             player[idPlayer].setWinner(true);
             if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, player_win, 0);
         }
@@ -140,9 +145,9 @@ void ParcheesiGame::restartGame() {
 
     // Reset chess
     int idPosition = 0;
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer) {
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer) {
         player[idPlayer].setWinner(false);
-        for (int idChess = 0; idChess < 4; ++idChess) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             player[idPlayer].setCanMoveChess(idChess, false);
             player[idPlayer].getChess_It(idChess)->setStartId(idPosition++);
         }
@@ -150,7 +155,7 @@ void ParcheesiGame::restartGame() {
 
     // Resrt animations
     for (int idPlayer = 0; idPlayer < numberPlayers; ++idPlayer) {
-        for (int idChess = 0; idChess < 4; ++idChess) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             player[idPlayer].getChess_It(idChess)->finishAnimations();
         }
     }
@@ -173,8 +178,8 @@ void ParcheesiGame::continueGame() {
         player[idPlayer].setWinner(true);
     }
 
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer) {
-        for (int idChess = 0; idChess < 4; ++idChess) {
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             int idPosition; ifs >> idPosition;
             player[idPlayer].getChess_It(idChess)->setIdPosition(idPosition);
         }
@@ -190,8 +195,8 @@ void ParcheesiGame::saveGame() {
     ofs << playerTurn << '\n';
     ofs << ordWinner << '\n';
 
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer) {
-        for (int idChess = 0; idChess < 4; ++idChess) {
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             ofs << player[idPlayer].getChess_It(idChess)->getIdPosition() << '\n';
         }
     }
@@ -199,95 +204,97 @@ void ParcheesiGame::saveGame() {
     ofs.close();
 }
 
-//
+// 
 void ParcheesiGame::setGameComponents() {
     restartGame();
 
     // Set mouse
-    mouse->setObject({ 0, 0, 0, 0 }, { 0, 0, 512, 512 }, "Image/mouse.png");
+    mouse->setObject(BASE_RECT, MOUSE_CLIP, "Image/mouse.png");
     windowRenderer->loadTexture(mouse);
 
     buildMap();
 
     // Set leaderboard
-    leaderboard.setObject({ 211, 93 - 70 , 695, 439 }, { 0, 0, 695, 439 }, "Image/leaderboard.png");
+    leaderboard.setObject(LEADERBOARD_RECT, LEADERBOARD_CLIP, "Image/leaderboard.png");
     windowRenderer->loadTexture(&leaderboard);
 
     // Set title
-    title.setObject({ 100, 30, 923, 270 }, { 0, 0, 923, 270 }, "Image/title.png");
+    title.setObject(TITLE_RECT, TITLE_CLIP, "Image/title.png");
     windowRenderer->loadTexture(&title);
 
     // Set background
     background.getFpsTime()->start();
-    background.setObject({ 0, 0, SCREEN_WIDTH , SCREEN_HEIGHT }, { 0, 0, 1494, 840 }, "Image/background.png");
+    background.setObject(BACKGROUND_RECT, BACKGROUND_CLIP, "Image/background.png");
     windowRenderer->loadTexture(&background);
 
     // Set arrow
     arrow.getFpsTime()->start();
-    arrow.setArrow(3, DIRECTION::DOWN, { 0, 0, 10, 10 }, { 0, 0, 122, 98 }, "Image/arrow.png");
+    arrow.setArrow(ARROW_DISTANCE, DIRECTION::DOWN, ARROW_RECT, ARROW_CLIP, "Image/arrow.png");
     windowRenderer->loadTexture(&arrow);
 
-    clickToRoll.getFpsTime()->start();
-    clickToRoll.setArrow(7, LEFT, { 0, 0, 60, 60 }, { 0, 98, 98, 98 }, "Image/arrow.png");
-    windowRenderer->loadTexture(&clickToRoll);
+    arrowClickToRoll.getFpsTime()->start();
+    arrowClickToRoll.setArrow(ARROW_CLICK_TO_ROLL_DISTANCE, DIRECTION::LEFT, ARROW_CLICK_TO_ROLL_RECT, ARROW_CLICK_TO_ROLL_CLIP, "Image/arrow.png");
+    windowRenderer->loadTexture(&arrowClickToRoll);
 
     // Set avatar
-    player[0].setAvatarPlayer({ 18, 551, 110, 115 }, { 0, 0, 128, 138 }, "Image/green_avatar.png");
-    player[1].setAvatarPlayer({ 972, 551, 110, 115 }, { 0, 0, 128, 138 }, "Image/yellow_avatar.png");
-    player[2].setAvatarPlayer({ 972,  18, 110, 115 }, { 0, 0, 128, 138 }, "Image/red_avatar.png");
-    player[3].setAvatarPlayer({ 18,  18, 110, 115 }, { 0, 0, 128, 138 }, "Image/blue_avatar.png");
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer) windowRenderer->loadTexture(&player[idPlayer]);
+    player[0].setAvatarPlayer(AVATAR_PLAYER_0_RECT, AVATAR_PLAYER_0_CLIP, "Image/green_avatar.png");
+    player[1].setAvatarPlayer(AVATAR_PLAYER_1_RECT, AVATAR_PLAYER_1_CLIP, "Image/yellow_avatar.png");
+    player[2].setAvatarPlayer(AVATAR_PLAYER_2_RECT, AVATAR_PLAYER_2_CLIP, "Image/red_avatar.png");
+    player[3].setAvatarPlayer(AVATAR_PLAYER_3_RECT, AVATAR_PLAYER_3_CLIP, "Image/blue_avatar.png");
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer) windowRenderer->loadTexture(&player[idPlayer]);
 
     // Set chess image
     int clipPosition_y = 0;
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer) {
-        player[idPlayer].setAllChessPlayer({ 0, 0, 35, 64 }, { 0, clipPosition_y, 54, 99 }, "Image/chess.png");
-        for (int idChess = 0; idChess < 4; ++idChess)
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer) {
+        SDL_Rect chessClip = CHESS_CLIP;
+        chessClip.y = clipPosition_y;
+        player[idPlayer].setAllChessPlayer(CHESS_RECT, chessClip, "Image/chess.png");
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess)
             windowRenderer->loadTexture(player[idPlayer].getChess_It(idChess));
 
-        clipPosition_y += 99;
+        clipPosition_y += CHESS_CLIP.h;
     }
 
     // Start FPS Chess
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer) {
-        for (int idChess = 0; idChess < 4; ++idChess) {
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             player[idPlayer].getChess_It(idChess)->getFpsTime()->start();
         }
     }
 
     // Set chessboard
-    chessboard.setObject({ 0, 0, SCREEN_WIDTH , SCREEN_HEIGHT }, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, "Image/chessboard.png");
+    chessboard.setObject(CHESSBOARD_RECT, CHESSBOARD_CLIP, "Image/chessboard.png");
     windowRenderer->loadTexture(&chessboard);
 
-    // Set dice back
-    backDice.setObject({ 0, 0, 0, 0 }, { 0, 0, 160, 132 }, "Image/dice/dice_back.png");
+    // Set back dice
+    backDice.setObject(BASE_RECT, BACK_DICE_CLIP, "Image/dice/dice_back.png");
     windowRenderer->loadTexture(&backDice);
 
     // Set noti loser
-    notiLoser.setObject({ 122, 400, 850, 180 }, { 0, 0, 850, 180 }, "Image/loser.png");
+    notiLoser.setObject(NOTI_LOSER_RECT, NOTI_LOSER_CLIP, "Image/loser.png");
     windowRenderer->loadTexture(&notiLoser);
 
     // Set boom
-    boom.setObject({ 0, 0, 138, 66 }, { 0, 0, 212, 100 }, "Image/boom.png");
+    boom.setObject(BOOM_RECT, BOOM_CLIP, "Image/boom.png");
     windowRenderer->loadTexture(&boom);
 
     // Set can not move
-    canNotMove.setObject({ 122, 233, 850, 180 }, { 0, 0, 850, 180 }, "Image/can_not_move.png");
-    windowRenderer->loadTexture(&canNotMove);
+    notiCanNotMove.setObject(NOTI_CAN_NOT_MOVE_RECT, NOTI_CAN_NOT_MOVE_CLIP, "Image/can_not_move.png");
+    windowRenderer->loadTexture(&notiCanNotMove);
 
     // Set Dice
-    dice.setObject({ 0, 0, 0, 0 }, { 0, 150, 150, 150 }, "Image/dice/dice.png");
+    dice.setObject(BASE_RECT, DICE_CLIP, "Image/dice/dice.png");
     windowRenderer->loadTexture(&dice);
 
     // Set button
-    backHome.setObject({ 475, 600, 160, 57 }, { 0, 0, 232, 82 }, "Image/menu/home_button.png");
-    playButton.setObject({ int(SCREEN_WIDTH / 2.7), int(SCREEN_HEIGHT / 2.5), 1326 / 5, 515 / 5 }, { 0, 0, 1326, 515 }, "Image/play_button.png");
-    exitButton.setObject({ int(SCREEN_WIDTH / 2.55), int(SCREEN_HEIGHT / 1.28), 1326 / 6, 515 / 6 }, { 0, 0, 1326, 515 }, "Image/exit_button.png");
-    backButton.setObject({ int(SCREEN_WIDTH / 1.1), int(SCREEN_HEIGHT / 1.18),  448 / 6, 497 / 6 }, { 0, 0,  448, 497 }, "Image/back_button.png");
-    continueButton.setObject({ int(SCREEN_WIDTH / 2.87), int(SCREEN_HEIGHT / 1.7), 1560 / 5, 513 / 5 }, { 0, 0, 1560, 513 }, "Image/continue_button.png");
-    _2playersButton.setObject({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 4), 1560 / 5, 513 / 5 }, { 0, 0, 1560, 513 }, "Image/2_players_button.png");
-    _3playersButton.setObject({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 2.17), 1560 / 5, 513 / 5 }, { 0, 0, 1560, 513 }, "Image/3_players_button.png");
-    _4playersButton.setObject({ int(SCREEN_WIDTH / 2.9), int(SCREEN_HEIGHT / 1.5), 1560 / 5, 513 / 5 }, { 0, 0, 1560, 513 }, "Image/4_players_button.png");
+    backHome.setObject(BACK_HOME_RECT, BACK_HOME_CLIP, "Image/menu/home_button.png");
+    playButton.setObject(PLAY_BUTTON_RECT, PLAY_BUTTON_CLIP, "Image/play_button.png");
+    exitButton.setObject(EXIT_BUTTON_RECT, EXIT_BUTTON_CLIP, "Image/exit_button.png");
+    backButton.setObject(BACK_BUTTON_RECT, BACK_BUTTON_CLIP, "Image/back_button.png");
+    continueButton.setObject(CONTINUE_BUTTON_RECT, CONTINUE_BUTTON_CLIP, "Image/continue_button.png");
+    _2playersButton.setObject(_2PLAYERS_BUTTON_RECT, _2PLAYERS_BUTTON_CLIP, "Image/2_players_button.png");
+    _3playersButton.setObject(_3PLAYERS_BUTTON_RECT, _3PLAYERS_BUTTON_CLIP, "Image/3_players_button.png");
+    _4playersButton.setObject(_4PLAYERS_BUTTON_RECT, _4PLAYERS_BUTTON_CLIP, "Image/4_players_button.png");
 
     windowRenderer->loadTexture(&backHome);
     windowRenderer->loadTexture(&playButton);
@@ -394,8 +401,7 @@ void ParcheesiGame::animationMoveChess(Chess* chess) {
     int nextPosition_x = mapChessboard[nextIdPositionChess].first;
     int nextPosition_y = mapChessboard[nextIdPositionChess].second;
 
-    int time = 45;
-    if (chess->getFpsTime()->getTicks() > time) {
+    if (chess->getFpsTime()->getTicks() > ANIMATION_MOVE_CHESS_TIME_FPS) {
         if (chess->getStatus() == chess->getMaxStatus() - 1) {
             chess->setIdPosition(nextIdPositionChess);
             if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, jump, 0);
@@ -406,7 +412,7 @@ void ParcheesiGame::animationMoveChess(Chess* chess) {
                 for (int idPlayer = 0; idPlayer < numberPlayers; ++idPlayer) {
                     if (idPlayer == playerTurn) continue;
 
-                    for (int idChess = 0; idChess < 4; ++idChess) {
+                    for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
                         if (player[idPlayer].getChess_It(idChess)->getIdPosition() == nextIdPositionChess) {
                             player[idPlayer].getChess_It(idChess)->setIdPosition(player[idPlayer].getChess_It(idChess)->getStartId());
 
@@ -442,21 +448,21 @@ void ParcheesiGame::animationRollDice() {
 }
 
 void ParcheesiGame::showNotiCanNotMove() {
-    if (canNotMove.getStatus() == canNotMove.getMaxStatus() - 1) {
-        canNotMove.finishAnimations();
+    if (notiCanNotMove.getStatus() == notiCanNotMove.getMaxStatus() - 1) {
+        notiCanNotMove.finishAnimations();
         return;
     }
-    canNotMove.nextStatus();
+    notiCanNotMove.nextStatus();
 }
 
 // Set
 
 void ParcheesiGame::setWindowHome() {
-    background.nextStatus_Fps(400);
+    background.nextStatus_Fps(BACKGROUND_TIME_FPS);
 }
 
 void ParcheesiGame::setWindowPlayerNumberSelection() {
-    background.nextStatus_Fps(400);
+    background.nextStatus_Fps(BACKGROUND_TIME_FPS);
 }
 
 void ParcheesiGame::setWindowGame() {
@@ -464,18 +470,18 @@ void ParcheesiGame::setWindowGame() {
     nextPlayer();
 
     // Set direction chess
-    for (int idPlayer = 0; idPlayer < 4; ++idPlayer) {
-        for (int idChess = 0; idChess < 4; ++idChess) {
+    for (int idPlayer = 0; idPlayer < MAX_NUMBER_PLAYERS; ++idPlayer) {
+        for (int idChess = 0; idChess < MAX_NUMBER_CHESS; ++idChess) {
             int idPositionChess = player[idPlayer].getChess_It(idChess)->getIdPosition();
 
-            if (idPositionChess <= 15) {
+            if (idPositionChess <= NUMBER_ID_START) {
                 player[idPlayer].setDirectionChess(idChess, DIRECTION::RIGHT);
                 continue;
             }
 
-            if (idPositionChess == idStartDestination[idPlayer] + 6 - 1) {
+            if (idPositionChess == idStartStable[idPlayer] + NUMBER_ID_STABLE - 1) {
                 if (idPlayer == 0 || idPlayer == 3) player[idPlayer].setDirectionChess(idChess, DIRECTION::RIGHT);
-                if (idPlayer == 1 || idPlayer == 2) player[idPlayer].setDirectionChess(idChess, LEFT);
+                if (idPlayer == 1 || idPlayer == 2) player[idPlayer].setDirectionChess(idChess, DIRECTION::LEFT);
                 continue;
             }
 
@@ -484,7 +490,7 @@ void ParcheesiGame::setWindowGame() {
             if (mapChessboard[idPositionChess].first < mapChessboard[nextIdPositionChess].first) {
                 player[idPlayer].setDirectionChess(idChess, DIRECTION::RIGHT);
             }
-            else player[idPlayer].setDirectionChess(idChess, LEFT);
+            else player[idPlayer].setDirectionChess(idChess, DIRECTION::LEFT);
         }
     }
 
@@ -508,10 +514,10 @@ void ParcheesiGame::setWindowGame() {
     // Arrow click to roll
     if (animations == false && statusPlayer == STATUS_PLAYER::ROLL_DICE) {
         switch (playerTurn) {
-            case 0: clickToRoll.setClip({ 98, 98, 98, 98 }); break;
-            case 1: clickToRoll.setClip({  0, 98, 98, 98 }); break;
-            case 2: clickToRoll.setClip({  0, 98, 98, 98 }); break;
-            case 3: clickToRoll.setClip({ 98, 98, 98, 98 }); break;
+            case 0: arrowClickToRoll.setClip({ 98, 98, 98, 98 }); break;
+            case 1: arrowClickToRoll.setClip({  0, 98, 98, 98 }); break;
+            case 2: arrowClickToRoll.setClip({  0, 98, 98, 98 }); break;
+            case 3: arrowClickToRoll.setClip({ 98, 98, 98, 98 }); break;
         }
     }
 
@@ -524,7 +530,7 @@ void ParcheesiGame::setWindowGame() {
         }
     }
     if (dice.getAnimations() == true) animations = true;
-    if (canNotMove.getAnimations() == true) animations = true;
+    if (notiCanNotMove.getAnimations() == true) animations = true;
 
     // Animation move chess
     for (int idPlayer = 0; idPlayer < numberPlayers; ++idPlayer) {
@@ -538,7 +544,7 @@ void ParcheesiGame::setWindowGame() {
     if (dice.getAnimations() == true) animationRollDice();
 
     // Show noti can not move
-    if (canNotMove.getAnimations() == true) showNotiCanNotMove();
+    if (notiCanNotMove.getAnimations() == true) showNotiCanNotMove();
 
     // Chess can move
     if (statusPlayer == STATUS_PLAYER::CHOOSECHESS && animations == false) {
@@ -550,7 +556,7 @@ void ParcheesiGame::setWindowGame() {
 
     // FPS game components
     arrow.nextStatus_Fps(200);
-    clickToRoll.nextStatus_Fps(300);
+    arrowClickToRoll.nextStatus_Fps(300);
     background.nextStatus_Fps(400);
 }
 
@@ -658,14 +664,14 @@ void ParcheesiGame::displayGame() {
     // Load arrow click to roll
     if (statusPlayer == STATUS_PLAYER::ROLL_DICE) {
         switch (playerTurn) {
-            case 0: windowRenderer->rendererArrow(336, 585, &clickToRoll); break;
-            case 1: windowRenderer->rendererArrow(723, 585, &clickToRoll); break;
-            case 2: windowRenderer->rendererArrow(723,  45, &clickToRoll); break;
-            case 3: windowRenderer->rendererArrow(336,  45, &clickToRoll); break;
+            case 0: windowRenderer->rendererArrow(336, 585, &arrowClickToRoll); break;
+            case 1: windowRenderer->rendererArrow(723, 585, &arrowClickToRoll); break;
+            case 2: windowRenderer->rendererArrow(723,  45, &arrowClickToRoll); break;
+            case 3: windowRenderer->rendererArrow(336,  45, &arrowClickToRoll); break;
         }
     }
 
-    if (canNotMove.getAnimations() == true) windowRenderer->rendererImage(&canNotMove);
+    if (notiCanNotMove.getAnimations() == true) windowRenderer->rendererImage(&notiCanNotMove);
 
     //if (statusPlayer == STATUS_PLAYER::ENDTURN) windowRenderer->rendererImage(&blueTurn);
     //for (int i = 72; i <= 100; ++i) {
@@ -792,7 +798,7 @@ void ParcheesiGame::eventsGame() {
     }
 
     if (dice.getAnimations()) return;
-    if (canNotMove.getAnimations()) return;
+    if (notiCanNotMove.getAnimations()) return;
 
     // Player
     switch (statusPlayer) {
@@ -811,7 +817,7 @@ void ParcheesiGame::eventsGame() {
 
     case STATUS_PLAYER::CHOOSECHESS:
         if (!canMove()) {
-            canNotMove.setAnimations(true);
+            notiCanNotMove.setAnimations(true);
             if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, ono, 0);
             statusPlayer = (dice.getNumDice() == 6) ? STATUS_PLAYER::ROLL_DICE : STATUS_PLAYER::ENDTURN;
             break;
@@ -949,7 +955,6 @@ void ParcheesiGame::checkEndGame() {
     SDL_Delay(1000);
     if (audioMixer->getMutedChunk() == false) Mix_PlayChannel(-1, win, 0);
 }
-
 
 // Start game
 

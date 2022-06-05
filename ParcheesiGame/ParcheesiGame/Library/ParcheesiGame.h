@@ -43,23 +43,23 @@ class ParcheesiGame : public GameMap {
 
         bool animations;
         int playerTurn;
-        int numberPlayers = MAX_PLAYERS;
+        int numberPlayers = MAX_NUMBER_PLAYERS;
 
-        Player player[MAX_PLAYERS];
+        Player player[MAX_NUMBER_PLAYERS];
 
         string ordWinner;
 
         Dice dice = Dice(MAX_DICE);
         Arrow arrow;
-        Arrow clickToRoll;
+        Arrow arrowClickToRoll;
         Background background = Background(MAX_LAYERS_BACKGROUND);
         Chessboard chessboard = Chessboard(MAX_LAYERS_CHESSBOARD);
 
         Image title;
         Image leaderboard;
-        Image canNotMove = Image(20);
         Image boom;
         Image backDice;
+        Notification notiCanNotMove = Notification(20);
         Notification notiLoser = Notification(20);
 
         MenuBoard menuBoard;
