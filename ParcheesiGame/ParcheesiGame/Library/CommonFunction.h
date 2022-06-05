@@ -47,6 +47,9 @@ const int BACKGROUND_TIME_FPS = 400;
 
 const SDL_Rect BASE_RECT = { 0, 0, 0, 0 };
 
+
+// Game Components
+
 const SDL_Rect MOUSE_CLIP = { 0, 0, 512, 512 };
 
 const SDL_Rect LEADERBOARD_RECT = { 211, 23, 695, 439 };
@@ -120,5 +123,60 @@ const SDL_Rect _3PLAYERS_BUTTON_CLIP = {   0,   0, 1560, 513 };
 
 const SDL_Rect _4PLAYERS_BUTTON_RECT = { 379, 456,  312, 102 };
 const SDL_Rect _4PLAYERS_BUTTON_CLIP = {   0,   0, 1560, 513 };
+
+
+// Board Components
+
+const SDL_Rect RETURN_HOME_BOARD_RECT = { 417, 204, 277, 215 };
+const SDL_Rect RETURN_HOME_BOARD_CLIP = {   0,   0, 387, 300 };
+
+const SDL_Rect RESTART_GAME_BOARD_RECT = { 417, 204, 277, 215 };
+const SDL_Rect RESTART_GAME_BOARD_CLIP = {   0,   0, 387, 300 };
+
+const SDL_Rect SAVE_GAME_BOARD_RECT = { 417, 220, 277, 197 };
+const SDL_Rect SAVE_GAME_BOARD_CLIP = {   0,   0, 387, 275 };
+
+const SDL_Rect YES_BUTTON_RECT = { 458, 340,  82,  41 };
+const SDL_Rect YES_BUTTON_CLIP = {   0,   0, 250, 127 };
+
+const SDL_Rect NO_BUTTON_RECT = { 575, 340,  82,  41 };
+const SDL_Rect NO_BUTTON_CLIP = {   0,   0, 250, 127 };
+
+const SDL_Rect OK_BUTTON_RECT = { 518, 355,  82,  41 };
+const SDL_Rect OK_BUTTON_CLIP = {   0,   0, 250, 127 };
+
+
+// Menu Components
+
+const SDL_Rect MENU_BOARD_RECT = { 392, 76, 326, 514 };
+const SDL_Rect MENU_BOARD_CLIP = {   0,  0, 326, 514 };
+
+const SDL_Rect MENU_BACKGROUND_RECT = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+const SDL_Rect MENU_BACKGROUND_CLIP = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+
+const SDL_Rect OPEN_MENU_RECT = { 19, 180, 68, 68 };
+const SDL_Rect OPEN_MENU_CLIP = {  0,   0, 68, 68 };
+
+const SDL_Rect EXIT_MENU_RECT = { 633, 76, 82, 82 };
+const SDL_Rect EXIT_MENU_CLIP = {   0,  0, 82, 82 };
+
+const SDL_Rect HOME_BUTTON_RECT = { 442, 164, 232, 82 };
+const SDL_Rect HOME_BUTTON_CLIP = {   0,   0, 232, 82 };
+
+const SDL_Rect RESTART_BUTTON_RECT = { 442, 255, 232, 82 };
+const SDL_Rect RESTART_BUTTON_CLIP = {   0,   0, 232, 82 };
+
+const SDL_Rect SAVE_BUTTON_RECT = { 442, 346, 232, 82 };
+const SDL_Rect SAVE_BUTTON_CLIP = {   0,   0, 232, 82 };
+
+const SDL_Rect ABOUT_BUTTON_RECT = { 427, 458, 76, 76 };
+const SDL_Rect ABOUT_BUTTON_CLIP = {   0,   0, 76, 76 };
+
+const SDL_Rect MUSIC_BUTTON_RECT = { 463, 459, 76, 76 }; // { 517, 458, 76, 76 }
+const SDL_Rect MUSIC_BUTTON_CLIP = {   0,   0, 76, 76 };
+
+const SDL_Rect CHUNK_BUTTON_RECT = { 573, 459, 76, 76 }; // { 609, 458, 76, 76 }
+const SDL_Rect CHUNK_BUTTON_CLIP = {   0,   0, 76, 76 }; 
+
 
 #endif // __COMMONFUNCTION__

@@ -309,24 +309,24 @@ void ParcheesiGame::setGameComponents() {
 }
 
 void ParcheesiGame::setBoardComponents() {
-    menuBoard.getBoard_It(BOARD::RETURN_HOME)->setObject({ 417, 204, 277, 215 }, { 0, 0, 387, 300 }, "Image/menu/really_return_home_board.png");
-    menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonYes_It()->setObject({ 458, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/yes_button.png");
-    menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonNo_It()->setObject({ 575, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/no_button.png");
+    menuBoard.getBoard_It(BOARD::RETURN_HOME)->setObject(RETURN_HOME_BOARD_RECT, RETURN_HOME_BOARD_CLIP, "Image/menu/really_return_home_board.png");
+    menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonYes_It()->setObject(YES_BUTTON_RECT, YES_BUTTON_CLIP, "Image/menu/yes_button.png");
+    menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonNo_It()->setObject(NO_BUTTON_RECT, NO_BUTTON_CLIP, "Image/menu/no_button.png");
 
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RETURN_HOME));
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonYes_It());
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RETURN_HOME)->getButtonNo_It());
 
-    menuBoard.getBoard_It(BOARD::RESTART_GAME)->setObject({ 417, 204, 277, 215 }, { 0, 0, 387, 300 }, "Image/menu/really_restart_game_board.png");
-    menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonYes_It()->setObject({ 458, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/yes_button.png");
-    menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonNo_It()->setObject({ 575, 340, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/no_button.png");
+    menuBoard.getBoard_It(BOARD::RESTART_GAME)->setObject(RESTART_GAME_BOARD_RECT, RESTART_GAME_BOARD_CLIP, "Image/menu/really_restart_game_board.png");
+    menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonYes_It()->setObject(YES_BUTTON_RECT, YES_BUTTON_CLIP, "Image/menu/yes_button.png");
+    menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonNo_It()->setObject(NO_BUTTON_RECT, NO_BUTTON_CLIP, "Image/menu/no_button.png");
 
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RESTART_GAME));
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonYes_It());
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::RESTART_GAME)->getButtonNo_It());
 
-    menuBoard.getBoard_It(BOARD::SAVE_GAME)->setObject({ 417, 220, 277, 197 }, { 0, 0, 387, 275 }, "Image/menu/save_game_board.png");
-    menuBoard.getBoard_It(BOARD::SAVE_GAME)->getButtonOk_It()->setObject({ 518, 355, 82, 41 }, { 0, 0, 250, 127 }, "Image/menu/ok_button.png");
+    menuBoard.getBoard_It(BOARD::SAVE_GAME)->setObject(SAVE_GAME_BOARD_RECT, SAVE_GAME_BOARD_CLIP, "Image/menu/save_game_board.png");
+    menuBoard.getBoard_It(BOARD::SAVE_GAME)->getButtonOk_It()->setObject(OK_BUTTON_RECT, OK_BUTTON_CLIP, "Image/menu/ok_button.png");
 
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::SAVE_GAME));
     windowRenderer->loadTexture(menuBoard.getBoard_It(BOARD::SAVE_GAME)->getButtonOk_It());
@@ -335,27 +335,24 @@ void ParcheesiGame::setBoardComponents() {
 
 void ParcheesiGame::setMenuComponents() {
     // Set menu board
-    menuBoard.setObject({ 392, 76, 326, 514 }, { 0, 0, 326, 514 }, "Image/menu/menu_board.png");
+    menuBoard.setObject(MENU_BOARD_RECT, MENU_BOARD_CLIP, "Image/menu/menu_board.png");
     windowRenderer->loadTexture(&menuBoard);
 
     // Set background
-    menuBoard.getBackground_It()->setObject({ 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, "Image/menu/shadow.png");
+    menuBoard.getBackground_It()->setObject(MENU_BACKGROUND_RECT, MENU_BACKGROUND_CLIP, "Image/menu/shadow.png");
     windowRenderer->loadTexture(menuBoard.getBackground_It());
 
     setBoardComponents();
 
     // Set button
-    openMenu.setObject({ 19, 180, 68, 68 }, { 0, 0, 68, 68 }, "Image/menu/menu_button.png");
-
-    menuBoard.getButton_It(BUTTON::EXIT_MENU)->setObject({ 633, 76, 82, 82 }, { 0, 0, 82, 82 }, "Image/menu/exit_menu.png");
-    menuBoard.getButton_It(BUTTON::HOME_BUTTON)->setObject({ 442, 164, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/home_button.png");
-    menuBoard.getButton_It(BUTTON::RESTART_BUTTON)->setObject({ 442, 255, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/restart_button.png");
-    menuBoard.getButton_It(BUTTON::SAVE_BUTTON)->setObject({ 442, 346, 232, 82 }, { 0, 0, 232, 82 }, "Image/menu/save_button.png");
-    menuBoard.getButton_It(BUTTON::ABOUT_BUTTON)->setObject({ 427, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/about_button.png");
-    menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setObject({ 463, 459, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/music_button.png");
-    menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setObject({ 573, 459, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/sound_button.png");
-    //menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setObject({ 517, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/music_button.png");
-    //menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setObject({ 609, 458, 76, 76 }, { 0, 0, 76, 76 }, "Image/menu/sound_button.png");
+    openMenu.setObject(OPEN_MENU_RECT, OPEN_MENU_CLIP, "Image/menu/menu_button.png");
+    menuBoard.getButton_It(BUTTON::EXIT_MENU)->setObject(EXIT_MENU_RECT, EXIT_MENU_CLIP, "Image/menu/exit_menu.png");
+    menuBoard.getButton_It(BUTTON::HOME_BUTTON)->setObject(HOME_BUTTON_RECT, HOME_BUTTON_CLIP, "Image/menu/home_button.png");
+    menuBoard.getButton_It(BUTTON::RESTART_BUTTON)->setObject(RESTART_BUTTON_RECT, RESTART_BUTTON_CLIP, "Image/menu/restart_button.png");
+    menuBoard.getButton_It(BUTTON::SAVE_BUTTON)->setObject(SAVE_BUTTON_RECT, SAVE_BUTTON_CLIP, "Image/menu/save_button.png");
+    menuBoard.getButton_It(BUTTON::ABOUT_BUTTON)->setObject(ABOUT_BUTTON_RECT, ABOUT_BUTTON_CLIP, "Image/menu/about_button.png");
+    menuBoard.getButton_It(BUTTON::MUSIC_BUTTON)->setObject(MUSIC_BUTTON_RECT, MUSIC_BUTTON_CLIP, "Image/menu/music_button.png");
+    menuBoard.getButton_It(BUTTON::CHUNK_BUTTON)->setObject(CHUNK_BUTTON_RECT, CHUNK_BUTTON_CLIP, "Image/menu/sound_button.png");
 
     windowRenderer->loadTexture(&openMenu);
     windowRenderer->loadTexture(menuBoard.getButton_It(BUTTON::EXIT_MENU));
