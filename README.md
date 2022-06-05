@@ -22,7 +22,7 @@
 
 - **Parcheesi game** (hay còn gọi là **cờ cá ngựa**) là một trò chơi giải trí với bàn cờ. Trò chơi này có thể từ hai đến bốn người chơi, diễn ra trên một bàn cờ hình vuông.
 
-- Tham khảo luật chơi tại đây: [Cờ cá ngựa](https://vi.wikipedia.org/wiki/C%E1%BB%9D_c%C3%A1_ng%E1%BB%B1a)
+- Tìm hiểu luật chơi tại đây: [Cờ cá ngựa](https://vi.wikipedia.org/wiki/C%E1%BB%9D_c%C3%A1_ng%E1%BB%B1a)
 
 ### Video demo
 
